@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="顾海耀">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本系列博客主要对计算机网络进行一个总结~ 主要基于 James F. Kurose， Keith W. Ross. 计算机网络-自顶向下方法（原书第7版）. 机械工业出版社. 2018. 这本书。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络概述">
+<meta property="og:url" content="https://fly-beep.top/post/undefined.html">
+<meta property="og:site_name" content="Fly-beep&#39;s Blog">
+<meta property="og:description" content="本系列博客主要对计算机网络进行一个总结~ 主要基于 James F. Kurose， Keith W. Ross. 计算机网络-自顶向下方法（原书第7版）. 机械工业出版社. 2018. 这本书。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251347255.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251348995.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251348173.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251348540.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349911.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349062.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349127.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349820.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350190.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350769.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350134.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350229.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350684.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251351441.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251351442.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251351184.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352562.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352352.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352396.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352660.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352659.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251354352.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251354034.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355972.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355224.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355124.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355194.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355913.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251356376.png">
+<meta property="og:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251356734.png">
+<meta property="article:published_time" content="2021-09-06T08:13:04.000Z">
+<meta property="article:modified_time" content="2022-04-25T05:56:23.986Z">
+<meta property="article:author" content="顾海耀">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251347255.png">
+  
+  
+  <title>计算机网络概述 - Fly-beep&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fly-beep.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fly-beep</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="计算机网络概述">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-06 16:13" pubdate>
+        2021年9月6日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      59 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算机网络概述</h1>
+            
+            <div class="markdown-body">
+              <p><strong>本系列博客主要对计算机网络进行一个总结~</strong> <strong>主要基于 <a target="_blank" rel="noopener" href="https://item.jd.com/12392810.html">James F. Kurose， Keith W. Ross. 计算机网络-自顶向下方法（原书第7版）. 机械工业出版社. 2018.</a> 这本书。</strong></p>
+<span id="more"></span>
+<hr />
+<h2 id="网络internet">网络(<span class="math inline">\(Internet\)</span>)</h2>
+<hr />
+<p>对于一个网络来说，最重要的就是节点和边了，其实一个简化的网络可以看作是一个图 <span class="math inline">\(G=(V,E)\)</span> 。</p>
+<hr />
+<p>计算机网络指的是互连的（无主从关系）、自治的（互联互通）计算机集合。</p>
+<hr />
+<p>还有一种网络是互联网，也就是我们常说的<span class="math inline">\(Internet\)</span>，它是全世界最大的互联网络，也被称为是ISP（互联网区域提供商）网络互连的“网络之网络”，为什么这么说呢，主要因为如下图：</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251347255.png" srcset="/img/loading.gif" lazyload /></p>
+<p>每个蓝色的区域都是一个网络，许多的网络又构成了我们的<span class="math inline">\(Internet\)</span>，所以也就有了“网络之网络”这样的称呼。</p>
+<hr />
+<p>互联网的节点分为主机节点和数据交换节点，它的边一般叫做链路，其中主机节点和数据交换节点相连的链路叫做接入网链路，数据交换节点和数据交换节点相连的链路叫做主干链路。</p>
+<p><span class="math inline">\(主机节点：主机及其上运行的应用程序\)</span></p>
+<p>$数据交换节点：路由器、交换机等网络交换设备 $</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251348995.png" srcset="/img/loading.gif" lazyload /></p>
+<hr />
+<h2 id="网络协议">网络协议</h2>
+<p>我们的互联网现在已经有了数十亿个通信实体，他们之间要想实现互联互通，就不得不提到互联网中的一个概念<span class="math inline">\(协议\)</span>。 这个概念可能比较抽象，可以举个例子，比如人和人打交道肯定是要遵循一定的规则的，你问别人“现在几点了？”，别人如果回答：“我已经吃过了”。这下不就乱套啦？所以协议就是起一个规范的作用，规范每一个通信实体的行为。计算机网络的所有通信过程都必须遵守某种/些规则。下面给出协议的定义：</p>
+<p><span class="math inline">\(网络协议，简称为协议，是为进行网络中的数据交换而建立的规则、标准或约定\)</span> <span class="math inline">\(协议规定了通信实体之间所交换的消息的格式、意义、顺序以及针对收到信息或发生的事件所采取的动作\)</span></p>
+<p>从上面的定义中，可以总结出协议的三要素：<span class="math inline">\(语法、语义、时序\)</span></p>
+<p>语法主要是指数据与控制信息的结构与格式。 语义主要是指需要发出何种控制信息以及完成某种动作以及做出何种响应。 时序主要是指事件顺序。</p>
+<p>举一个简单的例子，邮局送信，首先得有人写信（语法），写完信以后得按照邮局规定的格式写好地址信息（语义）才能成功寄信。总要先写信再寄信，这个顺序（时序）是不能改变的。</p>
+<hr />
+<p><span class="math inline">\(Internet\)</span>协议标准：<a target="_blank" rel="noopener" href="https://datatracker.ietf.org/">RFC官网入口</a></p>
+<hr />
+<h2 id="互联网组成">互联网组成</h2>
+<p>下面这张图可以来作为互联网的一个泛化模型：</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251348173.png" srcset="/img/loading.gif" lazyload /></p>
+<p>接下来我们依次对网络边缘、网络核心和接入网进行学习。</p>
+<hr />
+<h2 id="网络边缘">网络边缘</h2>
+<p>网络边缘主要包括<span class="math inline">\(主机（端系统）\)</span></p>
+<p>网络边缘之间的连接主要分为以下两种模式：<span class="math inline">\(客户/服务器（C/S）模式 以及 对等(peer-peer) 模式\)</span></p>
+<p><span class="math inline">\(客户/服务器（C/S）模式\)</span> 依靠客户主机发送请求，服务器主机进行响应。</p>
+<p><span class="math inline">\(对等(peer-peer) 模式\)</span> 不依靠专用的服务器主机，通信直接在对等实体（主机）之间进行。</p>
+<p>对于网络边缘来讲，有一个需求是要在端系统之间传输数据，而传输数据的方式主要有两种：<span class="math inline">\(采用网络设施的面向连接服务、采用网络设施的无连接服务\)</span></p>
+<h3 id="采用网络设施的面向连接服务">采用网络设施的面向连接服务</h3>
+<p>主要是采取底层TCP协议提供的服务来进行数据的传输，这种方式在数据传输之前要进行握手（为连接建立状态）。采取这种方式的应用主要有： <span class="math inline">\(HTTP（Web）、FTP（文件传输）、Telnet（远程登录）、SMTP（email）。\)</span></p>
+<h3 id="采用网络设施的无连接服务">采用网络设施的无连接服务</h3>
+<p>主要是采取底层UDP协议提供的服务来进行数据的传输，这种方式在数据传输不需要进行握手。采取这种方式的应用主要有： <span class="math inline">\(流媒体、远程会议、DNS、Internet电话。\)</span></p>
+<hr />
+<h2 id="网络核心">网络核心</h2>
+<p>网络核心主要是<span class="math inline">\(路由器的网状网络。\)</span></p>
+<p>对于网络核心而言，最关键的问题是<strong>如何实现数据通过网络核心从源主机到目的主机？</strong>，解决此问题的答案是<strong>数据交换</strong>，而数据交换有三种方式：<span class="math inline">\(电路交换、报文交换、分组交换\)</span></p>
+<h3 id="电路交换">电路交换</h3>
+<p>电路交换就是为每两个端系统的数据运输分配一条专线，而且这条专线属于独有资源，并不进行共享，最贴近生活的就比如电话线，你肯定不想自己的谈话被所有人共享吧。这种方式的好处是性能很好，这条专有链路的网络资源有多大，你就能用多大。 电路交换有三个阶段：</p>
+<ul>
+<li>建立连接（呼叫、电路建立）</li>
+<li>通信</li>
+<li>释放连接（超出电路）</li>
+</ul>
+<p>在一个电路交换网络中，肯定会存在共享链路，而实现链路共享的方式就是<strong>多路复用</strong>，多路复用将链路、网络资源（如带宽）划分为“资源片”；将资源片分配给各路“呼叫”（calls）；每路呼叫独占分配到的资源片进行通信；资源片可能“闲置”(idle) (无共享)</p>
+<p>多路复用主要有以下这几种方式实现：频分（FDM）、时分（TDM）、波分（WDM）、码分（CDM）。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251348540.png" srcset="/img/loading.gif" lazyload /></p>
+<p>波分（WDM）主要是应用于光通信，根据光的波长来分配资源。 码分（CDM）主要是应用于无线链路共享。<strong>[注：在CDM中，将0、1序列当作-1，+1序列来进行计算，但实际上传输的还是0，1序列]</strong> ，在这种方式下，每个用户都有一个 <span class="math inline">\(m\)</span> <span class="math inline">\(bits\)</span>的码片序列（-1，+1序列），各用户码片序列相互正交，当进行数据传输时，如发送比特1（+1），则发送自己的码片序列；如发送比特0（-1），则发送自己的码片序列的反码。下面举个例子，方便理解。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349911.png" srcset="/img/loading.gif" lazyload /></p>
+<p>从图中可以看到，用户1的码片序列<span class="math inline">\(S_1=(1,1,1,-1,1,-1,-1,-1)\)</span>,发送的数据为<span class="math inline">\(d_0 = 1\)</span>, <span class="math inline">\(d_1 = -1\)</span>, 用户2的码片序列<span class="math inline">\(S_2 = (1,-1,1,1,1,-1,1,1)\)</span>,发送的数据为 <span class="math inline">\(d_0 = 1\)</span> , <span class="math inline">\(d_1 = 1\)</span> 。</p>
+<p><strong>[注：发送编码顺序为** $(d_1)(d_0) $ **]</strong></p>
+<p>用户1发送的编码为：<span class="math inline">\((1,1,1,-1,1,-1,-1,-1)(-1,-1,-1,1,-1,1,1,1)\)</span>,用户2发送的编码为：<span class="math inline">\((1,-1,1,1,1,-1,1,1)(1,-1,1,1,1,-1,1,1)\)</span> 。</p>
+<p>用户的叠加向量</p>
+<p>$ P = 用户 1 发送的编码 + 用户 2 发送的编码 = (0,-2,0,2,0,0,2,2)(2,0,2,0,2,-2,0,0)$</p>
+<p>解码工作主要依赖于叠加向量<span class="math inline">\(P\)</span>。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349062.png" srcset="/img/loading.gif" lazyload /></p>
+<p>但是电路交换这种方式其实是不适合Internet的，因为计算机之间的通信具有突发性，这样对于电路交换，就会有一些资源很长时间不被使用，从而造成浪费。</p>
+<h3 id="报文交换">报文交换</h3>
+<p>报文交换直接将整个报文一次性从源主机发送到目的主机。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349127.png" srcset="/img/loading.gif" lazyload /> <img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251349820.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="分组交换">分组交换</h3>
+<p>分组交换这种方式相比较于电路交换就很适合Internet。分组交换每一次都是<strong>使用全部的带宽</strong>，主机与主机之间传递的数据被分为一个一个<strong>分组</strong>（<span class="math inline">\(packet\)</span>）,每次的数据传输都是以分组为单位的，每个分组一般都要在数据前加上头部信息（eg.控制信息），并且使用了<span class="math inline">\(存储-转发\)</span>的机制。下面主要看看<span class="math inline">\(存储-转发\)</span>机制。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350190.png" srcset="/img/loading.gif" lazyload /></p>
+<p>上图应该可以很好的说明<span class="math inline">\(存储-转发\)</span>机制了，一个分组被传输到下一个链路之前，整个分组必须到达路由器，等待整个分组都到达的过程称为存储，而接下来就是分组的转发。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350769.png" srcset="/img/loading.gif" lazyload /></p>
+<figure>
+<img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350134.png" srcset="/img/loading.gif" lazyload alt="分组交换2" /><figcaption aria-hidden="true">分组交换2</figcaption>
+</figure>
+<figure>
+<img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350229.png" srcset="/img/loading.gif" lazyload alt="分组交换3" /><figcaption aria-hidden="true">分组交换3</figcaption>
+</figure>
+<figure>
+<img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251350684.png" srcset="/img/loading.gif" lazyload alt="分组交换4" /><figcaption aria-hidden="true">分组交换4</figcaption>
+</figure>
+<hr />
+<p>我们可以来思考一下分组交换里的多路复用，若主机A和主机B同时使用分组交换进行数据的传输，共享同一段链路，这时由于主机A和主机B的分组序列不确定，我们也无法获知此时链路中传输的是主机A的分组还是主机B的分组，这种多路复用叫做<strong>统计多路复用</strong>。</p>
+<hr />
+<p>如果报文 <span class="math inline">\(M\)</span> <span class="math inline">\(bits\)</span>，链路带宽（数据传输速率） <span class="math inline">\(R\)</span> <span class="math inline">\(bps\)</span>，分组长度 <span class="math inline">\(L\)</span> <span class="math inline">\(bits\)</span>，跳步数 <span class="math inline">\(h\)</span>，路由器数 <span class="math inline">\(n\)</span>, 则报文交换的报文交付时间 $ T = h = (n+1) $，分组交换的报文交付时间 <span class="math inline">\(T = \frac{M}{R} + (h-1)\frac{L}{R} = \frac{M}{R} + n\frac{L}{R}\)</span>。</p>
+<p>我们也可以发现，这个所提到的报文交付时间其实就是传输时延<span class="math inline">\(t_{trans}\)</span>。</p>
+<hr />
+<h2 id="接入网">接入网</h2>
+<p>提起接入网，一般来说最关心的问题就是带宽了，这里需要明确一下：计算机网络里的<strong>带宽</strong>指的是数据传输速率，单位是bps（bit/s）；而在通信中我们所说的带宽指的是信号最高频率和最低频率之差，单位是Hz。 目前接入网络的方式主要有以下三种：</p>
+<h3 id="数字用户线路dsl">数字用户线路（DSL）</h3>
+<p>这种方式主要是利用已有的<strong>电话线</strong>实现数据的传输，简单来说就是通过多路复用技术中的FDM，利用不同的载频传输声音，数据。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">频率</th>
+<th style="text-align: center;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0kHz~4kHz</td>
+<td style="text-align: center;">传统电话</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4kHz~50kHz</td>
+<td style="text-align: center;">上行</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">50kHz~1MHz</td>
+<td style="text-align: center;">下行</td>
+</tr>
+</tbody>
+</table>
+<p>一般我们使用的DSL都可以称为ADSL（非对称DSL），它的上行传输速率≠下行传输速率。 需要注意的是用这种方式传输数据<strong>独占带宽</strong>。</p>
+<h3 id="电缆网络">电缆网络</h3>
+<p>这种方式主要是利用已有的<strong>有线电视网络</strong>实现数据的传输，跟DSL方式类似，也是采取FDM，利用不同的载频传输视频，数据。 需要注意的是用这种方式传输数据<strong>共享带宽</strong>。</p>
+<h3 id="光纤到户ftth">光纤到户（FTTH）</h3>
+<p>我国基本都采取这种方式接入网络，分为两类：AON（有源光纤网络）和PON（无源光纤网络）。</p>
+<hr />
+<p>一般典型的家庭网络的接入采取的是DSL/电缆线路、机构（企业）接入网络一般端系统之间连接以太网交换机。</p>
+<p>现在比较流行的是无线接入网络，主要分为两种：无线局域网（LANs）、广域无线接入。 无线局域网就是我们常说的Wifi，广域无线接入就是蜂窝网。</p>
+<hr />
+<h2 id="internet结构"><span class="math inline">\(Internet\)</span>结构</h2>
+<p>前面说过<span class="math inline">\(Internet\)</span>是一个“网络之网络”，端系统通过<strong>接入ISP</strong>（access ISPs）连接到<span class="math inline">\(Internet\)</span>，接入ISP需要进行进一步的互联，这样两个主机才能互相发送分组，有以下两种不可行的想法：</p>
+<ul>
+<li>所有接入ISP全连接 → 不可行，过于复杂。</li>
+<li>每个接入ISP连接到一个国家或全球ISP → 不可行，政治，经济方面因素影响</li>
+</ul>
+<p>那么实际中接入ISP是怎样实现互连的呢？</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251351441.png" srcset="/img/loading.gif" lazyload /></p>
+<p>上图即为<span class="math inline">\(Internet\)</span>结构的一个总结。 <strong>一级ISP</strong>包括移动，联通，电信，AT&amp;T等，提供国家或国际范围的覆盖。 Google所指的是<strong>内容提供商网络</strong>，是私有网络，连接其数据中心与<span class="math inline">\(Internet\)</span>，通常绕过一级ISP和区域ISP。 区域ISP连接接入ISP和运营商ISP（一级ISP）。 两个大的ISP（eg.一级ISP，内容提供商网络）之间也要进行互连有两种方式：</p>
+<ul>
+<li>通过 IXP (Internet exchange point) 互联</li>
+<li>通过对等链路 (peering link) 互联</li>
+</ul>
+<p>在图中使用了IXP互联。</p>
+<hr />
+<h2 id="计算机网络性能">计算机网络性能</h2>
+<p>这个部分主要介绍衡量计算机网络性能的一些指标。</p>
+<hr />
+<h3 id="速率">速率</h3>
+<p>速率（数据率、数据传输速率、比特率）主要指的是单位时间内传输的信息量。 单位：<span class="math inline">\(bps,kbps,Mbps,Gbps\)</span> （注：这里的<span class="math inline">\(bps = b/s，k=10^3,M=10^6,G=10^9\)</span>） 需要注意的是，速率往往指的是额定速率或标称速率，也就是最大/理想传输速率，一般来说是达不到的，就像我们生活中说拉了一个百兆光纤，但实际肯定是达不到百兆的。</p>
+<hr />
+<h3 id="带宽">带宽</h3>
+<p>带宽指的是数字信道所能传输的“最高数据率”。 单位与速率相同。</p>
+<hr />
+<h3 id="时延">时延</h3>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251351442.png" srcset="/img/loading.gif" lazyload /></p>
+<hr />
+<p>传输延迟和传播延迟可能感觉从名字看就很容易混淆，下面举个例子区分一下：比如一个车队有10辆车，车速都为100 <span class="math inline">\(km/h\)</span>，收费站放行一辆车用时12 <span class="math inline">\(s\)</span>，每两个收费站之间的距离为100 <span class="math inline">\(km\)</span>的，这里车相当于是bit，车队相当于是分组，车队通过收费站的时间为120 <span class="math inline">\(s\)</span>，这个时间相当于就是传输延迟，每台车从第一个收费站跑到第二个收费站的时间为1 <span class="math inline">\(h\)</span>，这个时间相当于就是传播延迟。</p>
+<hr />
+<p>若链路带宽为<span class="math inline">\(R\)</span> <span class="math inline">\(bps\)</span>，分组长度为<span class="math inline">\(L\)</span> <span class="math inline">\(bits\)</span> ，<strong>平均</strong>分组到达速率为<span class="math inline">\(a\)</span>，则 <span class="math inline">\(流量强度 = \frac{La}{R}\)</span>。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251351184.png" srcset="/img/loading.gif" lazyload /></p>
+<p>从上图可以发现：</p>
+<ul>
+<li>流量强度趋于0，<strong>平均</strong>排队延迟很小。</li>
+<li>流量强度趋于1，<strong>平均</strong>排队延迟很大。</li>
+<li>流量强度超过1，<strong>平均</strong>排队延迟无穷大，这时很可能出现丢包问题。</li>
+</ul>
+<hr />
+<h3 id="时延带宽积">时延带宽积</h3>
+<p>时延带宽积 = 传播时延 × 带宽 = <span class="math inline">\(d_{prop} × R\)</span> <span class="math inline">\(bits\)</span></p>
+<p>它反映了这一段物理链路上容纳的比特位数，所以又称为以比特为单位的链路长度。</p>
+<hr />
+<h3 id="丢包">丢包</h3>
+<p>在每一个路由器中，用一个队列来缓存到达的分组，但是队列缓存的容量是有限的，分组到达已满队列将被抛弃，也就是产生了<strong>丢包</strong>。</p>
+<hr />
+<h3 id="吞吐量">吞吐量</h3>
+<p>吞吐量表示在发送端和接收端之间<strong>实际</strong>传送数据的速率（bps）。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352562.png" srcset="/img/loading.gif" lazyload /></p>
+<p>如上图所示，端到端之间通过2跳（<span class="math inline">\(hop\)</span>）连通，第一段链路带宽为 <span class="math inline">\(R_s\)</span> <span class="math inline">\(bps\)</span>，第二段链路带宽为 <span class="math inline">\(R_c\)</span> <span class="math inline">\(bps\)</span>，若 $ R_s &lt; R_c $，则端到端的吞吐量为 <span class="math inline">\(R_s\)</span> <span class="math inline">\(bps\)</span>，若 $ R_s &gt; R_c $，则端到端的吞吐量为 <span class="math inline">\(R_c\)</span> <span class="math inline">\(bps\)</span>。</p>
+<hr />
+<p>瓶颈链路：端到端路径上，限制端到端吞吐量的链路。若 $ R_s &lt; R_c $，则瓶颈链路为第一段链路，若 $ R_s &gt; R_c $，则瓶颈链路为第二段链路。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352352.png" srcset="/img/loading.gif" lazyload /></p>
+<p>在上图中，每条“连接”的端到端吞吐量为：<span class="math inline">\(min\)</span> { <span class="math inline">\(R_c，R_s，\frac{R}{10}\)</span> } 。</p>
+<p><strong>注：吞吐量的这种近似只适用于分组交换。</strong></p>
+<hr />
+<h2 id="协议层次和服务模型">协议层次和服务模型</h2>
+<p>计算机网络是一个复杂的系统，采取<strong>分层</strong>的方式对其结构进行描述。</p>
+<p>下面要说的网络体系结构是从<strong>功能上</strong>描述计算机网络结构的，并非实现的手段。举个例子，RIP协议是由一个应用程序实现的，但它并不属于应用层，而是一个网络层协议，因为它实现的是<strong>网络层的功能</strong>。</p>
+<p><strong>计算机网络体系结构是计算机网络各层及其协议的集合</strong>。</p>
+<p>体系结构是一个计算机网络的功能层次及其关系的定义，是抽象的。</p>
+<hr />
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352396.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><strong>实体</strong>表示任何可发送或接收信息的<strong>硬件或软件进程</strong>。</li>
+<li><strong>协议</strong>是控制两个对等实体进行通信的规则的集合，<strong>协议是“水平的”</strong></li>
+<li>任一层实体需要使用下层<strong>服务</strong>，遵循本层协议，实现本层功能，向上层提供服务，<strong>服务是“垂直的”</strong>。</li>
+<li>下层协议的实现对上层的服务用户是透明的,也就是说上层不关心下层如何实现。</li>
+<li>同系统的相邻层实体间通过接口进行交互，通过服务访问点 <span class="math inline">\(SAP(Service Access Point)\)</span>，<strong>交换原语</strong>，指定请求的特定服务。</li>
+</ul>
+<hr />
+<h3 id="osi参考模型">OSI参考模型</h3>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352660.png" srcset="/img/loading.gif" lazyload /></p>
+<p>上图中可以看到OSI参考模型分为7层，每层完成特定的网络功能。虚线表示逻辑连接，实线表示物理连接。每一层协议所处理的数据单元（数据包）称为PDU。对等层只能识别对等层打包的数据。可以注意到上面四层，端系统之间直接通过协议逻辑连接，称为<strong>端到端层</strong>，而下面三层端系统直接依赖中间系统进行逻辑连接，称为<strong>互联网络</strong>。</p>
+<p>下面这张图说明了OSI参考模型数据封装与通信过程。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251352659.png" srcset="/img/loading.gif" lazyload /></p>
+<p>可以发现每一层都会对PDU进行数据封装，数据封装主要增加了一些控制信息包括地址（标识发送端/接收端）、差错检测编码（用于差错检测或纠正）以及协议控制（实现协议功能的附加信息，如: 优先级（priority）、服务质量（QoS）、 和安全控制等）。</p>
+<hr />
+<p>下面对每一层的功能进行逐一解释。</p>
+<hr />
+<h4 id="物理层">物理层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251354352.png" srcset="/img/loading.gif" lazyload /></p>
+<p>物理层主要解决了<strong>单一比特的传输问题</strong>。 物理层主要实现5个功能：</p>
+<ul>
+<li>规定了接口特性：机械特性（几何形状、插口方向），电气特性（电压，电平），功能特性（引脚及其功能），规程特性（接口在工作过程中要遵循什么样的过程）。</li>
+<li>比特编码</li>
+<li>数据率</li>
+<li>比特同步</li>
+<li>规定了传输模式（单工、半双工、双工） -- 单工：只能单向传输，eg.电视。 -- 半双工：能双向传输，但不能同时双向传输，eg.对讲机。 -- 双工：能同时双向传输，eg.电话。</li>
+</ul>
+<hr />
+<h4 id="数据链路层">数据链路层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251354034.png" srcset="/img/loading.gif" lazyload /></p>
+<p>数据链路层主要解决了物理链路连接的两个相邻节点之间的数据传输。 数据链路层主要实现4个功能：</p>
+<ul>
+<li>物理寻址：在帧头中增加发送端和/或接收端的物理地址标识数据帧的发送端和/或接收端。<strong>需要注意物理寻址是在数据链路层而非物理层</strong>。</li>
+<li>流量控制：避免淹没接收端。</li>
+<li>差错控制：检测并重传损坏或丢失帧，并避免重复帧。</li>
+<li>访问控制：在任一给定时刻决定哪个设备拥有链路（物理介质）控制使用权。</li>
+</ul>
+<hr />
+<h4 id="网络层">网络层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355972.png" srcset="/img/loading.gif" lazyload /></p>
+<p>网络层主要解决了源主机到目的主机数据分组传输问题。 网络层主要实现3个功能：</p>
+<ul>
+<li>逻辑寻址：全局唯一逻辑地址，确保数据分组被送达目的主机，如IP地址。</li>
+<li>路由：路由器（或网关）互连网络，并路由分组至最终目的主机。</li>
+<li>转发：分组转发。</li>
+</ul>
+<hr />
+<h4 id="传输层">传输层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355224.png" srcset="/img/loading.gif" lazyload /></p>
+<p>传输层主要负责源-目的（端-端）的（进程间）完整报文传输。 传输层主要实现5个功能：</p>
+<ul>
+<li>分段与重组</li>
+<li>SAP寻址（确保将完整报文提交给正确进程，如端口号）</li>
+<li>连接控制（逻辑连接）</li>
+<li>流量控制（端到端）</li>
+<li>差错控制</li>
+</ul>
+<hr />
+<h4 id="会话层">会话层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355124.png" srcset="/img/loading.gif" lazyload /></p>
+<p>会话层主要实现2个功能：</p>
+<ul>
+<li>对话控制（dialog controlling）（建立、维护、拆除）</li>
+<li>同步（在数据流中插入“同步点”）</li>
+</ul>
+<hr />
+<h4 id="表示层">表示层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355194.png" srcset="/img/loading.gif" lazyload /></p>
+<p>表示层主要处理两个系统间交换信息的语法与语义问题 表示层主要实现3个功能：</p>
+<ul>
+<li>数据表示转化：转换为主机独立的编码，防止出现差错。</li>
+<li>加密/解密</li>
+<li>压缩/解压缩</li>
+</ul>
+<hr />
+<h4 id="应用层">应用层</h4>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251355913.png" srcset="/img/loading.gif" lazyload /></p>
+<p>应用层主要支持用户通过用户代理（如浏览器）或网络接口使用网络（服务）。</p>
+<hr />
+<h3 id="tcp-ip参考模型">TCP-IP参考模型</h3>
+<p>TCP-IP参考模型分为4层，自顶向下依次为：应用层、运输层、网络层、网络接口层。</p>
+<hr />
+<h3 id="层参考模型">5层参考模型</h3>
+<ul>
+<li>应用层: 支持各种网络应用 -- FTP, SMTP, HTTP</li>
+<li>传输层: 进程-进程的数据传输 -- TCP, UDP</li>
+<li>网络层: 源主机到目的主机的数据分组路由与转发 -- IP协议、路由协议等</li>
+<li>链路层: 相邻网络元素（主机、交换机、路由器等）的数据传输 -- 以太网（Ethernet）、802.11 (WiFi)、PPP</li>
+<li>物理层:比特传输</li>
+</ul>
+<p>下面这张图说明了5层参考模型下的<strong>网络通信</strong>过程。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251356376.png" srcset="/img/loading.gif" lazyload /></p>
+<p>下面这张图说明了5层参考模型下的<strong>数据封装</strong>过程。</p>
+<p><img src="https://gitee.com/osmanthus_garden/pic-bed/raw/master/202204251356734.png" srcset="/img/loading.gif" lazyload /></p>
+<hr />
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/undefined.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机网络之应用层</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/63785.html">
+                        <span class="hidden-mobile">我的第一篇博客</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
