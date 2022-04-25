@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fly-beep.top/img/lc.jpg">
 <meta property="article:published_time" content="2022-03-20T10:36:35.000Z">
-<meta property="article:modified_time" content="2022-04-25T11:13:24.758Z">
+<meta property="article:modified_time" content="2022-04-25T11:43:44.612Z">
 <meta property="article:author" content="顾海耀">
 <meta property="article:tag" content="剑指Offer">
 <meta name="twitter:card" content="summary_large_image">
@@ -246,7 +246,7 @@
             <div class="markdown-body">
               <h3 id="剑指001--数组中的重复数字">剑指001--数组中的重复数字</h3>
 <span id="more"></span>
-<p>题目： <img src="https://s2.loli.net/2022/03/22/HMkDaZdG76ytCwe.png" srcset="/img/loading.gif" lazyload /></p>
+<p>题目： <img src="https://raw.githubusercontent.com/fly-beep/picb/master/HMkDaZdG76ytCwe.png" srcset="/img/loading.gif" lazyload /></p>
 <p>解法： <figure class="highlight arduino"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> len = nums.length;<br>        <span class="hljs-type">int</span>[] res = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[len];<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;i &lt; len;i++) &#123;<br>            res[nums[i]]++;<br>            <span class="hljs-keyword">if</span>(res[nums[i]] &gt; <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-keyword">return</span> nums[i];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>考察点： 注意题目中所说的<code>数组 nums 里的所有数字都在 0～n-1 的范围内</code>就可以很快分析出这种做法，创建一个大小为<code>n</code>的数组即可。</p>
 
