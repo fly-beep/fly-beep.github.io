@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/fly-beep/picb/master/202204251356376.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/fly-beep/picb/master/202204251356734.png">
 <meta property="article:published_time" content="2021-09-06T08:13:04.000Z">
-<meta property="article:modified_time" content="2022-04-25T12:24:52.792Z">
+<meta property="article:modified_time" content="2022-04-26T12:39:03.090Z">
 <meta property="article:author" content="顾海耀">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
@@ -232,7 +232,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7k 字
+      6.9k 字
     </span>
   
 
@@ -241,7 +241,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      59 分钟
+      58 分钟
     </span>
   
 
@@ -287,13 +287,13 @@
 <p>每个蓝色的区域都是一个网络，许多的网络又构成了我们的<span class="math inline">\(Internet\)</span>，所以也就有了“网络之网络”这样的称呼。</p>
 <hr />
 <p>互联网的节点分为主机节点和数据交换节点，它的边一般叫做链路，其中主机节点和数据交换节点相连的链路叫做接入网链路，数据交换节点和数据交换节点相连的链路叫做主干链路。</p>
-<p><span class="math inline">\(主机节点：主机及其上运行的应用程序\)</span></p>
-<p>$数据交换节点：路由器、交换机等网络交换设备 $</p>
+<p><strong>主机节点：主机及其上运行的应用程序</strong></p>
+<p><strong>数据交换节点：路由器、交换机等网络交换设备</strong></p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251348995.png" srcset="/img/loading.gif" lazyload /></p>
 <hr />
 <h2 id="网络协议">网络协议</h2>
 <p>我们的互联网现在已经有了数十亿个通信实体，他们之间要想实现互联互通，就不得不提到互联网中的一个概念<span class="math inline">\(协议\)</span>。 这个概念可能比较抽象，可以举个例子，比如人和人打交道肯定是要遵循一定的规则的，你问别人“现在几点了？”，别人如果回答：“我已经吃过了”。这下不就乱套啦？所以协议就是起一个规范的作用，规范每一个通信实体的行为。计算机网络的所有通信过程都必须遵守某种/些规则。下面给出协议的定义：</p>
-<p><span class="math inline">\(网络协议，简称为协议，是为进行网络中的数据交换而建立的规则、标准或约定\)</span> <span class="math inline">\(协议规定了通信实体之间所交换的消息的格式、意义、顺序以及针对收到信息或发生的事件所采取的动作\)</span></p>
+<p><strong>网络协议，简称为协议，是为进行网络中的数据交换而建立的规则、标准或约定协议规定了通信实体之间所交换的消息的格式、意义、顺序以及针对收到信息或发生的事件所采取的动作</strong></p>
 <p>从上面的定义中，可以总结出协议的三要素：<span class="math inline">\(语法、语义、时序\)</span></p>
 <p>语法主要是指数据与控制信息的结构与格式。 语义主要是指需要发出何种控制信息以及完成某种动作以及做出何种响应。 时序主要是指事件顺序。</p>
 <p>举一个简单的例子，邮局送信，首先得有人写信（语法），写完信以后得按照邮局规定的格式写好地址信息（语义）才能成功寄信。总要先写信再寄信，这个顺序（时序）是不能改变的。</p>
@@ -310,9 +310,10 @@
 <p>网络边缘之间的连接主要分为以下两种模式：<span class="math inline">\(客户/服务器（C/S）模式 以及 对等(peer-peer) 模式\)</span></p>
 <p><span class="math inline">\(客户/服务器（C/S）模式\)</span> 依靠客户主机发送请求，服务器主机进行响应。</p>
 <p><span class="math inline">\(对等(peer-peer) 模式\)</span> 不依靠专用的服务器主机，通信直接在对等实体（主机）之间进行。</p>
-<p>对于网络边缘来讲，有一个需求是要在端系统之间传输数据，而传输数据的方式主要有两种：<span class="math inline">\(采用网络设施的面向连接服务、采用网络设施的无连接服务\)</span></p>
+<p>对于网络边缘来讲，有一个需求是要在端系统之间传输数据，而传输数据的方式主要有两种：<strong>采用网络设施的面向连接服务、采用网络设施的无连接服务</strong></p>
 <h3 id="采用网络设施的面向连接服务">采用网络设施的面向连接服务</h3>
-<p>主要是采取底层TCP协议提供的服务来进行数据的传输，这种方式在数据传输之前要进行握手（为连接建立状态）。采取这种方式的应用主要有： <span class="math inline">\(HTTP（Web）、FTP（文件传输）、Telnet（远程登录）、SMTP（email）。\)</span></p>
+<p>主要是采取底层TCP协议提供的服务来进行数据的传输，这种方式在数据传输之前要进行握手（为连接建立状态）。采取这种方式的应用主要有：</p>
+<p>HTTP（Web）、FTP（文件传输）、Telnet（远程登录）、SMTP（email）。</p>
 <h3 id="采用网络设施的无连接服务">采用网络设施的无连接服务</h3>
 <p>主要是采取底层UDP协议提供的服务来进行数据的传输，这种方式在数据传输不需要进行握手。采取这种方式的应用主要有： <span class="math inline">\(流媒体、远程会议、DNS、Internet电话。\)</span></p>
 <hr />
@@ -335,7 +336,7 @@
 <p><strong>[注：发送编码顺序为** $(d_1)(d_0) $ **]</strong></p>
 <p>用户1发送的编码为：<span class="math inline">\((1,1,1,-1,1,-1,-1,-1)(-1,-1,-1,1,-1,1,1,1)\)</span>,用户2发送的编码为：<span class="math inline">\((1,-1,1,1,1,-1,1,1)(1,-1,1,1,1,-1,1,1)\)</span> 。</p>
 <p>用户的叠加向量</p>
-<p>$ P = 用户 1 发送的编码 + 用户 2 发送的编码 = (0,-2,0,2,0,0,2,2)(2,0,2,0,2,-2,0,0)$</p>
+<p>P = 用户 1 发送的编码 + 用户 2 发送的编码 = (0,-2,0,2,0,0,2,2)(2,0,2,0,2,-2,0,0)</p>
 <p>解码工作主要依赖于叠加向量<span class="math inline">\(P\)</span>。</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251349062.png" srcset="/img/loading.gif" lazyload /></p>
 <p>但是电路交换这种方式其实是不适合Internet的，因为计算机之间的通信具有突发性，这样对于电路交换，就会有一些资源很长时间不被使用，从而造成浪费。</p>
@@ -347,15 +348,9 @@
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350190.png" srcset="/img/loading.gif" lazyload /></p>
 <p>上图应该可以很好的说明<span class="math inline">\(存储-转发\)</span>机制了，一个分组被传输到下一个链路之前，整个分组必须到达路由器，等待整个分组都到达的过程称为存储，而接下来就是分组的转发。</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350769.png" srcset="/img/loading.gif" lazyload /></p>
-<figure>
-<img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350134.png" srcset="/img/loading.gif" lazyload alt="分组交换2" /><figcaption aria-hidden="true">分组交换2</figcaption>
-</figure>
-<figure>
-<img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350229.png" srcset="/img/loading.gif" lazyload alt="分组交换3" /><figcaption aria-hidden="true">分组交换3</figcaption>
-</figure>
-<figure>
-<img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350684.png" srcset="/img/loading.gif" lazyload alt="分组交换4" /><figcaption aria-hidden="true">分组交换4</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350134.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350229.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251350684.png" srcset="/img/loading.gif" lazyload /></p>
 <hr />
 <p>我们可以来思考一下分组交换里的多路复用，若主机A和主机B同时使用分组交换进行数据的传输，共享同一段链路，这时由于主机A和主机B的分组序列不确定，我们也无法获知此时链路中传输的是主机A的分组还是主机B的分组，这种多路复用叫做<strong>统计多路复用</strong>。</p>
 <hr />
