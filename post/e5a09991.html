@@ -1,0 +1,769 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="顾海耀">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="编译原理期末总结 主要针对编译原理期末复习中的一些重点进行归纳总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理期末总结">
+<meta property="og:url" content="https://fly-beep.top/post/e5a09991.html">
+<meta property="og:site_name" content="Fly-beep&#39;s Blog">
+<meta property="og:description" content="编译原理期末总结 主要针对编译原理期末复习中的一些重点进行归纳总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fly-beep.top/img/by.jpg">
+<meta property="article:published_time" content="2022-05-05T09:40:51.000Z">
+<meta property="article:modified_time" content="2022-05-18T04:14:44.982Z">
+<meta property="article:author" content="顾海耀">
+<meta property="article:tag" content="编译原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fly-beep.top/img/by.jpg">
+  
+  
+  <title>编译原理期末总结 - Fly-beep&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fly-beep.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fly-beep</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="编译原理期末总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-05 17:40" pubdate>
+        2022年5月5日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">编译原理期末总结</h1>
+            
+            <div class="markdown-body">
+              <h1 id="编译原理期末总结">编译原理期末总结</h1>
+<p>主要针对编译原理期末复习中的一些重点进行归纳总结</p>
+<span id="more"></span>
+<h3 id="first集follow集select集计算">FIRST集、FOLLOW集、SELECT集计算🎃</h3>
+<p>FIRST集：</p>
+<ul>
+<li>FIRST集中是可以有<span class="math inline">\(\xi\)</span>的</li>
+<li>如果遇到 <span class="math inline">\(E → aF\)</span> 之类的，FIRST(E)中加入a</li>
+<li>如果遇到 <span class="math inline">\(E → FT\)</span> 之类的，FIRST(E)中加入FIRST(F)中内容，如果 <span class="math inline">\(F → \xi\)</span> ，则 FIRST(E)中加入FIRST(T)中内容，可以一直往后顺延至某一个终结符或FIRST集中没有<span class="math inline">\(\xi\)</span> 的非终结符</li>
+</ul>
+<p>FOLLOW集：</p>
+<ul>
+<li>FOLLOW集中没有 <span class="math inline">\(\xi\)</span></li>
+<li>先在开始符号 S 的FOLLOW中加入 <span class="math inline">\(\$\)</span></li>
+<li>如果遇到 $ ... → FT$ 之类的，FOLLOW(F)中加入 FIRST(T)-<span class="math inline">\(\xi\)</span></li>
+<li>如果遇到 $ ... → Fa$ 之类的，FOLLOW(F)中加入a</li>
+<li>如果遇到 <span class="math inline">\(E → ...T\)</span> 之类的，FOLLOW(T)中加入FOLLOW(E)</li>
+</ul>
+<p>SELECT集：</p>
+<ul>
+<li>计算SELECT集时，要把所有的语句拆成不含 | 的形式</li>
+<li>如果遇到 <span class="math inline">\(E → T\)</span>之类的，如果FIRST(T)不包含 <span class="math inline">\(\xi\)</span> ，则SELECT=FIRST(T)，如果FIRST(T)包含 <span class="math inline">\(\xi\)</span> ，则SELECT=(FIRST(T)- <span class="math inline">\(\xi\ ) \cup\)</span> FOLLOW(E)</li>
+</ul>
+<h3 id="ll文法和lr文法的判定条件">LL文法和LR文法的判定条件🚀</h3>
+<ul>
+<li>LL文法 文法G是LL(1)的，当且仅当G的任意两个具有相同左部的产生式A → α | β 满足条件：
+<ol type="1">
+<li>文法不含左递归（即不存在终结符a使得α 和β都能够推导出以a开头的串）</li>
+<li>α和β至多有一个能推导出ε</li>
+<li>如果 β <span class="math inline">\(\Rightarrow ^ *\)</span> ε，则FIRST(α) ∩ FOLLOW(A) =Φ；如果 α <span class="math inline">\(\Rightarrow ^ *\)</span> ε，则FIRST(β) ∩ FOLLOW(A) =Φ；</li>
+</ol></li>
+<li>LR文法
+<ul>
+<li><p>LR(0)文法</p>
+<p>如果文法对应的自动机中不存在<code>移进-归约冲突</code>和<code>归约-归约冲突</code>则为LR(0)文法。换句话说LR(0)文法分析不能解决这两种冲突，所以范围最小。移进-归约冲突就是在同一个项集族中同时出现了可以移进的产生式和可以归约的产生式。归约-归约冲突类似。</p></li>
+<li><p>SLR文法</p>
+<p>SLR文法中还是存在<code>归约-归约冲突</code>和存在<code>移进-归约冲突</code>，但是如果可以用FOLLOW集解决则是SLR文法。换句话说，SLR文法分析过程也不一定能解决这两种冲突。用FOLLOW集来处理出现了<code>归约-规约冲突</code>或<code>移进-归约冲突</code>的两条产生式，如果其FOLLOW集相交为空则为SLR文法，反之不是。</p></li>
+<li><p>LR(1)文法</p>
+<p>题目出现的基本都是LR(1)文法</p></li>
+<li><p>LALR文法</p>
+<p>LALR文法中存在<code>归约-归约冲突</code>。</p></li>
+</ul></li>
+</ul>
+<h3 id="赋值语句翻译">赋值语句翻译🦊</h3>
+<ul>
+<li><p>if-else-then语句：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs markdown">if x&gt;1<br>then x=0<br>else x=2<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs markdown">n	if x&gt;1 goto n+2<br>n+1	goto n+4<br>n+2	x=0<br>n+3	goto n+5<br>n+4	x=2<br>n+5	...<br></code></pre></td></tr></table></figure></li>
+<li><p>while语句：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs markdown">while i&gt;0<br>do i=i+1<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs markdown">n	if i&gt;0 goto n+2<br>n+1	goto n+5<br>n+2	t=i+1<br>n+3	i=t<br>n+4	goto n<br>n+5	...<br></code></pre></td></tr></table></figure></li>
+<li><p>逻辑运算符</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs markdown">if ( x&lt;100 || x&gt;200 &amp;&amp; x!=y )<br><span class="hljs-code">	x=0;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs markdown">n	if x&lt;100 goto n+6 <br>n+1	goto n+2<br>n+2	if x &gt; 200 goto n+4<br>n+3	goto n+7 <br>n+4	if x!=y goto n+6<br>n+5	goto n+7<br>n+6	x=0<br>n+7	...<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="控制语句的sdt回填">控制语句的<code>SDT</code>&amp;回填⛄</h3>
+<p>控制流语句：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">1	if B then S1<br>2	if B then S1 else S2<br>3	while B S1<br></code></pre></td></tr></table></figure>
+<p>布尔表达式</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs markdown">1	B1 or B2<br>2	B1 and B2<br>3	not B<br>4	(B)<br>5	E1 relop E2<br>6	true<br>7	false<br></code></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205052245722.png" srcset="/img/loading.gif" lazyload alt="控制流语句SDT" style="zoom:75%;" /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205052245278.png" srcset="/img/loading.gif" lazyload alt="布尔表达式SDT" style="zoom:75%;" /></p>
+<p>控制流SDT编写：</p>
+<ul>
+<li>分析每一个非终结符之前：
+<ul>
+<li>先计算继承属性</li>
+<li>再观察代码结构图中该非终结符对应的方框顶部是否有<code>导入箭头</code>。如果有，调用<code>label()</code>函数</li>
+</ul></li>
+<li>上一个代码框执行完<code>不顺序执行</code>下一个代码框时，生成一条<code>显式跳转</code>指令</li>
+<li>有<code>自下而上的箭头</code>时，设置<code>begin</code>属性。且定义后<code>直接调用label( )函数</code>绑定地址</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205052148748.png" srcset="/img/loading.gif" lazyload alt="控制流语句回填" style="zoom:80%;" /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205052146083.png" srcset="/img/loading.gif" lazyload alt="布尔表达式的回填" style="zoom:67%;" /></p>
+<p>回填SDT编写：</p>
+<ul>
+<li>文法改造
+<ul>
+<li>在list箭头指向的位置设置标记非终结符M</li>
+</ul></li>
+<li>在产生式末尾的语义动作中
+<ul>
+<li>计算综合属性</li>
+<li>调用backpatch ( )函数回填各个list</li>
+</ul></li>
+</ul>
+<p>注：上述语句的<strong>代码结构图</strong>非常重要</p>
+<h3 id="数据流分析技术">数据流分析技术🪆</h3>
+<h4 id="到达定值分析">到达定值分析👨🏻‍🚀</h4>
+<p>对 <span class="math inline">\(d_i\)</span>进行分析，gen是本基本块中的所有 <span class="math inline">\(d_i\)</span>，kill是不在本基本块内，但是和本基本块内 <span class="math inline">\(d_i\)</span>左部相同的<span class="math inline">\(d_j\)</span></p>
+<p><span class="math inline">\(IN(B)=\cup OUT(B)\)</span></p>
+<p><span class="math inline">\(OUT(B)=gen \cup (IN(B)-kill)\)</span></p>
+<p>用途：</p>
+<ol type="1">
+<li>循环不变计算检测</li>
+<li>常量合并</li>
+<li>判定变量x在p点上是否未经定值被引用</li>
+</ol>
+<h4 id="活跃变量分析">活跃变量分析👑</h4>
+<p>对每一个基本块内的变量进行分析，use是右部中用到的符号，def是左部中符号，若use和def有交集，放在use里</p>
+<p><span class="math inline">\(OUT(B)=\cup IN(B)\)</span></p>
+<p><span class="math inline">\(IN(B)=use \cup (OUT(B)-def)\)</span></p>
+<p>注意：活跃变量分析从<span class="math inline">\(B_n\)</span>开始分析</p>
+<p>用途：</p>
+<ol type="1">
+<li>删除无用赋值</li>
+<li>为基本块分配寄存器</li>
+</ol>
+<h4 id="可用表达式分析">可用表达式分析🦄</h4>
+<p>对每一个<code>z=x op y</code> 这类的表达式进行分析，先找出所有的<code>x op y</code>，记作S。</p>
+<p>遇到 z = x op y ，e_gen先加入x op y ,然后删掉所有含有z的表达式；e_kill先删掉x op y ，然后加入所有S中含有z的表达式。</p>
+<p><span class="math inline">\(IN(B)=\cap OUT(B)\)</span></p>
+<p><span class="math inline">\(OUT(B)=e_{gen} \cup (IN(B)-e_{kill})\)</span></p>
+<p>用途：</p>
+<ol type="1">
+<li>消除全局公共子表达式</li>
+<li>复制传播</li>
+</ol>
+<h3 id="概念总结主要针对选填">概念总结（主要针对选填）🐼</h3>
+<h4 id="绪论">绪论😶‍🌫️</h4>
+<ul>
+<li>预处理 <span class="math inline">\(\rightarrow\)</span> 编译 <span class="math inline">\(\rightarrow\)</span> 汇编 <span class="math inline">\(\rightarrow\)</span> 链接 <span class="math inline">\(\rightarrow\)</span> 目标机器代码</li>
+<li>编译：将高级语言翻译成汇编语言或机器语言的过程</li>
+<li>词法分析中 token ：&lt;种别码，属性值&gt;、语法分析构造<strong>语法分析树</strong>、语义分析收集标识符的属性信息<strong>建立符号表和语义检查</strong></li>
+</ul>
+<h4 id="语言及其文法">语言及其文法🐻‍❄️</h4>
+<ul>
+<li><p>对于 <span class="math inline">\(\alpha\ \rightarrow\ \beta\)</span></p>
+<ul>
+<li>1型文法 -- 上下文有关文法：<span class="math inline">\(|\alpha|\ ≤\ |\beta|\)</span></li>
+<li>2型文法 -- 上下文无关文法：<span class="math inline">\(\alpha\ \in\ V_N，A\rightarrow \beta\)</span></li>
+<li>3型文法 -- 正则文法：
+<ul>
+<li>右线性文法<span class="math inline">\(A\rightarrow wB\)</span> 或 <span class="math inline">\(A \rightarrow w\)</span><br />
+</li>
+<li>右线性文法<span class="math inline">\(A\rightarrow Bw\)</span> 或 <span class="math inline">\(A \rightarrow w\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>短语和直接短语：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205180933517.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<h4 id="词法分析">词法分析🐒</h4>
+<ul>
+<li>错误恢复（恐慌模式）：从剩余的输入中不断删除字符，直到词法分析器能够在剩余输入的开头发现一个正确的字符为止</li>
+</ul>
+<h4 id="语法分析">语法分析👻</h4>
+<ul>
+<li>最右推导（规范推导）<span class="math inline">\(\Leftrightarrow\)</span> 最左规约<span class="math inline">\(\Leftrightarrow\)</span>最右句型（规范句型）</li>
+<li>LL(1)文法不需要回溯，是一种确定的自顶向下分析方法（预测分析法）</li>
+<li>预测分析中错误恢复（恐慌模式）：忽略输入中的一些符号，直到输入中出现由设计者选定的同步词法单元集合中的某个词法单元，将FOLLOW集中元素设置为 <span class="math inline">\(synch\)</span>
+<ul>
+<li>如果是空：忽略</li>
+<li>如果是 <span class="math inline">\(synch\)</span> ，弹出栈顶非终结符</li>
+<li>如果是终结符不匹配，弹出终结符</li>
+</ul></li>
+<li>预测分析法实现步骤：
+<ol type="1">
+<li>构造文法</li>
+<li>改造文法：消除二义性、消除左递归、消除回溯</li>
+<li>求每个变量的FIRST集和FOLLOW集，从而求得每个候选式的SELECT集</li>
+<li>检查是不是 LL(1) 文法。若是，构造预测分析表</li>
+<li>对于递归的预测分析，根据预测分析表为每一个非终结符编写一个过程；对于非递归的预测分析，实现表驱动的预测分析算法</li>
+</ol></li>
+<li>每次规约的符号串称为“句柄”，句柄是句型的最左直接短语</li>
+<li>LR分析中错误恢复
+<ul>
+<li>恐慌模式：丢弃输入符号</li>
+<li>短语层次</li>
+</ul></li>
+</ul>
+<h4 id="语法制导翻译">语法制导翻译🎎</h4>
+<ul>
+<li><p>SDD是对CFG的推广</p></li>
+<li><p><strong>注释分析树</strong>：每个节点都有属性值的分析树</p></li>
+<li><p>终结符只能有综合属性</p></li>
+<li><p>一个没有副作用的SDD称为属性文法</p></li>
+<li><p>S-SDD可以按照自底向上顺序计算属性值并且实现</p></li>
+<li><p>如果 S-SDD 的基本文法可以使用LR分析技术，那么它的SDT可以在LR语法分析中实现</p></li>
+<li><p>扩展栈：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">状态</th>
+<th style="text-align: center;">符号</th>
+<th style="text-align: center;">属性</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table></li>
+<li><p>如果L-SDD 的基本文法可以使用LL分析技术【LL文法判定】，那么它的SDT可以在LL或LR语法分析中实现</p></li>
+<li><p>如果选用非递归LL实现，扩展语法分析栈：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">action</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">Asyn</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>A的继承属性在A中</p></li>
+<li><p>如果选用递归LL实现：继承属性是形参，综合属性的返回值</p></li>
+</ul>
+<h4 id="中间代码生成">中间代码生成🐧</h4>
+<ul>
+<li>局部变量存储分配：对于声明语句，从类型表达式可以知道该类型<strong>在运行时刻所需的存储单元数量</strong>称为类型的宽度。在<strong>编译时刻</strong>，可以使用类型的宽度为每一个名字<strong>分配一个相对地址</strong>。名字的类型和相对地址信息保存在相应的符号表记录中</li>
+<li>逻辑运算符优先级：not &gt; and &gt; or</li>
+</ul>
+<h4 id="运行存储分配">运行存储分配👽</h4>
+<ul>
+<li><p>活动记录结构：</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">实参</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">返回值</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">控制链</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">访问链</td>
+<td style="text-align: center;">访问存放于其他活动记录的非局部数据</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">保存的机器状态</td>
+<td style="text-align: center;">返回地址和寄存器中内容</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">局部变量</td>
+<td style="text-align: center;">该过程中声明的数据</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">临时变量</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>栈式存储分配可以保证它的非局部变量的相对地址总是固定的，和过程调用序列无关</p></li>
+<li><p>活动树：用来描述程序运行期间控制进入和离开各个活动情况的树</p></li>
+<li><p>每个活跃的活动都有一个位于控制栈中的活动记录</p></li>
+<li><p>当一个过程是递归的时候，常常会有该过程的多个活动记录同时出现在栈中</p></li>
+<li><p>top_sp指向活动记录中局部数据开始的位置</p></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205181113824.png" srcset="/img/loading.gif" lazyload alt="" style="zoom:67%;" /></p>
+<ul>
+<li>符号表作用：辅助代码生成、一致性检查</li>
+</ul>
+<h4 id="代码优化">代码优化🐇</h4>
+<ul>
+<li>未经声明错误是语义分析检测出的（还有重复定值）；未经定值是数据流分析检测出的</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205181145527.png" srcset="/img/loading.gif" lazyload alt="" style="zoom:67%;" /></p>
+<h4 id="代码生成">代码生成🌞</h4>
+<ul>
+<li>代码生成器主要任务：
+<ul>
+<li>指令选择</li>
+<li>寄存器分配和指派</li>
+<li>指令排序</li>
+</ul></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205181204936.png" srcset="/img/loading.gif" lazyload alt="" style="zoom:67%;" /></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                    
+                  </div>
+                
+              </div>
+              <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">fly-beep</a> <br>
+                <strong>本文链接: </strong><a href="https://fly-beep.top/post/e5a09991.html">https://fly-beep.top/post/e5a09991.html</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                   
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/abbb7a99.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一个AES加密算法的工具类</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/40d8cce9.html">
+                        <span class="hidden-mobile">剑指012-剪绳子I</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
