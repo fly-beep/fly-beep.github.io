@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fly-beep.top/img/sjk.jpg">
 <meta property="article:published_time" content="2022-05-19T18:20:09.000Z">
-<meta property="article:modified_time" content="2022-05-20T08:20:40.698Z">
+<meta property="article:modified_time" content="2022-05-20T11:18:51.688Z">
 <meta property="article:author" content="顾海耀">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
@@ -292,6 +292,7 @@
 <h3 id="sql">SQL🦐</h3>
 <ul>
 <li><p><code>insert into table_name values (a,b,c)</code></p></li>
+<li><p><code>insert into table_name 子查询</code></p></li>
 <li><p><code>asc</code>为升序（默认），<code>desc</code>为降序</p></li>
 <li><p><code>update table_name set a=b where c=d</code></p></li>
 <li><div class="code-wrapper"><pre class="mysql"><code>  select 字段列表[字段别名] 
@@ -309,7 +310,7 @@
 <li><p>任何<strong>没有出现</strong>在group by子句中的属性如果出现在select子句中的话，它<strong>只能出现在聚集函数的内部</strong>，否则这样的查询就是错误的</p></li>
 <li><p>只有 COUNT 不忽略 null</p></li>
 <li><p><span class="math inline">\(from\ table_{name1}\ (natural)\ inner\ join / left\ outer\ join / right\ outer\ join / full\ outer\ join\ table_{name2}\ (on ...)\)</span></p></li>
-<li><p>$create view  view_{name}  as $ 子查询</p></li>
+<li><p><span class="math inline">\(create\ view\ view_{name}\ as\)</span> 子查询</p></li>
 <li><p>不能更新的view：</p>
 <ul>
 <li>select 目标列包含聚集函数</li>
