@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="顾海耀">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文主要对SQL必知必会的内容进行总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL必知必会笔记（二）">
+<meta property="og:url" content="https://fly-beep.top/post/1171445a.html">
+<meta property="og:site_name" content="Fly-beep&#39;s Blog">
+<meta property="og:description" content="本文主要对SQL必知必会的内容进行总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fly-beep.top/img/sqlbz.jpg">
+<meta property="article:published_time" content="2022-05-28T03:37:37.000Z">
+<meta property="article:modified_time" content="2022-05-28T03:40:02.617Z">
+<meta property="article:author" content="顾海耀">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fly-beep.top/img/sqlbz.jpg">
+  
+  
+  <title>SQL必知必会笔记（二） - Fly-beep&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fly-beep.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fly-beep</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SQL必知必会笔记（二）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-28 11:37" pubdate>
+        2022年5月28日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      73 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SQL必知必会笔记（二）</h1>
+            
+            <div class="markdown-body">
+              <p>本文主要对<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/intro/100029501">SQL必知必会</a>的内容进行总结</p>
+<span id="more"></span>
+<h1 id="sql必知必会笔记二">SQL必知必会笔记（二）</h1>
+<h3 id="索引">索引🎳</h3>
+<ul>
+<li><p>索引的价值是帮我们从海量数据中找到想要的数据，如果数据量少，那么是否使用索引对结果的影响并不大。另外，当数据重复度大，比如高于 10% 的时候，也不需要对这个字段使用索引。</p></li>
+<li><p>从功能逻辑上说，索引主要有 4 种，分别是普通索引、唯一索引、主键索引和全文索引。</p>
+<p>普通索引是基础的索引，没有任何约束，主要用于提高查询效率。</p>
+<p>唯一索引就是在普通索引的基础上增加了数据唯一性的约束，在一张数据表里可以有多个唯一索引。</p>
+<p>主键索引在唯一索引的基础上增加了不为空的约束，也就是 NOT NULL+UNIQUE，一张表里最多只有一个主键索引。</p>
+<p>全文索引用的不多，MySQL 自带的全文索引只支持英文。我们通常可以采用专门的全文搜索引擎，比如ES(ElasticSearch) 和 Solr。</p></li>
+<li><p>按照物理实现方式，索引可以分为 2 种：聚集索引和非聚集索引。我们也把非聚集索引称为二级索引或者辅助索引。</p>
+<p>聚集索引可以按照主键来排序存储数据，这样在查找行的时候非常有效。聚集索引指表中数据行按索引的排序方式进行存储，对查找行很有效。只有当表包含聚集索引时，表内的数据行才会按找索引列的值在磁盘上进行物理排序和存储。每一个表只能有一个聚集索引，因为数据行本身只能按一个顺序存储。</p>
+<p>在数据库系统会有单独的存储空间存放非聚集索引，这些索引项是按照顺序存储的，但索引项指向的内容是随机存储的。也就是说系统会进行两次查找，第一次先找到索引，第二次找到索引对应的位置取出数据行。非聚集索引不会把索引指向的内容像聚集索引一样直接放到索引的后面，而是维护单独的索引表（只维护索引，不维护索引指向的数据），为数据检索提供方便。</p>
+<ol type="1">
+<li>聚集索引的叶子节点存储的就是我们的数据记录，非聚集索引的叶子节点存储的是数据位置。非聚集索引不会影响数据表的物理存储顺序。</li>
+<li>一个表只能有一个聚集索引，因为只能有一种排序存储的方式，但可以有多个非聚集索引，也就是多个索引目录提供数据检索。</li>
+<li>使用聚集索引的时候，数据的查询效率高，但如果对数据进行插入，删除，更新等操作，效率会比非聚集索引低。</li>
+</ol></li>
+<li><p>按照字段个数进行划分，索引可以分成单一索引和联合索引。</p>
+<p>索引列为一列时为单一索引；多个列组合在一起创建的索引叫做联合索引。</p>
+<p>联合索引存在<strong>最左匹配原则</strong>，也就是按照最左优先的方式进行索引的匹配。即如果设置索引为(x,y,z)，而我的查询条件是y（不与 (x,y,z) 最左匹配），此时联合查询就会失效。</p></li>
+<li><p>Hash索引 VS B+索引：</p>
+<ol type="1">
+<li>Hash 索引不能进行范围查询，而 B+ 树可以。这是因为 Hash 索引指向的数据是无序的，而 B+ 树的叶子节点是个有序的链表。</li>
+<li>Hash 索引不支持联合索引的最左侧原则（即联合索引的部分索引无法使用），而 B+ 树可以。对于联合索引来说，Hash 索引在计算 Hash 值的时候是将索引键合并后再一起计算 Hash 值，所以不会针对每个索引单独计算 Hash 值。因此如果用到联合索引的一个或者几个索引时，联合索引无法被利用。</li>
+<li>Hash 索引不支持 ORDER BY 排序，因为 Hash 索引指向的数据是无序的，因此无法起到排序优化的作用，而 B+ 树索引数据是有序的，可以起到对该字段 ORDER BY 排序优化的作用。同理，我们也无法用 Hash 索引进行模糊查询，而 B+ 树使用 LIKE 进行模糊查询的时候，LIKE 后面前模糊查询（比如 % 开头）的话就可以起到优化作用。</li>
+</ol>
+<p>对于等值查询来说，通常 Hash 索引的效率更高，不过也存在一种情况，就是索引列的重复值如果很多，效率就会降低。这是因为遇到 Hash 冲突时，需要遍历桶中的行指针来进行比较，找到查询的关键字，非常耗时。</p>
+<p>B+ 树索引的使用面会更广，不过也有一些场景采用 Hash 索引效率更高，比如在键值型（Key-Value）数据库中，Redis 存储的核心就是 Hash 表。MySQL 中的 Memory 存储引擎支持 Hash 存储，如果我们需要用到查询的临时表时，就可以选择 Memory 存储引擎，把某个字段设置为 Hash 索引，比如字符串类型的字段，进行 Hash 计算之后长度可以缩短到几个字节。当字段的重复度低，而且经常需要进行等值查询的时候，采用 Hash 索引是个不错的选择。 MySQL 的 InnoDB 存储引擎还有个“自适应 Hash 索引”的功能，就是当某个索引值使用非常频繁的时候，它会在 B+ 树索引的基础上再创建一个 Hash 索引，这样让 B+ 树也具备了 Hash 索引的优点。</p></li>
+<li><p>适合创建索引的情况：</p>
+<ul>
+<li>字段的数值有唯一性的限制，比如用户名</li>
+<li>频繁作为 WHERE 查询条件的字段，尤其在数据表大的情况下</li>
+<li>需要经常 GROUP BY 和 ORDER BY 的列，如果同时有，建立联合索引。</li>
+<li>UPDATE、DELETE 的 WHERE 条件列，一般也需要创建索引（更新列与WHERE条件列不是一列）</li>
+<li>DISTINCT 字段需要创建索引</li>
+<li>做多表 JOIN 连接操作时，创建索引需要注意以下的原则
+<ul>
+<li>连接表的数量尽量不要超过 3 张</li>
+<li>对 WHERE 条件创建索引</li>
+<li>对用于连接的字段创建索引，并且该字段在多张表中的类型必须一致</li>
+</ul></li>
+</ul></li>
+<li><p>不能创建索引的情况：</p>
+<ul>
+<li>WHERE 条件（包括 GROUP BY、ORDER BY）里用不到的字段不需要创建索引</li>
+<li>如果表记录太少，比如少于 1000 个，那么是不需要创建索引的</li>
+<li>字段中如果有大量重复数据，也不用创建索引</li>
+<li>频繁更新的字段不一定要创建索引</li>
+</ul></li>
+<li><p>索引失效：</p>
+<ul>
+<li>索引进行了表达式计算，则会失效</li>
+<li>对索引使用函数，也会造成失效</li>
+<li>在 WHERE 子句中，如果在 OR 前的条件列进行了索引，而在 OR 后的条件列没有进行索引，那么索引会失效。</li>
+<li>当我们使用 LIKE 进行模糊查询的时候，后面不能是 %</li>
+<li>索引列与 NULL 或者 NOT NULL 进行判断的时候也会失效</li>
+<li>在使用联合索引的时候要注意最左原则</li>
+</ul></li>
+<li><p>索引片是 SQL 查询语句在执行中需要扫描的一个索引片段，根据包含的匹配列的数量不同，将索引分成窄索引（比如包含索引列数为 1 或 2）和宽索引（包含的索引列数大于 2）。需要说明的是，每个非聚集索引保存的数据都会存储主键值，然后通过主键值，来回表查找相应的数据，因此每个索引都相当于包括了主键。【所以如果是非聚集索引窄索引和宽索引在计算时需要+1】</p></li>
+<li><p>回表指的就是数据库根据索引找到了数据行之后，还需要通过主键再次到数据表中读取数据的情况。</p></li>
+<li><p>宽索引可以避免回表的情况发生，通过宽索引将 SELECT 中需要用到的列（主键列可以除外）都设置在宽索引中，这样就避免了回表扫描的情况，从而提升 SQL 查询效率。</p></li>
+<li><p>过滤因子：在 WHERE 条件语句中，每个条件都称为一个谓词，谓词的选择性也等于满足这个条件列的记录数除以总记录数的比例。联合过滤因子有更高的过滤能力，这里还需要注意一个条件，那就是条件列的关联性应该尽量相互独立，否则如果列与列之间具有相关性，联合过滤因子的能力就会下降很多。</p></li>
+<li><p>过滤因子决定了索引片的大小（注意这里不是窄索引和宽索引），过滤因子的条件过滤能力越强，满足条件的记录数就越少，SQL 查询需要扫描的索引片也就越小。</p></li>
+<li><p>使得SQL查询效率最大化的设计（三星索引）：</p>
+<ol type="1">
+<li>在 WHERE 条件语句中，找到所有等值谓词中的条件列，将它们作为索引片中的开始列；（最小化碎片，过滤因子降低）</li>
+<li>将 GROUP BY 和 ORDER BY 中的列加入到索引中；（避免排序，索引自带排序）</li>
+<li>将 SELECT 字段中剩余的列加入到索引片中。（避免回表）</li>
+</ol></li>
+<li><p>三星索引的弊端：</p>
+<ul>
+<li>采用三星索引会让索引片变宽，这样每个页能够存储的索引数据就会变少，从而增加了页加载的数量。</li>
+<li>增加了索引维护的成本。</li>
+</ul></li>
+</ul>
+<h3 id="数据库存储结构">数据库存储结构🎑</h3>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527162015622.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p>一个页中可以存储多个行记录，数据库管理存储空间的基本单位是页。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527162603016.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527165533715.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li>在文件头中有两个字段，分别是 FIL_PAGE_PREV 和 FIL_PAGE_NEXT，它们的作用相当于指针，分别指向上一个数据页和下一个数据页。<strong>连接起来的页相当于一个双向的链表</strong>，需要说明的是采用链表的结构让数据页之间不需要是物理上的连续，而是逻辑上的连续。</li>
+<li>文件尾的校验方式就是采用 Hash 算法进行校验。</li>
+<li>当有新的记录插入时，会从空闲空间中进行分配用于存储新记录</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527170207669.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p>页目录起到了记录的索引作用，在页中，<strong>记录是以单向链表的形式进行存储的</strong>。在页目录中提供了二分查找的方式，用来提高记录的检索效率。</p>
+<ol type="1">
+<li>将所有的记录分成几个组，这些记录包括最小记录和最大记录，但不包括标记为“已删除”的记录。</li>
+<li>第 1 组，也就是最小记录所在的分组只有 1 个记录；最后一组，就是最大记录所在的分组，会有 1-8 条记录；其余的组记录数量在 4-8 条之间。这样做的好处是，除了第 1 组（最小记录所在组）以外，其余组的记录数会尽量平分。</li>
+<li>在每个组中最后一条记录的头信息中会存储该组一共有多少条记录，作为 n_owned 字段。</li>
+<li>页目录用来存储每组最后一条记录的地址偏移量，这些地址偏移量会按照先后顺序存储起来，每组的地址偏移量也被称之为槽（slot），每个槽相当于指针指向了不同组的最后一个记录。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527180809501.png" srcset="/img/loading.gif" lazyload /></p>
+<p>页目录存储的是槽，槽相当于分组记录的索引。我们通过槽查找记录，实际上就是在做二分查找。通过对槽从最小到最大记录进行编号，划定二分法的查询范围，并按照（low+high）/2的槽中提取数据与需查询数据比对，判定下一步的最低最高值，如果＞目前槽中数据，则下一步low为当前槽的序号，high为最大记录的槽序号，如果&lt;目前槽中数据，则反之。从而逐步逼近，最终定位到需查询数据对应槽。</p></li>
+</ul></li>
+<li><p>区（Extent）是比页大一级的存储结构，在 InnoDB 存储引擎中，一个区会分配 64 个连续的页。因为 InnoDB 中的页大小默认是 16KB，所以一个区的大小是 64*16KB=1MB。</p></li>
+<li><p>段（Segment）由一个或多个区组成，区在文件系统是一个连续分配的空间（在 InnoDB 中是连续的 64 个页），不过在段中不要求区与区之间是相邻的。段是数据库中的分配单位，不同类型的数据库对象以不同的段形式存在。当我们创建数据表、索引的时候，就会相应创建对应的段，比如创建一张表时会创建一个表段，创建一个索引时会创建一个索引段。</p></li>
+<li><p>表空间（Tablespace）是一个逻辑容器，表空间存储的对象是段，在一个表空间中可以有一个或多个段，但是一个段只能属于一个表空间。数据库由一个或多个表空间组成，表空间从管理上可以划分为系统表空间、用户表空间、撤销表空间、临时表空间等。</p></li>
+<li><p>在一棵 B+ 树中，每个节点都是一个页，每次新建节点的时候，就会申请一个页空间。同一层上的节点之间，通过页的结构构成一个双向的链表（页文件头中的两个指针字段）。非叶子节点，包括了多个索引行，每个索引行里存储索引键和指向下一层页面的页面指针。最后是叶子节点，它存储了关键字和行记录，在节点内部（也就是页结构的内部）记录之间是一个单向的链表，但是对记录进行查找，则可以通过页目录采用二分查找的方式来进行。</p></li>
+</ul>
+<h3 id="缓冲池">缓冲池🌸</h3>
+<p>磁盘 I/O 需要消耗的时间很多，而在内存中进行操作，效率则会高很多，为了能让数据表或者索引中的数据随时被我们所用，DBMS 会申请占用内存来作为数据缓冲池，这样做的好处是可以让磁盘活动最小化，从而减少与磁盘直接进行 I/O 的时间。要知道，这种策略对提升 SQL 语句的查询性能来说至关重要。如果索引的数据在缓冲池里，那么访问的成本就会降低很多。</p>
+<p>缓冲池管理器会尽量将经常使用的数据保存起来，在数据库进行页面读操作的时候，首先会判断该页面是否在缓冲池中，如果存在就直接读取，如果不存在，就会通过内存或磁盘将页面存放到缓冲池中再进行读取。</p>
+<p>当我们对数据库中的记录进行修改的时候，首先会修改缓冲池中页里面的记录信息，然后数据库会以一定的频率刷新到磁盘上。注意并不是每次发生更新操作，都会立刻进行磁盘回写。缓冲池会采用一种叫做 checkpoint 的机制将数据回写到磁盘上，这样做的好处就是提升了数据库的整体性能。</p>
+<p>如果缓冲池中没有该页数据，读取数据方式：</p>
+<ul>
+<li><p>内存读取</p>
+<p>如果该数据存在于内存中，直接读取即可。【1ms】</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527192120706.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>随机读取</p>
+<p>如果数据没有在内存中，就需要在磁盘上对该页进行查找。【10ms】</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220527192220693.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>顺序读取</p>
+<p>批量读取，因为我们请求的数据在磁盘上往往都是相邻存储的，顺序读取可以帮我们批量读取页面，这样的话，一次性加载到缓冲池中就不需要再对其他页面单独进行磁盘 I/O 操作了。</p></li>
+</ul>
+<p>查看SQL语句查询成本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">进行查询</span><br><span class="hljs-meta prompt_">mysql&gt; </span><span class="language-bash">SELECT name FROM student <span class="hljs-built_in">where</span> <span class="hljs-built_in">id</span>=1;</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看SQL语句查询成本</span><br><span class="hljs-meta prompt_">mysql&gt; </span><span class="language-bash">SHOW STATUS LIKE <span class="hljs-string">&#x27;last_query_cost&#x27;</span>;</span><br></code></pre></td></tr></table></figure>
+<h3 id="锁">锁🐸</h3>
+<ul>
+<li><p>按照锁粒度划分：</p>
+<ul>
+<li>行锁</li>
+<li>页锁</li>
+<li>表锁</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220528094225897.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>从数据库管理的角度对锁进行划分</p>
+<ul>
+<li>共享锁 加锁： <code>LOCK TABLE product_comment READ;</code> 解锁： <code>UNLOCK TABLE;</code> 给某一行加锁： <code>SELECT * FROM product_comment WHERE user_id = 912178 LOCK IN SHARE MODE</code></li>
+<li>排它锁 加锁： <code>LOCK TABLE product_comment WRITE;</code> 解锁： <code>UNLOCK TABLE;</code> 给某一行加锁： <code>SELECT * FROM product_comment WHERE user_id = 912178 FOR UPDATE;</code></li>
+<li>意向锁，简单来说就是给更大一级别的空间示意里面是否已经上过锁。如果我们给某一行数据加上了排它锁，数据库会自动给更大一级的空间，比如数据页或数据表加上意向锁，告诉其他人这个数据页或数据表已经有人上过排它锁了，这样当其他人想要获取数据表排它锁的时候，只需要了解是否有人已经获取了这个数据表的意向排他锁即可。如果事务想要获得数据表中某些记录的共享锁，就需要在数据表上添加意向共享锁。同理，事务想要获得数据表中某些记录的排他锁，就需要在数据表上添加意向排他锁。这时，意向锁会告诉其他事务已经有人锁定了表中的某些记录，不能对整个表进行全表扫描。</li>
+<li>当有多个事务对同一数据获得读锁的时候，可能会出现死锁的情况。</li>
+<li>避免死锁的方法：
+<ol type="1">
+<li>如果事务涉及多个表，操作比较复杂，那么可以尽量一次锁定所有的资源，而不是逐步来获取，这样可以减少死锁发生的概率；</li>
+<li>如果事务需要更新数据表中的大部分数据，数据表又比较大，这时可以采用锁升级的方式，比如将行级锁升级为表级锁，从而减少死锁产生的概率；</li>
+<li>不同事务并发读写多张数据表，可以约定访问表的顺序，采用相同的顺序降低死锁发生的概率。</li>
+</ol></li>
+</ul></li>
+<li><p>从程序员的角度进行划分</p>
+<ul>
+<li><p>乐观锁</p>
+<p>乐观锁（Optimistic Locking）认为对同一数据的并发操作不会总发生，属于小概率事件，不用每次都对数据上锁，也就是不采用数据库自身的锁机制，而是通过程序来实现。在程序上，我们可以采用版本号机制或者时间戳机制实现。</p>
+<ul>
+<li><p>版本号机制</p>
+<p>在表中设计一个版本字段 version，第一次读的时候，会获取 version 字段的取值。然后对数据进行更新或删除操作时，会执行<code>UPDATE ... SET version=version+1 WHERE version=version</code>。此时如果已经有事务对这条数据进行了更改，修改就不会成功。</p></li>
+<li><p>时间戳机制</p>
+<p>在更新提交的时候，将当前数据的时间戳和更新之前取得的时间戳进行比较，如果两者一致则更新成功，否则就是版本冲突。</p></li>
+</ul></li>
+<li><p>悲观锁</p>
+<p>悲观锁（Pessimistic Locking）也是一种思想，对数据被其他事务的修改持保守态度，会通过数据库自身的锁机制来实现，从而保证数据操作的排它性。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220528100720437.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>乐观锁适合读操作多的场景，相对来说写的操作比较少。它的优点在于程序实现，不存在死锁问题，不过适用场景也会相对乐观，因为它阻止不了除了程序以外的数据库操作。</p></li>
+<li><p>悲观锁适合写操作多的场景，因为写的操作具有排它性。采用悲观锁的方式，可以在数据库层面阻止其他事务对该数据的操作权限，防止读 - 写和写 - 写的冲突。</p></li>
+<li><p>乐观锁和悲观锁并不是锁，而是锁的设计思想。</p></li>
+</ul></li>
+</ul>
+<h3 id="mvcc">MVCC🏗️</h3>
+<p>MVCC 是通过数据行的多个版本管理来实现数据库的并发控制，简单来说它的思想就是保存数据的历史版本。这样我们就可以通过比较版本号决定数据是否显示出来，读取数据的时候不需要加锁也可以保证事务的隔离效果。</p>
+<p>通过 MVCC 可以解决以下几个问题：</p>
+<ol type="1">
+<li>读写之间阻塞的问题，通过 MVCC 可以让读写互相不阻塞，即读不阻塞写，写不阻塞读，这样就可以提升事务并发处理能力。</li>
+<li>降低了死锁的概率。这是因为 MVCC 采用了乐观锁的方式，读取数据时并不需要加锁，对于写操作，也只锁定必要的行。</li>
+<li>解决一致性读的问题。一致性读也被称为快照读，当我们查询数据库在某个时间点的快照时，只能看到这个时间点之前事务提交更新的结果，而不能看到这个时间点之后事务提交的更新结果。</li>
+</ol>
+<p>快照读：快照读读取的是快照数据。不加锁的简单的 SELECT 都属于快照读。</p>
+<p>当前读：当前读读取最新数据，而不是历史版本的数据。加锁的 SELECT，或者对数据进行增删改都会进行当前读。</p>
+<p>InnoDB中MVCC的实现：</p>
+<ul>
+<li><p>事务版本号：每开启一个事务，我们都会从数据库中获得一个事务 ID（也就是事务版本号），这个事务 ID 是自增长的，通过 ID 大小，我们就可以判断事务的时间顺序。</p></li>
+<li><p>InnoDB 的叶子段存储了数据页，数据页中保存了行记录，而在行记录中有一些重要的隐藏字段，如下图所示：</p>
+<ol type="1">
+<li>db_row_id：隐藏的行 ID，用来生成默认聚集索引。如果我们创建数据表的时候没有指定聚集索引，这时 InnoDB 就会用这个隐藏 ID 来创建聚集索引。采用聚集索引的方式可以提升数据的查找效率。</li>
+<li>db_trx_id：操作这个数据的事务 ID，也就是最后一个对该数据进行插入或更新的事务 ID。</li>
+<li>db_roll_ptr：回滚指针，也就是指向这个记录的 Undo Log 信息。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220528110000422.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>Undo Log ：InnoDB 将行记录快照保存在了 Undo Log 里，我们可以在回滚段中找到它们</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220528110224364.png" srcset="/img/loading.gif" lazyload /></p>
+<p>回滚指针将数据行的所有快照记录都通过链表的结构串联了起来，每个快照的记录都保存了当时的 db_trx_id，也是那个时间点操作这个数据的事务 ID。这样如果我们想要找历史快照，就可以通过遍历回滚指针的方式进行查找。</p></li>
+<li><p>Read View：在 MVCC 机制中，多个事务对同一个行记录进行更新会产生多个历史快照，这些历史快照保存在 Undo Log 里。如果一个事务想要查询这个行记录，需要读取哪个版本的行记录呢？这时就需要用到 Read View 了，它帮我们解决了行的可见性问题。Read View 保存了当前事务开启时所有活跃（还没有提交）的事务列表，换个角度你可以理解为 Read View 保存了不应该让这个事务看到的其他的事务 ID 列表。</p>
+<p>Read View 中的几个重要属性：</p>
+<ol type="1">
+<li>trx_ids，系统当前正在活跃的事务 ID 集合。</li>
+<li>low_limit_id，活跃的事务中最大的事务 ID。</li>
+<li>up_limit_id，活跃的事务中最小的事务 ID。</li>
+<li>creator_trx_id，创建这个 Read View 的事务 ID。</li>
+</ol>
+<p>假设当前有事务 creator_trx_id 想要读取某个行记录，这个行记录的事务 ID 为 trx_id，那么会出现以下几种情况。</p>
+<p>如果 trx_id &lt; 活跃的最小事务 ID（up_limit_id），也就是说这个行记录在这些活跃的事务创建之前就已经提交了，那么这个行记录对该事务是可见的。</p>
+<p>如果 trx_id &gt; 活跃的最大事务 ID（low_limit_id），这说明该行记录在这些活跃的事务创建之后才创建，那么这个行记录对当前事务不可见。</p>
+<p>如果 up_limit_id &lt; trx_id &lt; low_limit_id，说明该行记录所在的事务 trx_id 在目前 creator_trx_id 这个事务创建的时候，可能还处于活跃的状态，因此我们需要在 trx_ids 集合中进行遍历，如果 trx_id 存在于 trx_ids 集合中，证明这个事务 trx_id 还处于活跃状态，不可见。否则，如果 trx_id 不存在于 trx_ids 集合中，证明事务 trx_id 已经提交了，该行记录可见。</p></li>
+<li><p>当查询一条记录的时候，系统如何通过多版本并发控制技术找到它：</p>
+<ol type="1">
+<li>首先获取事务自己的版本号，也就是事务 ID；</li>
+<li>获取 Read View；</li>
+<li>查询得到的数据，然后与 Read View 中的事务版本号进行比较；</li>
+<li>如果不符合 Read View 规则，就需要从 Undo Log 中获取历史快照；</li>
+<li>最后返回符合规则的数据。</li>
+</ol></li>
+<li><p>MVCC 是通过 Undo Log + Read View 进行数据读取，Undo Log 保存了历史快照，而 Read View 规则帮我们判断当前版本的数据是否可见。</p></li>
+<li><p>在隔离级别为读已提交（Read Commit）时，一个事务中的每一次 SELECT 查询都会获取一次 Read View。这时如果 Read View 不同，就可能产生不可重复读或者幻读的情况。</p></li>
+<li><p>当隔离级别为可重复读的时候，就避免了不可重复读，这是因为一个事务只在第一次 SELECT 的时候会获取一次 Read View，而后面所有的 SELECT 都会复用这个 Read View。</p></li>
+</ul>
+<p>InnoDB 解决幻读方法：</p>
+<ul>
+<li><p>在可重复读的情况下，InnoDB 可以通过 Next-Key 锁 +MVCC 来解决幻读问题。</p></li>
+<li><p>InnoDB 三种行锁的方式：</p>
+<ol type="1">
+<li>记录锁：针对单个行记录添加锁。</li>
+<li>间隙锁（Gap Locking）：可以帮我们锁住一个范围（索引之间的空隙），但不包括记录本身。采用间隙锁的方式可以防止幻读情况的产生。</li>
+<li>Next-Key 锁：帮我们锁住一个范围，同时锁定记录本身，相当于间隙锁 + 记录锁，可以解决幻读的问题。</li>
+</ol></li>
+<li><p>在读已提交的情况下，InnoDB 只采用记录锁，不能解决幻读问题。</p></li>
+<li><p>对比：</p>
+<p>读已提交：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220528113304621.png" srcset="/img/loading.gif" lazyload /></p>
+<p>出现幻读：事务A会读到新插入的数据，是因为这里使用了记录锁，只锁住了单条记录</p>
+<p>可重复读：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220528113413860.png" srcset="/img/loading.gif" lazyload /></p>
+<p>这是因为采用了 Next-Key 锁，会将 height&gt;2.08 的范围都进行锁定，就无法插入符合这个范围的数据了。然后事务 A 重新进行条件范围的查询，就不会出现幻读的情况。</p></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/">技术学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+              </div>
+              <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">fly-beep</a> <br>
+                <strong>本文链接: </strong><a href="https://fly-beep.top/post/1171445a.html">https://fly-beep.top/post/1171445a.html</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                   
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/2167a882.html">
+                        <span class="hidden-mobile">SQL必知必会笔记（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
