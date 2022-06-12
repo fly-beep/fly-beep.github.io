@@ -1,0 +1,1145 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="顾海耀">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对软件架构与中间件课程的主要内容进行总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件架构与中间件（二）">
+<meta property="og:url" content="https://fly-beep.top/post/cf17def0.html">
+<meta property="og:site_name" content="Fly-beep&#39;s Blog">
+<meta property="og:description" content="对软件架构与中间件课程的主要内容进行总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fly-beep.top/img/jgs.jpg">
+<meta property="article:published_time" content="2022-06-12T09:06:42.000Z">
+<meta property="article:modified_time" content="2022-06-12T09:11:12.463Z">
+<meta property="article:author" content="顾海耀">
+<meta property="article:tag" content="软件过程与工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fly-beep.top/img/jgs.jpg">
+  
+  
+  <title>软件架构与中间件（二） - Fly-beep&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fly-beep.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fly-beep</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="软件架构与中间件（二）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-06-12 17:06" pubdate>
+        2022年6月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      16k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      137 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">软件架构与中间件（二）</h1>
+            
+            <div class="markdown-body">
+              <p>对软件架构与中间件课程的主要内容进行总结</p>
+<span id="more"></span>
+<h1 id="软件架构与中间件二">软件架构与中间件（二）</h1>
+<h2 id="第3章-计算层的软件架构技术">第3章 计算层的软件架构技术🕯️</h2>
+<h3 id="软件计算层的挑战">软件计算层的挑战💢</h3>
+<p>任务越来越复杂：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220529141905721.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220529141928887.png" srcset="/img/loading.gif" lazyload /></p>
+<p>计算模式变革：</p>
+<ul>
+<li>单机计算模式→互联网计算模式</li>
+<li>单机计算模式→串行<br />
+</li>
+<li>单机计算模式→多核、众核计算</li>
+</ul>
+<p>性能度量</p>
+<ul>
+<li><p>CPU速度（MIPS）</p></li>
+<li><p>网络带宽（Mbps）</p></li>
+<li><p>吞吐量（TPS、QPS）</p>
+<p>指系统在单位时间内处理请求的数量。</p>
+<ul>
+<li><p>TPS：客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来计算使用的时间和完成的事务个数。包括了：</p>
+<ol type="1">
+<li>用户请求服务器</li>
+<li>服务器自己的内部处理</li>
+<li>服务器返回给用户</li>
+</ol>
+<p>这三个过程，每秒能够完成N个这三个过程，TPS也就是N</p></li>
+<li><p>QPS：每秒能处理查询数目。是一台服务器每秒能够相应的查询次数，是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准。</p>
+<p>QPS 基本类似于TPS，但是不同的是，对于一个页面的一次访问，形成一个TPS；但一次页面请求，可能产生多次对服务器的请求，服务器对这些请求，就可计入“QPS”之中。</p></li>
+</ul></li>
+<li><p>RT响应时间（s）</p>
+<p>指系统对请求作出响应的时间。</p></li>
+<li><p>网络延时（s）</p></li>
+<li><p>并发用户数</p>
+<p>指系统可以同时承载的正常使用系统功能的用户的数量。</p></li>
+<li><p>扩展性</p>
+<p>适应不断增长的处理任务的能力。</p>
+<ul>
+<li>垂直扩展：提高硬件配置<br />
+</li>
+<li>水平扩展：增加新的计算机分布式计算</li>
+</ul></li>
+<li><p>高可用性：系统在几乎任何时刻都可被正常访问，通常量化为一年中正常运行的时间比</p>
+<ul>
+<li>系统可用性：平均故障时间MTTF、平均修复时间MTTR、系统可用性=MTTF/(MTTF+ MTTR)</li>
+</ul></li>
+</ul>
+<h3 id="单机性能从何而来">单机性能从何而来👅</h3>
+<ul>
+<li><p>算法 &amp; 数据结构优化</p>
+<p>发现瓶颈：压测工具、抽象模型；线程、内存参数调整；Java特性优化；减少并发冲突；减少序列化； 减少字符到字节的转换；使用长连接</p></li>
+<li><p>通信模式优化</p>
+<p>单服务器高性能的关键之一就是服务器采取的网络通信模型，如下两个关键设计点：</p>
+<ul>
+<li>服务器如何管理连接。</li>
+<li>服务器如何处理请求。</li>
+</ul>
+<p>解决方案：</p>
+<ul>
+<li><p>PPC</p>
+<p>每次有新的连接就新建一个进程去专门处理这个连接的请求，这是传统的 UNIX 网络服务器所采用的模型。</p>
+<p>优点：PPC 模式实现简单，比较适合服务器的连接数没那么多的情况</p>
+<p>缺点：</p>
+<ul>
+<li>fork【创建进程】代价高</li>
+<li>父子进程通信复杂</li>
+<li>支持的并发连接数量有限</li>
+</ul></li>
+<li><p>prefork</p>
+<p>当连接进来时才 fork 新进程来处理连接请求，由于 fork 进程代价高，用户访问时可能感觉比较慢，prefork 模式的出现就是为了解决这个问题。</p>
+<p>prefork 就是提前创建进程，系统在启动的时候就预先创建好进程，然后才开始接受用户的请求。</p>
+<p>优点：当有新的连接进来的时候，就可以省去 fork 进程的操作，让用户访问更快、体验更好</p>
+<p>缺点：父子进程通信复杂、支持的并发连接数量有限</p></li>
+<li><p>TPC</p>
+<p>每次有新的连接就新建一个线程去专门处理这个连接的请求。</p>
+<p>优点：解决了 fork 代价高和进程通信复杂的问题</p>
+<p>缺点：</p>
+<ol type="1">
+<li>创建线程虽然比创建进程代价低，但并不是没有代价，高并发时（例如每秒上万连接）还是有性能问题。</li>
+<li>无须进程间通信，但是线程间的互斥和共享又引入了复杂度，可能一不小心就导致了死锁问题。</li>
+<li>多线程会出现互相影响的情况，某个线程出现异常时，可能导致整个进程退出（例如内存越界）。</li>
+<li>TPC 还是存在 CPU 线程调度和切换代价的问题。</li>
+</ol>
+<p>TPC 方案本质上和 PPC 方案基本类似，在并发几百连接的场景下，反而更多地是采用 PPC 的方案，因为 PPC 方案不会有死锁的风险，也不会多进程互相影响，稳定性更高。</p></li>
+<li><p>preread</p>
+<p>预先创建线程，然后才开始接受用户的请求，当有新的连接进来的时候，就可以省去创建线程的操作，让用户感觉更快、体验更好。</p>
+<p>常见实现方式：</p>
+<ul>
+<li>主进程 accept，然后将连接交给某个线程处理。<br />
+</li>
+<li>子线程都尝试去 accept，最终只有一个线程 accept 成功</li>
+</ul></li>
+<li><p>以上4种解决方案在高并发时还是存在问题，PPC和TPC实现简单，但是都无法支撑高并发的场景，于是有了下面应对高并发场景的单服务器高性能架构模式：</p></li>
+<li><p>Reactor（Dispatcher）</p>
+<p>Reactor 是非阻塞同步网络模型，因为真正的 read 和 send 操作都需要用户进程同步操作。这里的“同步”指用户进程在执行read 和 send 这类 I/O 操作的时候是同步的。</p>
+<p>PPC每个连接都要创建进程并且连接结束后进程就销毁（浪费）→资源复用，即不再单独为每个连接创建进程，而是创建一个进程池，将连接分配给进程，一个进程可以处理多个连接的业务。</p>
+<p>来了一个事件我就有相应的反应。</p>
+<p>根据事件类型来调用相应的代码进行处理。</p>
+<p>核心组成部分：</p>
+<ul>
+<li>Reactor，负责监听和分配事件。</li>
+<li>处理资源池（进程池或线程池），负责处理事件。</li>
+</ul>
+<p>可变性：</p>
+<ul>
+<li>Reactor 的数量可以变化：可以是一个 Reactor，也可以是多个Reactor。</li>
+<li>资源池的数量可以变化：以进程为例，可以是单个进程，也可以是多个进程（线程类似）。</li>
+</ul>
+<p>实现方案：</p>
+<ul>
+<li><p>单 Reactor 单进程 / 线程</p>
+<p>Reactor 对象通过 select 监控连接事件，收到事件后通过dispatch 进行分发。</p>
+<p>如果是连接建立的事件，由 Acceptor 处理，通过accept 接受连接，并创建一个 Handler 来处理连接后续的各种事件。</p>
+<p>如果不是连接建立事件，则 Reactor 会调用连接对应的 Handler（第 2 步中创建的 Handler）来进行响应。</p>
+<p>Handler 会完成 read→业务处理→send 的完整业务流程。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220529152243030.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：简单，全部都在同一个进程内完成</p>
+<p>缺点：无法发挥多核 CPU 的性能</p>
+<p>Redis使用这种模式（单Reactor单进程）！</p></li>
+<li><p>单 Reactor 多线程</p>
+<p>主线程中，Reactor 对象通过 select 监控连接事件，收到事件后通过 dispatch 进行分发。</p>
+<p>如果是连接建立的事件，则由 Acceptor 处理，Acceptor 通过accept 接受连接，并创建一个 Handler 来处理连接后续的各种事件。</p>
+<p>如果不是连接建立事件，则 Reactor 会调用连接对应的 Handler（第 2 步中创建的 Handler）来进行响应。</p>
+<p>Handler 只负责响应事件，不进行业务处理；Handler 通过 read读取到数据后，会发给Processor 进行业务处理。</p>
+<p>Processor 会在独立的子线程中完成真正的业务处理，然后将响应结果发给主进程的 Handler处理；Handler 收到响应后通过 send将响应结果返回给 client。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220529152707288.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：能够充分利用多核多 CPU 的处理能力</p>
+<p>缺点：多线程数据共享和访问比较复杂、Reactor 承担所有事件的监听和响应，只在主线程中运行，瞬间高并发时会成为性能瓶颈。</p></li>
+<li><p>多 Reactor 多进程 / 线程</p>
+<p>父进程中 mainReactor 对象通过 select 监控连接建立事件，收到事件后通过 Acceptor 接收，将新的连接分配给某个子进程。 子进程的 subReactor 将 mainReactor 分配的连接加入连接队列进行监听，并创建一个Handler 用于处理连接的各种事件。 当有新的事件发生时，subReactor 会调用连接对应的Handler（即第 2 步中创建的 Handler）来进行响应。 Handler 完成 read→业务处理→send 的完整业务流程。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220529153337173.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：实现简单（父进程和子进程的职责非常明确，父进程只负责接收新连接，子进程负责完成后续的业务处理。 父进程和子进程的交互很简单，父进程只需要把新连接传给子进程，子进程无须返回数据。子进程之间是互相独立的，无须同步共享之类的处理）</p>
+<p>Nginx 采用的是多 Reactor 多进程！</p>
+<p>Memcache 和 Netty 采用的是多 Reactor 多线程！</p></li>
+</ul></li>
+<li><p>Proactor</p>
+<p>如果把 I/O 操作改为异步就能够进一步提升性能，这就是异步网络模型 Proactor。</p>
+<p>来了事件我来处理，处理完了我通知你。</p>
+<p>Proactor Initiator 负责创建 Proactor 和 Handler，并将Proactor 和 Handler 都通过 Asynchronous Operation Processor 注册到内核。</p>
+<p>Asynchronous Operation Processor 负责处理注册请求，并完成I/O 操作。</p>
+<p>Asynchronous Operation Processor 完成 I/O 操作后通知Proactor。</p>
+<p>Proactor 根据不同事件类型回调不同的 Handler 进行业务处理。</p>
+<p>Handler 完成业务处理，Handler 也可以注册新的 Handler 到内核进程。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220529154529393.png" srcset="/img/loading.gif" lazyload /></p>
+<p>理论上 Proactor 比 Reactor 效率要高一些，但实际两者都有使用，因为要实现真正的异步I/O，操作系统需要做大量的工作。Windows一般用Proactor，而Linux一般用Reactor。</p></li>
+</ul></li>
+</ul>
+<h3 id="分布式计算架构">分布式计算架构🐾</h3>
+<h4 id="分布式编程模型">分布式编程模型🎥</h4>
+<p>MapReduce：应用程序编写人员只需要将精力放在应用程序本身，而关于集群的可靠性、可扩展性等问题则交由平台来处理。</p>
+<p>MapReduce是⼀种针对超⼤规模数据集的编程模型和系统。⽤MapReduce开发出的程序可在⼤量商⽤计算机集群上并⾏执⾏、处理计算机的失效以及调度计算机间的通信。</p>
+<p>MapReduce的基本思想：</p>
+<ul>
+<li>用户写的两个程序：Map和Reduce<br />
+</li>
+<li>一个在计算机集群上执行多个程序实例的框架</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220530125518431.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+<p>具有相同key的所有值都发送到相同的reducer。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220530125818532.png" srcset="/img/loading.gif" lazyload /></p>
+<p><span class="math inline">\(map(k_1,v_1) → [(k_2,v_2)]\)</span></p>
+<p><span class="math inline">\(reduce(k_2,[v_2]) → [(k_3,v_3)]\)</span></p>
+<p>为并行reduce操作划分密钥空间</p>
+<p><span class="math inline">\(partition(k_2, number\ of\ partitions) → partition\ for\ k_2\)</span></p>
+<p>用于优化以减少网络流量</p>
+<p><span class="math inline">\(combine (k2, [v2]) → [(k’,v’)]\)</span></p>
+<p>Hadoop中MapReduce的实现：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220530130951559.png" srcset="/img/loading.gif" lazyload /></p>
+<ol type="1">
+<li>⾸先提交⼀个 job，信息发给Job Tracker</li>
+<li>Job Tracker 是框架的中⼼，定时与集群中机器通信 ，管理哪些程序跑在哪些机器上，管理所有 job 失败、重启等操作</li>
+<li>Task Tracker 是 MapReduce 集群中每台机器都有的部分，它主要监视⾃⼰所在机器的资源情况，同时监视当前机器的 tasks 运⾏状况</li>
+<li>Task Tracker 需要把这些信息通过 heartbeat 发送给 Job Tracker</li>
+<li>Job Tracker 会搜集这些信息以给新提交的 job 分配运⾏在哪些机器上</li>
+</ol>
+<p>主要存在以下问题：</p>
+<ol type="1">
+<li>JobTracker 是 MapReduce 的集中处理点，存在单点故障</li>
+<li>JobTracker 完成了太多的任务，造成了过多的资源消耗</li>
+<li>当 MapReduce job ⾮常多时，会造成很⼤的内存开销：业界总结 Hadoop 的MapReduce只能⽀持 4000 节点主机的上限</li>
+<li>在 TaskTracker 端，以 map/reduce task 的数⽬作为资源的表⽰过于简单，没有考虑到 CPU/ 内存的占⽤情况，如果两个⼤内存消耗的 task 被调度到了⼀块，很容易出现溢出</li>
+<li>在 TaskTracker 端，把资源强制划分为 map task slot 和 reduce task slot, 如果当系统中只有 map task 或者只有 reduce task 的时候，会造成资源的浪费</li>
+</ol>
+<p>YARN：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220530131729512.png" srcset="/img/loading.gif" lazyload /></p>
+<p>ResourceManager（RM）：YARN分层结构的本质是ResourceManager。这个实体控制整个集群并管理应用程序向基础计算资源的分配。ResourceManager 将各个资源部分（计算、内存、带宽等）精心安排给基础NodeManager（YARN 的每节点代理）。ResourceManager还与 ApplicationMaster 一起分配资源，与NodeManager 一起启动和监视它们的基础应用程序。在此上下文中，ApplicationMaster 承担了以前的 TaskTracker 的一些角色，ResourceManager 承担了 JobTracker 的角色。</p>
+<p>NodeManager（NM）：NodeManager管理一个YARN集群中的每个节点。NodeManager提供针对集群中每个节点的服务，从监督对一个容器的终生管理到监视资源和跟踪节点健康。MRv1通过插槽管理Map和Reduce任务的执行，而NodeManager 管理抽象容器（container），这些容器代表着可供一个特定应用程序使用的针对每个节点的资源。YARN继续使用HDFS层。它的主要 NameNode用于元数据服务，而DataNode用于分散在一个集群中的复制存储服务。NodeManager是驻留在一个YARN集群中的每个节点上的代理。</p>
+<p>ApplicationMaster（AM）：ApplicationMaster管理一个在YARN内运行的应用程序的每个实例。ApplicationMaster 负责协调来自 ResourceManager 的资源，并通过 NodeManager 监视容器的执行和资源使用（CPU、内存等的资源分配）。请注意，尽管目前的资源更加传统（CPU 核心、内存），但未来会带来基于手头任务的新资源类型（比如图形处理单元或专用处理设备）。从 YARN 角度讲，ApplicationMaster 是用户代码，因此存在潜在的安全问题。YARN 假设ApplicationMaster 存在错误或者甚至是恶意的，因此将它们当作无特权的代码对待。</p>
+<p>Container：对任务运行环境进行抽象，封装CPU、内存等多维度的资源以及环境变量、启动命令等任务运行相关的信息。比如内存、CPU、磁盘、网络等，当AM向RM申请资源时，RM为AM返回的资源便是用Container表示的。YARN会为每个任务分配一个Container，且该任务只能使用该Container中描述的资源。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220530132540912.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：</p>
+<ol type="1">
+<li>这个设计⼤⼤减⼩了JobTracker（也就是现在的ResourceManager）的资源消耗，并且让监测每⼀个Job⼦任务(tasks)状态的程序分布式化了，更安全、更优美。另外，在新版中， ApplicationMaster是⼀个可变更的部分，⽤户可以对不同的编程模型写⾃⼰的ApplicationMaster，让更多类型的编程模型能够跑在Hadoop集群中。</li>
+<li>能够⽀持不同的编程模型</li>
+<li>对于资源的表⽰以内存为单位(在⽬前版本的Yarn中，没有考虑CPU的占⽤)，⽐之前以剩余slot数⽬更合理</li>
+<li>既然资源表⽰成内存量，那就没有了之前的map slot/reduce slot分开造成集群资源闲置的尴尬情况了</li>
+</ol>
+<p>MapReduce 经历过程：Input → Splitting → Mapping → Shuffling → Reducing → Output 。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605101114438.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="消息中间件">消息中间件🐭</h4>
+<p>在分布式系统中，进程在不同的机器上运行，通过消息传递交换信息，成功的分布式系统依赖于隐藏或简化消息传递的通信模型。程间通信是所有分布式系统的核心。</p>
+<p>中间件分类：</p>
+<ul>
+<li>远程过程调用 RPC</li>
+<li>面向对象中间件 OOM</li>
+<li>面向消息的中间件 MOM</li>
+<li>于事件的中间件</li>
+<li>事务处理监视器（TPM）</li>
+<li>对象请求代理（ORB）</li>
+</ul>
+<p>MOM是一种特殊形式的中间件，它能够促进异步消息从一个组件到另一个组件的传输。</p>
+<p>使用消息进行通信，消息存储在消息队列中，消息服务器将客户端和服务器解耦。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605133357212.png" srcset="/img/loading.gif" lazyload /></p>
+<p>通信模式分类</p>
+<ul>
+<li><p>基于寻址类型的分类：直接寻址/间接寻址</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605135113016.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>基于阻塞类型的分类：同步/异步</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605135559976.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605135612390.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>基于缓冲类型的分类：有缓存/无缓存</p>
+<p>有缓存：持续，消息可以被缓冲。</p>
+<p>无缓存：暂时，消息立即交付，服务器必须在通信开始时运行，直接连接到所需的服务器。</p></li>
+<li><p>基于内容类型的分类：事件，命令，数据，流</p></li>
+<li><p>基于确认类型的分类：不确认/确认/三次握手</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605150917526.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>基于接收机数目的分类：点对点（无播）/多播/任意播/位置辅助多播/广播</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605151352134.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>基于通信方向的分类：单工/半双工/全双工</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605151654247.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>基于发起人的分类</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605151931283.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>MOM中队列（Queue）：</p>
+<ul>
+<li><p>作为发送方和接收方之间的中介，是消息的目的地、允许进程独立执行和失败、可以屏蔽进程故障和通信故障。</p></li>
+<li><p>时间解耦</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605152317924.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>地点解耦</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605152345510.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>消息优先级：</p>
+<ul>
+<li><p>最高优先级优先</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605152612680.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>加权公平调度</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605152623310.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>MOM思想：</p>
+<ul>
+<li>基本思想：应用程序通过在特定队列中插入消息进行通信。</li>
+<li>在最终传递到目标之前，通过一系列通信服务器转发的消息。</li>
+<li>发送消息时，接收器可能已关闭。</li>
+<li>当接收方接收到消息时，发送方无需执行。</li>
+<li>发件人可以保证其邮件最终会插入收件人的队列，但不保证何时插入 。</li>
+</ul>
+<p>MOM中可以添加很多模块。</p>
+<p>MOM中队列管理器（Queue Manager）：</p>
+<ul>
+<li><p>是一种专门的数据库</p></li>
+<li><p>通过API向应用程序提供队列功能</p></li>
+<li><p>提供管理手段</p>
+<ul>
+<li>创建/删除队列</li>
+<li>允许启动和停止队列</li>
+<li>更改现有队列的属性</li>
+<li>允许监视性能、故障和恢复</li>
+</ul></li>
+<li><p>通常给队列管理器配置将消息转发给其他队列管理器的功能</p></li>
+<li><p>通常称为消息代理（Message Broker）</p>
+<ul>
+<li><p>消息转换</p>
+<p>重新格式化数据/信息、翻译、了解源和目标的结构/格式</p></li>
+<li><p>智能路由</p>
+<p>流量控制、消息字典</p></li>
+<li><p>规则引擎</p></li>
+<li><p>存储库</p></li>
+<li><p>过滤</p></li>
+<li><p>访问控制</p></li>
+</ul></li>
+</ul>
+<p>MOM性质：</p>
+<ul>
+<li><p>异步交互</p>
+<p>客户端和服务器只是松散耦合的、消息是已排队的、有利于应用程序集成</p></li>
+<li><p>支持可靠的交付服务</p>
+<p>将队列保留在持久性存储中</p></li>
+<li><p>中间消息服务器处理消息</p>
+<p>可以进行筛选、转换、记录等操作、消息服务器形成网络</p></li>
+<li><p>数据库集成很方便</p></li>
+</ul>
+<p>MOM消息传递模式：</p>
+<ul>
+<li><p>一对一</p>
+<p>一个发送方，一个接收方、点对点</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605154529988.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>一对多</p>
+<p>一个发送方，多个接收方</p></li>
+<li><p>多对一</p>
+<p>多个发送方，一个接收方</p></li>
+<li><p>多对多</p>
+<p>多个发送方，多个接收方、发布和订阅</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605154542479.png" srcset="/img/loading.gif" lazyload /></p>
+<p>消息代理（队列管理器）的一个重要和常见用途是帮助形成发布/订阅模型，在这样的模型中，代理不仅负责转换消息，还负责根据正在交换的消息匹配应用程序、应用程序可以通过将 Topic X 上的消息发送给代理来发布该消息、对主题 X 上的消息感兴趣的应用程序可以订阅这些消息，然后从代理接收这些消息。</p></li>
+</ul>
+<p>MOM例子</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605154926153.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="负载均衡机制">负载均衡机制🦧</h4>
+<p>单服务器无论如何优化，总会有上限，当无法满足业务需求时，就需要设计高性能集群来提升系统整体的处理性能。</p>
+<p>高性能集群需要增加一个任务分配器（负载均衡器）以及为任务选择一个合适的任务分配算法。</p>
+<p>负载均衡器：</p>
+<ul>
+<li><p>DNS 负载均衡</p>
+<p>一般用来实现地理级别的均衡。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605103200015.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：简单、成本低；就近访问，提升访问速度。</p>
+<p>缺点：更新不及时；扩展性差；分配策略较简单。</p></li>
+<li><p>硬件负载均衡</p>
+<p>通过单独的硬件设备来实现负载均衡功能，这类设备和路由器、交换机类似。目前业界典型的硬件负载均衡设备有两款：F5 和 A10 。</p>
+<p>优点：功能强大；性能强大；稳定性高；支持安全防护。</p>
+<p>缺点：价格昂贵；扩展能力差。</p></li>
+<li><p>软件负载均衡</p>
+<p>通过负载均衡软件来实现负载均衡功能，常见有 Nginx（7层负载均衡）、LVS（Linux 内核的 4 层负载均衡）。4 层和 7 层的区别就在于协议和灵活性：Nginx 支持 HTTP、E-mail 协议；而 LVS 是 4 层负载均衡，和协议无关，几乎所有应用都可以做，例如，聊天、数据库等。</p>
+<p>软件和硬件负载均衡方法的最主要区别就在于性能，硬件负载均衡性能远远高于软件负载均衡性能。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605103716195.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：简单；便宜；灵活。</p>
+<p>缺点：性能一般；功能没有硬件负载均衡那么强大；一般不具备防火墙和防 DDoS 攻击等安全功能。</p></li>
+</ul>
+<p>负载均衡典型架构：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220605103908259.png" srcset="/img/loading.gif" lazyload /></p>
+<p>地理级别负载均衡：当用户访问时，DNS 会根据用户的地理位置来决定返回哪个机房的 IP ；集群级别负载均衡：F5 收到请求后，进行集群级别的负载均衡；机器级别的负载均衡：Nginx 收到用户请求后，将用户请求发送给集群里面的某台服务器。</p>
+<p>负载均衡算法：</p>
+<ul>
+<li><p>任务数平分类</p>
+<p>负载均衡系统将收到的任务平均分配给服务器进行处理，这里的“平均”可以是绝对数量的平均，也可以是比例或者权重上的平均。</p>
+<ul>
+<li>轮询：负载均衡系统收到请求后，按照顺序轮流分配到服务器上。不关注服务器本身的状态，如果服务器出了bug，它是不关心的，会继续发送请求给该服务器；如果集群中新旧机器性能不同，它分配的也一样的。<br />
+</li>
+<li>加权轮询：负载均衡系统根据服务器权重进行任务分配，权重一般是根据硬件配置进行静态配置的。主要目的就是为了解决不同<strong>服务器处理能力有差异</strong>的问题，解决了轮询算法中无法根据<strong>服务器的配置差异</strong>进行任务分配的问题，但是无法根据<strong>服务器的状态差异</strong>进行任务分配。</li>
+</ul></li>
+<li><p>负载均衡类</p>
+<p>负载均衡系统根据服务器的负载来进行分配，用连接数、I/O 使用率、网卡吞吐量等来衡量系统的压力。</p>
+<ul>
+<li><p>负载最低优先：将任务分配给当前负载最低的服务器。</p>
+<p>LVS，可以以“连接数”来判断服务器的状态，服务器连接数越大，表明服务器压力越大。</p>
+<p>Nginx，可以以“HTTP 请求数”来判断服务器状态（Nginx内置的负载均衡算法不支持这种方式，需要进行扩展）。</p>
+<p>如果是 CPU 密集型，可以以“CPU 负载”来衡量系统压力。</p>
+<p>如果是 I/O 密集型，可以以“I/O 负载”来衡量系统压力。</p>
+<p>解决轮询算法中无法感知服务器状态的问题，但是复杂度增加很多，实际应用场景反而不如轮询。</p></li>
+</ul></li>
+<li><p>性能最优类</p>
+<p>负载均衡系统根据服务器的响应时间来进行任务分配，优先将新任务分配给响应最快的服务器。</p>
+<ul>
+<li><p>性能最优类</p>
+<p>站在客户端的角度来进行分配的，优先将任务分配给处理速度最快的服务器，通过这种方式达到最快响应客户端的目的。</p>
+<p>负载最低优先类算法是站在服务器的角度来进行分配的。</p>
+<p>性能最优优先类算法本质上也是感知了服务器的状态，只是通过响应时间这个外部标准来衡量服务器状态而已。复杂度很高，主要体现在：负载均衡系统需要收集和分析每个服务器每个任务的响应时间，在大量任务处理的场景下，这种收集和统计本身也会消耗较多的性能。工业上使用采样，并调优采样率</p></li>
+</ul></li>
+<li><p>Hash 类</p>
+<p>负载均衡系统根据任务中的某些关键信息进行 Hash 运算，将相同 Hash 值的请求分配到同一台服务器上。常见的有源地址 Hash、目标地址 Hash、session id hash、用户 id hash 等。</p>
+<ul>
+<li><p>Hash 类</p>
+<p>根据任务中的某些关键信息进行 Hash 运算，将相同 Hash 值的请求分配到同一台服务器上，这样做的目的主要是为了满足特定的业务需求。</p>
+<ul>
+<li><p>源地址Hash</p>
+<p>将来源于同一个源 IP 地址的任务分配给同一个服务器进行处理，适合于存在事务、会话的业务。</p>
+<p>例如，当我们通过浏览器登录网上银行时，会生成一个会话信息，这个会话是临时的，关闭浏览器后就失效。网上银行后台无须持久化会话信息，只需要在某台服务器上临时保存这个会话就可以了，但需要保证用户在会话存在期间，每次都能访问到同一个服务器，这种业务场景就可以用源地址 Hash来实现。</p></li>
+<li><p>ID hash</p>
+<p>将某个 ID 标识的业务分配到同一个服务器中进行处理，这里的 ID 一般是临时性数据的 ID（如 session id）。</p>
+<p>上述的网上银行登录的例子，用session id hash 同样可以实现同一个会话期间，用户每次都是访问到同一台服务器的目的。</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="冗余高可用计算">冗余高可用计算🐖</h4>
+<p>计算高可用的本质是通过冗余来规避部分故障的风险。复杂度主要体现在任务管理方面，即当任务在某台服务器上执行失败后，如何将任务重新分配到新的服务器进行执行。</p>
+<p>Q：哪些服务器可以接手执行任务</p>
+<p>A：</p>
+<ul>
+<li>每个服务器都可以执行任务（常见的访问网站的某个页面）</li>
+<li>只有特定服务器（通常叫“主机”）可以执行任务（ZooKeeper 的 Leader 才能处理写操作请求）</li>
+</ul>
+<p>Q：任务如何重新执行</p>
+<p>A：对于已经分配的任务即使执行失败也不做任何处理，系统只需要保证新的任务能够分配到其他非故障服务器上执行即可。设计任务管理器来管理需要执行的计算任务，服务器执行完任务后，需要向任务管理器反馈任务执行结果，任务管理器根据任务执行结果来决定是否需要将任务重新分配到另外的服务器上执行。</p>
+<p>“任务分配器”是一个逻辑的概念，并不一定要求系统存在一个独立的任务分配器块。</p>
+<ol type="1">
+<li>Nginx 将页面请求发送给 Web 服务器，而 CSS / JS 等静态文件直接读取本地缓存。这里的 Nginx 角色是反向代理系统，但是承担了任务分配器的职责，而不需要 Nginx 做反向代理，后面再来一个任务分配器。</li>
+<li>对于一些后台批量运算的任务，可以设计一个独立的任务分配系统来管理这些批处理任务的执行和分配。</li>
+<li>ZooKeeper 中的 Follower 节点，当接收到写请求时会将请求转发给 Leader 节点处理，当接收到读请求时就自己处理，这里的 Follower 就相当于一个逻辑上的任务分配器。</li>
+</ol>
+<p>主备</p>
+<p>主机执行所有计算任务。例如，读写数据、执行操作等。当主机故障（例如，主机宕机）时，任务分配器不会自动将计算任务发送给备机，此时系统处于不可用状态。</p>
+<p>如果主机能够恢复，任务分配器继续将任务发送给主机。</p>
+<p>如果主机不能够恢复（例如，机器硬盘损坏，短时间内无法恢复）：</p>
+<ol type="1">
+<li>人工操作，备机升为主机；</li>
+<li>任务分配器将任务发送给新的主机；</li>
+<li>人工增加新的机器作为备机。</li>
+</ol>
+<p>根据备机状态的不同，主备架构又可以细分为冷备架构和温备架构：</p>
+<ul>
+<li>冷备：备机上的程序包和配置文件都准备好，但备机上的业务系统没有启动（注意：备机的服务器是启动的），主机故障后，需要人工手工将备机的业务系统启动，并将任务分配器的任务请求切换发送给备机。</li>
+<li>温备：备机上的业务系统已经启动，只是不对外提供服务，主机故障后，人工只需要将任务分配器的任务请求切换发送到备机即可。</li>
+<li>冷备可以节省一定的能源，但温备能够大大减少手工操作时间，因此一般情况下推荐用温备的方式。</li>
+</ul>
+<p>优点：简单，主备机之间不需要进行交互，状态判断和切换操作由人工执行，系统实现很简单</p>
+<p>缺点：需要“人工操作”</p>
+<p>主备架构也比较适合内部管理系统、后台管理系统这类使用人数不多、使用频率不高的业务，不太适合在线的业务。</p>
+<p>主从</p>
+<p>主从架构中的从机也要执行任务的任务分配器需要将任务进行分类，确定哪些任务可以发送给主机执行，哪些任务可以发送给备机执行。正常情况下，主机执行部分计算任务（如图中的“计算任务A”），备机执行部分计算任务（如图中的“计算任务 B”）。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220610142409967.png" srcset="/img/loading.gif" lazyload /></p>
+<p>故障应对：任务分配器不会自动将原本发送给主机的任务发送给从机，而是继续发送给主机，不管这些任务执行是否成功。 如果主机能够恢复（不管是人工恢复还是自动恢复），任务分配器继续按照原有的设计策略分配任务，即计算任务 A 发送给主机，计算任务 B 发送给从机。 如果主机不能够恢复（例如，机器硬盘损坏，短时间内无法恢复），则需要人工操作，将原来的从机升级为主机，增加新的机器作为从机，任务分配器继续按照原有的设计策略分配任务。</p>
+<p>优点：主从架构的从机也执行任务，发挥了从机的硬件性能。 缺点：主从架构需要将任务分类，任务分配器会复杂一些。</p>
+<p>集群方案</p>
+<p>主备架构和主从架构架构简单：通过冗余一台服务器来提升可用性。但是人工操作效率低、容易出错、不能及时处理故障。所以引出高可用集群方案，可用性要求更加严格的场景中，自动完成切换操作。</p>
+<p>根据集群中服务器节点角色的不同，分为两类：对称集群和非对称集群</p>
+<p>对称集群（负载均衡集群）：集群中每个服务器角色一样，都可以执行所有任务</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220610143645319.png" srcset="/img/loading.gif" lazyload /></p>
+<p>负载均衡集群详细设计：正常情况下，任务分配器采取某种策略（随机、轮询等）将计算任务分配给集群中的不同服务器。</p>
+<p>当集群中的某台服务器故障后，任务分配器不再将任务分配给它，而是将任务分配给其他服务器执行。</p>
+<p>当故障服务器恢复，任务分配器重新将任务分配给它执行。</p>
+<p>负载均衡集群的设计关键点在于两点：1. 任务分配器需要选取分配策略。2. 任务分配器需要检测服务器状态。</p>
+<p>任务分配策略比较简单：轮询和随机基本够用。</p>
+<p>状态检测稍微复杂：既要检测服务器的状态，例如服务器是否宕机、网络是否正常等；同时还要检测任务的执行状态，例如任务是否卡死、是否执行时间过长等。常用的做法是任务分配器和服务器之间通过心跳来传递信息，包括服务器信息和任务信息，然后根据实际情况来确定状态判断条件。</p>
+<p>非对称集群：集群中的服务器分为多个不同的角色，不同的角色执行不同的任务（eg. 最常见的 Master-Slave 角色，部分任务是 Master 服务器才能执行，部分任务是 Slave 服务器才能执行）</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220610144559281.png" srcset="/img/loading.gif" lazyload /></p>
+<p>非对称集群架构详细设计：集群会通过某种方式来区分不同服务器的角色，例如，通过 ZAB 算法选举，或者简单地取当前存活服务器中节点 ID 最小的服务器作为 Master 服务器；任务分配器将不同任务发送给不同服务器，例如，计算任务 A 发送给 Master 服务器，B 发送给 Slave 服务器。</p>
+<p>当指定类型的服务器故障时，需要重新分配角色：Master 服务器故障后，需要指定一个 Slave 服务器为 Master 服务器；如果 Slave 服务器故障，不需要重新分配角色，只需要将其剔除即可。</p>
+<p>非对称集群相比负载均衡集群，设计复杂度主要体现在两个方面：1. 任务分配策略更加复杂：需要将任务划分为不同类型并分配给不同角色的集群节点。2. 角色分配策略实现比较复杂，例如，可能需要使用 ZAB、Raft 这类复杂的算法来实现Leader 的选举。</p>
+<p>异步多活：一些极端场景下，有可能所有服务器都出现故障。如果业务期望达到即使在灾难性故障的情况下，业务也不受影响，或者在几分钟内就能够很快恢复，那么就需要设计异地多活架构。</p>
+<ul>
+<li>异地：地理位置上不同的地方，类似于“不要把鸡蛋都放在同一篮子里”。</li>
+<li>多活：不同地理位置上的系统都能够提供业务服务。（活：活动，活跃）</li>
+</ul>
+<p>判断异地多活：</p>
+<ol type="1">
+<li>正常情况下，用户无论访问哪一个地点的业务系统，都能够得到正确的业务服务。</li>
+<li>某个地方业务异常的时候，用户访问其他地方正常的业务系统，能够得到正确的业务服务。</li>
+</ol>
+<p>分类：</p>
+<ul>
+<li>同城异区：机房火灾、机房停电、机房空调故障这类问题可以很好地解决；支付宝等金融相关的系统，只能采用同城异区这种架构</li>
+<li>跨城异地：解决类似新奥尔良水灾这种问题，适用于对数据一致性要求不那么高的情形。</li>
+<li>跨国异地：解决类似美加大停电，更多适用于只读类业务或为不同地区用户提供服务。</li>
+</ul>
+<h4 id="分布式计算架构案例">分布式计算架构案例🐯</h4>
+<p>集群：解决<strong>可伸缩性问题</strong>的有效方法。它允许一组服务器共享繁重的任务，并在逻辑上作为单个服务器运行。并且通过在集群中提供冗余服务器来实现<strong>高可用性</strong>的解决方案，以防一台服务器无法提供服务。</p>
+<p>负载均衡功能：</p>
+<ul>
+<li><p>请求分配</p>
+<p>客户请求按一定策略分发给集群中的某个节点，流行的算法包括循环、随机和基于权重分配【静态分配】，一些复杂的负载平衡器实现了特殊的算法，在将请求分配给服务器之前，该算法将检测每个服务器的工作负载【动态分配】</p></li>
+<li><p>会话粘连</p>
+<p>在进行负载平衡时，最好将请求调度到与上次某个浏览器会话相同的服务器实例。否则，应用程序可能无法正常工作（将属于同一个session的请求分配给上次请求的服务器实例，否则，应用程序可能不能正确工作）；HTTP为无状态的协议，在WEB应用服务器端通过session保存状态数据（HTTP为无状态的协议，在WEB应用服务器端通session保存状态数据）。</p></li>
+<li><p>健康检查 &amp; 失效转移</p>
+<p>健康检查：HTTP为无状态的协议，在WEB应用服务器端通过session保存状态数据。</p>
+<p>失效转移：集群中某节点失效，该节点上处理的请求能够被其他节点正确地接手处理。</p></li>
+</ul>
+<p>单点故障（SPOF）：能够导致整个系统停止运行的模块，可通过冗余消除单点故障。</p>
+<p>优化 → 检查当前架构：</p>
+<ul>
+<li>找出扩展性能瓶颈</li>
+<li>找出单一故障点</li>
+<li>找出宕机影响区域</li>
+</ul>
+<p>解决方案：</p>
+<ul>
+<li>水平扩展</li>
+<li>垂直扩展</li>
+<li>水平切分</li>
+<li>垂直切分</li>
+</ul>
+<p>步骤1：</p>
+<p>假设部署在单个服务器上的系统需要扩展。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611143100289.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤2：</p>
+<p>垂直扩展：增加CPU和RAM。</p>
+<p>优点：易于实施</p>
+<p>缺点：有极限；硬件不能线性扩展；增加停机影响； 成本呈指数增长。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611144944045.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤3：</p>
+<p>垂直切分：在单独的节点上部署每个服务。</p>
+<p>优点：提高每个应用程序的可用性；基于任务的专门化、优化和调优是可能的；易于实施；无需更改应用程序。</p>
+<p>缺点：需要停机时间；可能不会提高总体可用性；有限的可扩展性。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611145857566.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤4：</p>
+<p>水平扩展（APP Server）：集群，通过负载平衡增加APP Server的节点数。</p>
+<p>具体实现：硬件负载平衡器速度更快；软件负载平衡器更加可定制；对于HTTP服务器，负载平衡通常与HTTP加速器相结合；用于故障切换的会话管理策略(会话管理策略)</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611150151939.png" srcset="/img/loading.gif" lazyload /></p>
+<p>负载均衡器——会话管理策略：</p>
+<ul>
+<li><p>中央会话存储（session共享存储集群）</p>
+<p>引入单点故障（SPOF），是一个附加变量，会话读写磁盘/IO使得性能略微下降</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611150940339.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>集群会话管理</p>
+<p>易于设置，无SPOF，会话读取是即时的，会话写入生成网络 I/O，随着节点数量的增加，网络 I/O 呈指数增长，在极少数情况下，请求可能会获取过时的会话数据，用户请求到达后续节点的速度比内部节点消息快，节点内通信失败，AKA无共享群集。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611152343191.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>推荐使用方法：</p>
+<p>使用集群会话管理的情况：应用服务器数量较少，会话写入较少。其余情况一般使用中央会话存储。仅在必要时使用会话粘连。</p>
+<p>负载均衡器——消除 SPOF</p>
+<p>在主动-主动或主动-被动模式集群中设置 LB ，因为 LB 可能是 SPOF 。通过 LB 集群解决 LB 自身单点故障问题。</p>
+<p>主动-主动集群假设每一个LB都能够独立地承受另一个LB的负载。</p>
+<p>如果希望零停机时间，那么只有当多个 LB （3到4个以上）以菊花链连接为Active-Active形成 LB 集群时，Active-Active 才真正具有成本效益。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611204329394.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤5</p>
+<p>水平切分（硬件）</p>
+<p>利用SAN存储数据库。</p>
+<p>优点：允许 “放大” 数据库服务器，提高数据库服务器的性能。</p>
+<p>缺点：增加成本。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611204636478.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤6：</p>
+<p>水平扩展（数据库）</p>
+<p>建立数据库集群。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611204810568.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p>非共享集群</p>
+<p>所有的数据库实例都相同，数据库服务器节点之间不共享任何内容，通过数据库复制实现，实际的DB文件可能存储在中央SAN上。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611205226450.png" srcset="/img/loading.gif" lazyload /></p>
+<p>复制注意事宜：</p>
+<ul>
+<li><p>一主多子模式（Master-Slave）</p>
+<p>写入被发送到单个主节点，该主节点将数据复制到多个从节点，复制可能级联，简单设置，无需冲突管理。</p></li>
+<li><p>多主多子模式（Multi-Master）</p>
+<p>写入可以发送到多个主机中的任何一个，这些主机将写入复制到其他主机和从机。如果在多个位置同时修改相同的数据，则冲突管理所需的死锁可能存在</p></li>
+<li><p>异步复制</p>
+<p>不等待复制完成直接响应客户，需要修改程序，并对slave节点进行负载均衡。</p></li>
+<li><p>同步复制</p>
+<p>主服务器更新其自己的数据库，并在将响应返回给客户端之前确认所有从属服务器已更新其数据库。从机始终与主机具有相同的数据。需要修改应用程序才能将写操作发送到主机并平衡所有读取操作。</p></li>
+<li><p>DBMS级复制</p></li>
+<li><p>应用程序级复制</p>
+<p>对 DBMS 透明，性能不佳且不可靠。</p></li>
+</ul></li>
+<li><p>实时应用集群（共享存储集群）</p>
+<p>所有的数据库服务器在SAN中共享一个存储区域。所有DB服务器装载相同的块设备，</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611210216435.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>推荐：数据库本身支持主从复制模式，</p>
+<p>编写 DAO 层以确保：写入发送到单个数据库、读取是负载平衡的、关键读取被发送到主机。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611210405731.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤6优点：随着Web服务器的增长，可以添加数据库节点、DB服务器不再是SPOF</p>
+<p>缺点：有极限（slave节点复制代价高）。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611210512838.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤7：垂直切分/水平切分数据库</p>
+<p>通过划分数据来增加DB集群的数量。按列切分（垂直切分）、按行切分（水平切分）。</p>
+<p>垂直分表：每个数据库节点中的表都不一样。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611211208158.png" srcset="/img/loading.gif" lazyload /></p>
+<p>水平分表：分数据，每个数据库拥有相同的表。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611211253988.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤7优点：应用和数据都可以扩展。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611211457270.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤8：水平切分集合</p>
+<p>将每个部署视为服务于用户集合的单个集合。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611212715376.png" srcset="/img/loading.gif" lazyload /></p>
+<p>创建集合：创建集合背后的目标是更易于管理，每个部署集面向不同用户群、每个部署集在体系结构上是一样的、每个部署集都有完整的应用及数据结构、每个部署集部署于单独的数据中心、用户可能按网络延迟被分配到较近的部署集上。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611212741588.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优点：无限的可扩展性。</p>
+<p>缺点：数据集成、数据转移、数据复制。</p>
+<p>步骤9：缓存</p>
+<p>在 APP Server中添加缓存。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611213114131.png" srcset="/img/loading.gif" lazyload /></p>
+<p>步骤10：反向代理/HTTP加速器</p>
+<p>目的：将静态内容请求重定向到较轻的HTTP服务器、基于规则缓存内容（支持细粒度失效）、在用户端使用异步NIO、智能负载平衡。</p>
+<p>实现方式：Nginx</p>
+<p>反向代理：控制客户端对服务器机群的访问，并且通常提供负载均衡、安全、加密以及缓存等服务。</p>
+<p>只要必须通过单个公共IP地址访问多个web服务器，就可以使用反向代理。 应用程序防火墙功能可以防止常见的基于web的攻击。 SSL 加密可以卸载到反向代理。 反向代理可以将传入请求的负载分配给多个服务器。反向代理可以通过缓存静态内容和动态内容来减少其原始服务器上的负载。反向代理可以通过压缩内容来优化内容，以加快加载时间。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611214606155.png" srcset="/img/loading.gif" lazyload /></p>
+<p>代理服务器是一个服务器（计算机系统或应用程序），它充当从其他服务器寻求资源的客户端请求的中介。转发代理从内部网络接收请求并将其转发到 Internet。开放代理是任何 Internet 用户都可以访问的转发代理服务器。反向代理从 Internet 接收请求并将其转发到内部网络中的服务器。</p>
+<p>步骤11：其他方式</p>
+<p>CDNs、异步IO、多层缓存</p>
+<h3 id="并行计算架构">并行计算架构🦄</h3>
+<h4 id="并行计算理论">并行计算理论🦗</h4>
+<p>传统上都是串行计算编写的软件：一个问题被分解成一系列离散的指令，指令一个接一个地按顺序执行，在单个处理器上执行，任何时候只能执行一条指令。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611220544931.png" srcset="/img/loading.gif" lazyload /></p>
+<p>并行计算指同时使用多个计算资源来解决计算问题：将问题分解为可同时解决的离散部分，每个部分进一步细分为一系列说明，来自每个部分的指令在不同的处理器上同时执行，采用整体控制/协调机制。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611220557021.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220611221653809.png" srcset="/img/loading.gif" lazyload /></p>
+<p>并行化范例</p>
+<ul>
+<li><p>主从模式</p>
+<p>Master将问题分解为小任务，分发给工人并收集部分结果以生成最终结果。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612105522967.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>工作窃取（work stealing）</p>
+<p>某个线程从其他队列里窃取任务来执行。一个大任务分割为若干个互不依赖的子任务，为了减少线程间的竞争，把这些子任务分别放到不同的队列里，并未每个队列创建一个单独的线程来执行队列里的任务，线程和队列一一对应。比如线程1负责处理1队列里的任务，2线程负责2队列的。但是有的线程会先把自己队列里的任务干完，而其他线程对应的队列里还有任务待处理。干完活的线程与其等着，不如帮其他线程干活，于是它就去其他线程的队列里窃取一个任务来执行。而在这时它们可能会访问同一个队列，所以为了减少窃取任务线程和被窃取任务线程之间的竞争，通常会使用双端队列，被窃取任务线程永远从双端队列的头部拿任务执行，而窃取任务线程永远从双端队列的尾部拿任务执行。</p></li>
+<li><p>流水线</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612105855651.png" srcset="/img/loading.gif" lazyload /></p>
+<p>对大量数据集进行操作</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612110053992.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>分治</p>
+<p>一个问题被分为两个或多个子问题，每个子问题都独立解决，并将其结果合并。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612110143525.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>阿姆达尔定律：忽略所有系统或通信开销的情况下，N处理器并行的加速比：<span class="math inline">\(Speedup= \frac{1}{r_s + \frac{r_p}{N}}\)</span> ，<span class="math inline">\(r_p\)</span> 表示并行时间。</p>
+<h4 id="并行程序-pcam-设计方法">并行程序 PCAM 设计方法🦋</h4>
+<ul>
+<li><p>串行算法的直接并行化</p>
+<p>发掘和利用现有串行算法中的并行性，直接将串行算法改造为并行算法。</p></li>
+<li><p>从问题描述开始设计并行算法</p>
+<p>从问题本身描述出发，不考虑相应的串行算法，设计一个全新的并行算法。</p></li>
+<li><p>借用已有算法求解新问题</p>
+<p>找出求解问题和某个已解决问题之间的联系；改造或利用已知算法应用到求解问题上。</p></li>
+</ul>
+<p>设计并行算法四个阶段</p>
+<ul>
+<li>划分(Partitioning)：分解成小的任务，开拓并发性</li>
+<li>通讯(Communication)：确定诸任务间的数据交换，监测划分的合理性</li>
+<li>组合(Agglomeration)：依据任务的局部性，组合成更大的任务</li>
+<li>映射(Mapping)：将每个任务分配到处理器上，提高算法的性能</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612124910865.png" srcset="/img/loading.gif" lazyload /></p>
+<p>划分方法：充分开拓算法的并发性和可扩展性；先进行数据分解(称域分解)，再进行计算功能的分解(称功能分解)；使数据集和计算集互不相交；划分阶段忽略处理器数目和目标机器的体系结构；</p>
+<ul>
+<li><p>域分解</p>
+<p>划分的对象是数据，可以是算法的输入数据、中间处理数据和输出数据；将数据分解成大致相等的小数据片；划分时考虑数据上的相应操作；如果一个任务需要别的任务中的数据，则会产生任务间的通讯。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612130543010.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>功能分解</p>
+<p>划分的对象是计算：将计算划分为不同的任务，其出发点不同于域分解；划分后，研究不同任务所需的数据，如果这些数据不相交的，则划分是成功的，如果数据有相当的重叠， 意味着要重新进行域分解和功能分解；功能分解是一种更深层次的分解。</p></li>
+</ul>
+<p>通讯是PCAM设计过程的重要阶段；划分产生的诸任务，一般不能完全独立执行，需要在任务间进行数据交换；从而产生了通讯；功能分解确定了诸任务之间的数据流；诸任务是并发执行的，通讯则限制了这种并发性。</p>
+<ul>
+<li><p>局部/全局通讯</p>
+<p>局部：通讯限制在一个邻域内</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612131551517.png" srcset="/img/loading.gif" lazyload /></p>
+<p>全局：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612131711244.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>结构化/非结构化通讯</p>
+<p>结构化：每个任务的通讯模式是相同的</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165001984.png" srcset="/img/loading.gif" lazyload /></p>
+<p>⾮结构化：通讯构成的⽹络可以是任意图结构</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165026152.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>静态/动态通讯</p>
+<p>静态通讯：同伙的身份不会随时间变化</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165126184.png" srcset="/img/loading.gif" lazyload /></p>
+<p>动态通讯同伙的⾝份可能是运⾏过程中对数据进⾏运算得到，具有⾼度变动性</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165136196.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>同步/异步通讯</p>
+<p>同步通讯：⽣产者与消费者在数据传输操作过程中互相协作）</p>
+<p>异步通讯：消费者在获取数据时⽆需⽣产者的协作</p></li>
+</ul>
+<p>组合是由抽象到具体的过程，是将组合的任务能在一类并行机上有效的执行；合并小尺寸任务，减少任务数；如果任务数恰好等于处理器数，则也完成了映射过程；通过增加任务的粒度和重复计算，可以减少通讯成本；保持映射和扩展的灵活性，降低软件工程成本。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165335922.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p>细粒度</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165504585.png" srcset="/img/loading.gif" lazyload /></p></li>
+<li><p>粗粒度</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612165551281.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<p>表面-容积效应：通讯量与任务子集的表面成正比，计算量与任务子集的体积成正比。</p>
+<p>增加重复计算有可能减少通讯量；重复计算减少通讯量，但增加了计算量，应保持恰当的平衡；重复计算的目标应减少算法的总运算时间。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612170006287.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612170019962.png" srcset="/img/loading.gif" lazyload /></p>
+<p>每个任务要映射到具体的处理器，定位到运行机器上；任务数大于处理器数时，存在负载平衡和任务调度问题；映射的目标：减少算法的执行时间并发的任务 → 不同的处理器，任务之间存在高通讯的 → 同一处理器；映射实际是一种权衡，属于NP完全问题。</p>
+<p>任务调度问题： 任务放在集中的或分散的任务池中，使用任务调度算法将池中的任务分配给特定的处理器。两种常用调度模式：Master-Slave，非集中式。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%B7%A5%E5%85%B7/">软件过程与工具</a>
+                    
+                  </div>
+                
+              </div>
+              <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">fly-beep</a> <br>
+                <strong>本文链接: </strong><a href="https://fly-beep.top/post/cf17def0.html">https://fly-beep.top/post/cf17def0.html</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                   
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/ff013228.html">
+                        <span class="hidden-mobile">软件架构与中间件（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

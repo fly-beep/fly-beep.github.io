@@ -1,0 +1,943 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="顾海耀">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对软件架构与中间件课程的主要内容进行总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件架构与中间件（一）">
+<meta property="og:url" content="https://fly-beep.top/post/ff013228.html">
+<meta property="og:site_name" content="Fly-beep&#39;s Blog">
+<meta property="og:description" content="对软件架构与中间件课程的主要内容进行总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fly-beep.top/img/jgs.jpg">
+<meta property="article:published_time" content="2022-06-12T09:06:18.000Z">
+<meta property="article:modified_time" content="2022-06-12T09:10:56.256Z">
+<meta property="article:author" content="顾海耀">
+<meta property="article:tag" content="软件过程与工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fly-beep.top/img/jgs.jpg">
+  
+  
+  <title>软件架构与中间件（一） - Fly-beep&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fly-beep.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fly-beep</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="软件架构与中间件（一）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-06-12 17:06" pubdate>
+        2022年6月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">软件架构与中间件（一）</h1>
+            
+            <div class="markdown-body">
+              <p>对软件架构与中间件课程的主要内容进行总结</p>
+<span id="more"></span>
+<h1 id="软件架构与中间件一">软件架构与中间件（一）</h1>
+<h2 id="第1章-软件架构与中间件的内涵及要点">第1章 软件架构与中间件的内涵及要点🧧</h2>
+<h3 id="软件架构概述">软件架构概述🌚</h3>
+<p>架构的共性：</p>
+<ul>
+<li>构件：一组基本的构成要素<br />
+</li>
+<li>连接件：这些要素之间的连接关系<br />
+</li>
+<li>物理分布：这些要素连接之后形成的拓扑结构<br />
+</li>
+<li>约束：作用于这些要素或连接关系上的限制条件<br />
+</li>
+<li>性能：质量</li>
+</ul>
+<p>软件架构（SA）：</p>
+<p>提供了⼀个结构、⾏为和属性的高级抽象；从⼀个较⾼的层次来考虑组成系统的构件、构件之间的连接，以及由构件与构件交互形成的拓扑结构；这些要素应该满⾜⼀定的限制，遵循⼀定的设计规则，能够在⼀定的环境下进⾏演化；反映系统开发中具有重要影响的设计决策，便于各种⼈员的交流，反映多种关注，据此开发的系统能完成系统既定的功能和性能需求。</p>
+<p><strong>架构=构件+连接件+拓扑结构+约束+质量</strong></p>
+<p><strong>程序 = 构件 + 连接件 </strong></p>
+<p>对于⼤规模的复杂软件系统来说，对系统全局结构的设计⽐起对算法的选择和数据结构的设计明显重要得多。</p>
+<p>软件架构目标：</p>
+<ul>
+<li>主要目标：建⽴⼀个⼀致的系统及其视图集，并表达为最终⽤户和软件设计者需要的结构形式，⽀持⽤户和设计者之间的交流与理解。<br />
+</li>
+<li>外向目标：建立满足最终用户要求的系统需求<br />
+</li>
+<li>内向目标：建立满足系统设计者需要以及易于系统实现、维护和扩展的系统构件构成。</li>
+</ul>
+<p>软件架构作用：</p>
+<ul>
+<li>交流的手段</li>
+<li>可传递、可复用的模型</li>
+<li>关键决策的体现（折衷）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324140326517.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>软件质量因素及对策</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324140715537.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324140732705.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324140809125.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><strong>系统=服务集群+中间件</strong></p>
+<h3 id="软件中间件概述">软件中间件概述🌵</h3>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324141033393.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li>中间件（<span class="math inline">\(Middleware\)</span>）是<strong>一组程序</strong>，应用于分布式系统各应用之中，为系统屏蔽底层通讯和提供公共服务，并保障系统的高可靠性、高可用性、高灵活性。</li>
+<li>分布式应用借助中间件在不同技术之间共享资源。</li>
+<li>中间件位于客户机/ 服务器的操作系统之上，管理计算机资源和网络通讯。</li>
+<li>中间件是<strong>连接两个独立应用程序或独立系统的软件</strong>，即使它们具有不同的接口。</li>
+<li>通过中间件，应用程序可以工作于多平台或OS 环境 。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324141705118.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>软件中间件作用：</p>
+<ul>
+<li>屏蔽异构性：异构性表现在计算机的软硬件差异，包括硬件、操作系统、数据库等。</li>
+<li>实现互操作：因为异构性，产生的结果是软件依赖于计算环境，使得各种不同软件之间在不同平台之间不能移植，或者移植困难。而且，因为网络协议和通信机制不同，这些系统不能有效相互集成。<br />
+</li>
+<li>共性凝练和复用：软件应用领域越来越多，相同领域的应用系统之间许多基础功能和结构是有相似性的。通过中间件提供简单、一致、集成的开发和运行环境，简化分布式系统的设计、编程和管理。</li>
+</ul>
+<p>软件中间件分类：</p>
+<ul>
+<li>应用服务类中间件</li>
+<li>应用集成类中间件</li>
+<li>业务架构类中间件</li>
+</ul>
+<h3 id="软件架构与中间件设计过程">软件架构与中间件设计过程🎳</h3>
+<p>4+1视图模型：</p>
+<ul>
+<li>⽤例视图：描述系统的典型场景与功能，主要图形包括<span class="math inline">\(use\ case\ diagram\)</span> 等。</li>
+<li>逻辑视图：描述系统的抽象概念与功能(类、对象、接口、模式等)，主要 图形包括<span class="math inline">\(class\ diagrams, Communication\ diagrams\ and\ sequence\ diagrams\)</span>等；</li>
+<li>开发视图：描述系统中的子系统、模块、文件、资源及其之间的关系，主 要图形包括<span class="math inline">\(component\ diagrams, package\ diagrams\)</span>等；</li>
+<li>进程视图：描述系统的进程及其之间的通信协作关系，主要图形包括 <span class="math inline">\(activity\ diagram, sequence\ diagram\)</span>等；</li>
+<li>物理视图：描述系统如何被安装、部署与配置在分布式的物理环境下，主 要图形包括<span class="math inline">\(deployment\ diagram\)</span>等</li>
+</ul>
+<p>每个视图从不同的⻆度刻画了系统的结构属性，将它们综合在⼀起就形成了系统的整体架构。逻辑视图和开发视图描述系统的静态结构，而进程视图和物理视图描述系统的动态结构。</p>
+<h2 id="第2章-软件架构的传统风格">第2章 软件架构的传统风格🐸</h2>
+<h3 id="软件架构风格概述">软件架构风格概述😶‍🌫️</h3>
+<p>软件架构风格定义：</p>
+<ul>
+<li>描述⽤以组织⼀类软件系统的惯⽤模式，反映了领域中众多系统所共有的结构和语义特性，并指导如何将各个模块和子系统有效地组织成一个完整的系统</li>
+<li>定义一些构件和连接件类型，施加一组约束描述组合方式</li>
+</ul>
+<p>软件架构风格组成：</p>
+<ul>
+<li>⼀组构件类型<br />
+</li>
+<li>⼀组连接件类型/交互机制</li>
+<li>这些构件的拓扑分布<br />
+</li>
+<li>⼀组对拓扑和⾏为的约束</li>
+<li>对⻛格带来成本和收益的描述</li>
+</ul>
+<p>经典架构风格分类</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220327163435781.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li>数据流风格：管道/过滤器</li>
+<li>调用/返回风格：主程序/⼦程序；⾯向对象； 分层结构</li>
+<li>独立构件风格：事件系统</li>
+<li>虚拟机风格：解释器</li>
+<li>其他架构风格：<span class="math inline">\(MVC\)</span></li>
+</ul>
+<p><span class="math inline">\(KWIC索引系统\)</span>（"纯"基本架构风格例子）</p>
+<p>接收按⾏排列的数据、每⾏有若⼲有序排列的词、每个词由若⼲有序排列的字符组成、每⾏都可以循环移位。重复地把第⼀个词删除，然后接到⾏末、<span class="math inline">\(KWIC\)</span>把所有⾏的各种移位结果按照字⺟表顺序输出。</p>
+<h3 id="主程序-子过程风格">主程序-子过程风格🏜️</h3>
+<p>结构化程序：从功能观点设计系统；结构化设计与逐步细化是这种⽅法的典型实例；逐步分解（基于"定义-使用"关系、用过程调用作为交互机制、主程序的正确性依赖于它所调⽤的⼦程序的正确性）</p>
+<ul>
+<li>构件：主程序，子程序</li>
+<li>连接器：调用-返回机制</li>
+<li>拓扑结构：层次化结构</li>
+<li>本质：将⼤系统分解为若⼲模块(模块化)，主程序调⽤这些模块实现完整的系统功能</li>
+</ul>
+<p>模块分解原则：</p>
+<ul>
+<li>模块独立性
+<ul>
+<li>高聚合、低耦合<br />
+</li>
+</ul></li>
+<li>模块规模中性
+<ul>
+<li>过大：分解不充分，难理解</li>
+<li>过小：开销大，接口复杂<br />
+</li>
+</ul></li>
+<li>模块复用性
+<ul>
+<li>高扇入+低扇出<br />
+</li>
+</ul></li>
+<li>作用域与控制域适当性
+<ul>
+<li>作用域要包含在控制域之中</li>
+</ul></li>
+</ul>
+<p>优点：已被证明是成功的设计⽅法，可以被⽤于较⼤程序</p>
+<p>缺点： 程序超过10万⾏，表现不好；程序太⼤，开发太慢，测试越来越困难</p>
+<p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
+<ul>
+<li>分为四个基本功能：输入、移位、排序、输出；主程序按次序调用这四个模块；通过共享的数据存储、使用无约束的读-写协议在模块之间进行数据交换</li>
+<li>优点：模块间数据共享；不同计算功能被隔离在不同模块中</li>
+<li>缺点：对数据存储格式的变化会影响几乎所有的模块；对处理流程的改变与系统功能的增强也很难适应，依赖于控制模块内部的调⽤次序；这种分解难以支持有效的复用</li>
+</ul>
+<h3 id="面向对象风格">面向对象风格☃️</h3>
+<p>系统被看作对象的集合；每个对象都有⼀个它⾃⼰的操作集合。数据及作⽤在数据上的操作被封装成抽象数据类型——对象</p>
+<ul>
+<li>构件：类和对象
+<ul>
+<li>类的内部结构
+<ul>
+<li>属性：描述对象静态特性的数据项<br />
+</li>
+<li>操作：描述对象动态特性的一个动作<br />
+</li>
+</ul></li>
+</ul></li>
+<li>连接件：对象之间通过函数与过程调用实现交互</li>
+</ul>
+<p>面向对象特性：</p>
+<ul>
+<li>封装：限制对某些信息的访问</li>
+<li>交互：通过过程调⽤或类似的协议</li>
+<li>多态：在运⾏时选择具体的操作</li>
+<li>继承：对共享的功能保持唯⼀的接⼝</li>
+<li>动态绑定：运⾏时决定实际调⽤的操作</li>
+<li>复⽤和维护</li>
+</ul>
+<p>面向对象特点</p>
+<ul>
+<li>优点：复⽤和维护：利⽤封装和聚合提⾼⽣产⼒ 、反映现实世界、容易分解成一个系统</li>
+<li>缺点：管理⼤量的对象：怎样确⽴⼤量对象的结构、必须知道对象的身份标识、继承引起复杂度，关键系统中慎⽤</li>
+</ul>
+<p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
+<ul>
+<li>采用<span class="math inline">\(OO\)</span>的思想，数据和作用在数据上的读写操作被封装为object，主程序调用这些object，形成控制流程</li>
+<li>数据不再被构件直接共享，⽽是被封装在了object中</li>
+<li>每个对象提供了⼀个接⼝，允许其他对象通过该接⼝调⽤对该对象内封装的数据的操作</li>
+<li>优点：某⼀构件的算法与数据结构的修改不会影响其他构件、构件之间依赖性降低，提⾼了复⽤度</li>
+<li>缺点：不适合功能的扩展、为了增加新功能，要么修改已有的模块，要么就加⼊新的模块， 性能会受到影响</li>
+</ul>
+<h3 id="数据流风格">数据流风格🏗️</h3>
+<h4 id="数据流风格概述">数据流风格概述🌸</h4>
+<p>处理操作：数据到达即被激活，无数据时不工作</p>
+<ul>
+<li>数据的可⽤性决定着处理<计算单元>是否执⾏<br />
+</li>
+<li>系统结构：数据在各处理之间的有序移动<br />
+</li>
+<li>在纯数据流系统中，处理操作之间除了数据交换，没有任何其他的交互</li>
+</ul>
+<p>数据流风格基本构件：数据处理(构件接⼝：输⼊端⼝和输出端⼝；从输入端口读取数据，从输出端口写入数据；计算模型：从输⼊端⼝读数，经过计算/处理，然后写到输出端⼝)</p>
+<p>数据流风格连接件：数据流(单向，通常是异步，有缓冲；接口角色：reader和writer；计算模型：把数据从一个处理的输出端口传送到另一个处理的输入端口)</p>
+<p>一般来说数据的流向是无序的，我们主要关注近似线性的数据流或在有限度内的循环数据流。</p>
+<h4 id="管道-过滤器风格">管道-过滤器风格🥒</h4>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220327195329793.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>适用场景：数据源源不断的产⽣，系统需要对这些数据进⾏若⼲处理(分析、计算、转换等)。</p>
+<p>解决方案：</p>
+<ul>
+<li>把系统分解为⼏个顺序的处理步骤，这些步骤之间通过数据流连接，⼀个步骤的输出是另⼀个步骤的输⼊；</li>
+<li>每个处理步骤由⼀个过滤器构件(Filter)实现；</li>
+<li>处理步骤之间的数据传输由管道(Pipe)负责。</li>
+</ul>
+<p>每个处理步骤(过滤器)都有一组输入和输出，过滤器从管道中读取输入的数据流，经过内部处理，然后产生输出数据流并写入管道中。</p>
+<p>构件：过滤器，处理数据流（一个过滤器封装了一个处理步骤、数据源点和数据终点可以看作是特殊的过滤器）</p>
+<ul>
+<li><p>目标：将源数据递增的变换成目标数据</p></li>
+<li><p>从"数据流"到"数据流"的变换</p></li>
+<li><p>过滤器对数据流的五种变换类型：</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220327201643730.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
+<li><p>过滤器处理数据流的方式：递增的读取和消费数据（数据到来时便被处理，不是收集完了然后处理，即在输入被完全消费之前，输出便产生了）</p></li>
+<li><p>过滤器其他特征：无上下文信息、不保留状态、对上下游的其他过滤器无任何了解。</p></li>
+<li><p>过滤器状态：停⽌状态： 表示过滤器处于待启动状态，当外部启动过滤器后，过滤器处于处理状态；处理状态：表示过滤器正处理输入数据队列中的数据；等待状态：表示过滤器的输入数据队列为空，此时过滤器等待，当有新的数据输入时，过滤器处于处理状态 。</p></li>
+</ul>
+<p>连接件：连接一个源和一个目的过滤器（转发数据流）</p>
+<ul>
+<li>管道作用：在过滤器之间传送数据</li>
+<li>单向流；可能具有缓冲区；数据缓冲区可以是文件，数组，字典，树等集合类型；管道形成数据传输图；管道的先后顺序不影响输出的结果。</li>
+<li>不同管道中流动的数据流可能具有不同的数据格式。</li>
+</ul>
+<p>连接器定义了数据流的图，形成拓扑结构</p>
+<p>管道-过滤器风格</p>
+<ul>
+<li>优点：使得系统中的构件具有良好的隐蔽性和⾼内聚、低耦合的特点；支持软件复用，系统维护和增强系统性能更简单；允许对吞吐量、死锁等属性进行分析；支持并行执行</li>
+<li>缺点：通常导致进程成为批处理的结构；不适合处理交互的应⽤</li>
+</ul>
+<p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
+<ul>
+<li>四个过滤器：输⼊、移位、排序、输出 ；每个过滤器处理数据，然后将结果送⾄下⼀个过滤器；控制机制是分布式的：只要有数据传⼊，过滤器即开始⼯作；过滤器之间的数据共享被严格限制在管道传输</li>
+</ul>
+<h3 id="事件驱动风格">事件驱动风格🐘</h3>
+<ul>
+<li>显式调用：各个构件之间的互动是由显式调用函数或过程完成的；调用的过程与次序是固定的，预先设定的。</li>
+<li>隐式调用：一个组件可以广播一些事件；系统中的其他构件可以注册自己感兴趣的事件，并将自己的某个过程与相应的事件进行关联；当一个事件被发布，系统自动调用在该事件中注册的所有过程。</li>
+</ul>
+<p>事件风格特点：事件的触发者并不知道哪些构件会被这些事件影响，相互保持独⽴</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220327205402944.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220327205505793.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>构件：对象或过程，并提供以下两种接口：</p>
+<ul>
+<li>过程或函数，充当事件源或事件处理器的角色。</li>
+<li>事件</li>
+</ul>
+<p>连接器：事件-过程绑定</p>
+<ul>
+<li>事件处理器（事件的接收和处理⽅）的过程向特定的事件进⾏注册</li>
+<li>事件源构件发布事件</li>
+<li>当某些事件被发布时，向其注册的过程被隐式调⽤</li>
+<li>调⽤的次序是不确定的</li>
+<li>在某些清空下，连接件可以是事件-事件绑定（一个事件也可能触发其他事件，形成事件链）</li>
+</ul>
+<p>例：调试器（debugger）</p>
+<ul>
+<li>⼀旦遇到断点，调试器发布事件，从⽽触发”编辑器”与”变量监测器” ；编辑器将源代码滚动到断点处，变量监测器则更新当前变量值并显示出来。</li>
+</ul>
+<p>事件调度策略（当事件发生时，已向此事件注册过的所有过程被激发并执行，这时需要确定事件如何被分发到已注册的模块）：</p>
+<ul>
+<li><p>无独立（非集中式）调度模块的事件管理器</p>
+<p>被称为"被观察者/观察者"，每一个模块都允许其他模块向自己所能发送的某些事件表明兴趣，当某⼀模块发出某⼀事件时，它⾃动将这些事件发布给那些曾经向⾃⼰注册过此事件的模块。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329203950882.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329204325365.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><span class="math inline">\(ConcreteSubject\)</span>连接<span class="math inline">\(ConcreteObserver\)</span>，一旦有事件，<span class="math inline">\(ConcreteSubject\)</span>会通知所有的观察者，每一个观察者都有一个<code>update</code>方法，一旦被通知，观察者调用<code>update</code>方法。</p></li>
+<li><p>带有独立调度模块的事件管理器</p>
+<p>事件调度模块功能：接收到来的事件并分发它们到其它模块。</p>
+<p>调度器决定如何分发事件：</p>
+<ul>
+<li><p>全广播式</p>
+<p>调度模块将事件广播到所有的模块，但只有感兴趣的模块才去取事件并触发自身的行为</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329205801151.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
+<li><p>选择广播式（发布/订阅策略）</p>
+<p>调度模块将事件送到那些已经注册了的模块中</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329205946620.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li><p>点对点模式：基于消息队列</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329210204856.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>系统安装并配置⼀个队列管理器，并定义⼀个消息队列，某个应⽤向消息队列注册过程，以监听并处理被放置在队列⾥的事件，其他的应⽤连接到该队列并向其中发布事件，队列管理器存储这些消息，直到接收端的应⽤连接到队列，取回这些消息并加以处理，消息只能够被唯⼀的消费者所消费，消费之后即从队列中删除。</p></li>
+</ul></li>
+</ul></li>
+<li><p>发布/订阅模式</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329210238694.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>事件发布者向“主题”发布事件，订阅者向“主题”订阅事件，一个事件可以被多个订阅者消费，事件在发送给订阅者之后，并不会马上从topic中删除，topic会在事件过期之后自动将其删除。</p></li>
+</ul>
+<p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
+<ul>
+<li>四个共享模块</li>
+<li>共享数据，但共享数据并不直接暴露其格式，而是进行封装（借鉴面向对象方案）</li>
+<li>模块的调用发生在数据发生改变时，不是主程序控制</li>
+</ul>
+<p>事件驱动风格优点：</p>
+<ul>
+<li>支持实现交互式系统（用户输入/网络通讯）</li>
+<li>异步执⾏，不必同步等待执行结果；
+<ul>
+<li>为软件复⽤提供了强大的支持。要将一个构件加入现存系统中时，只需将它注册到系统的事件中；</li>
+</ul></li>
+<li>为系统动态演化带来了方便。
+<ul>
+<li>构件独立存在，当用一个构件代替另一个构件时，不会影响到其它构件的接口；</li>
+</ul></li>
+<li>对事件的并发处理将提高系统性能；</li>
+<li>健壮性：一个构件出错将不会影响其他构件。</li>
+</ul>
+<p>事件驱动风格缺点：</p>
+<ul>
+<li>分布式的控制方式使得系统的同步、验证和调试变得异常困难<br />
+</li>
+<li>数据交换问题：数据可通过事件直接在系统间传递(无调度模块时)，但在具有独立调度模块的事件系统中，数据则需要经过调度模块的传递。在这些情况下，全局性能和资源管理成为了系统的瓶颈。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329212209272.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<h3 id="解释器风格">解释器风格🥶</h3>
+<p>例：<span class="math inline">\(java\)</span>虚拟机（<span class="math inline">\(Write\ Once,\ Run\ Anywhere\)</span>）</p>
+<p>解释器</p>
+<ul>
+<li>解释器是⼀个⽤来执⾏其他程序的程序，针对不同的硬件平台实现了⼀个虚拟机，⾼抽象层次的程序翻译为低抽象层次所能理解的指令，以消除在程序语⾔与硬件之间存在的语义差异。</li>
+<li>解释器通常用来在程序语⾔定义的计算和有效硬件操作确定的计算之间建⽴对应和联系。</li>
+</ul>
+<p>解释器风格</p>
+<ul>
+<li>构件
+<ul>
+<li>解释器引擎</li>
+<li>存储区
+<ul>
+<li>被解释的源代码</li>
+<li>解释器引擎当前的控制状态的表示</li>
+<li>程序当前执行状态的表示</li>
+</ul></li>
+</ul></li>
+<li>连接器
+<ul>
+<li>对存储区的数据访问</li>
+</ul></li>
+</ul>
+<p>解释器&amp;编译器</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213103835.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li>解释器的执⾏速度要慢于编译器产⽣的⽬标代码的执⾏速度，但是可能低于编译器“编译+链接+执⾏”的总时间<br />
+</li>
+<li>解析器执⾏速度之所以慢，是因为每次解释执⾏的时候，都需要分析程序的结构，⽽编译代码则直接执⾏⽽⽆需重复编译<br />
+</li>
+<li>解释器对内存的分配是在解释时才进⾏的；⽽编译器则是在编译时进⾏，因此运⾏时直接将程序代码装⼊内存并执⾏即可</li>
+</ul>
+<p>解释器中解释器策略</p>
+<ul>
+<li><p>传统解释器（纯粹的解释执行）</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213622694.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
+<li><p>基于字节码的解释器（编译<span class="math inline">\(\rightarrow\)</span> 解释执行）</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213735554.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
+<li><p>(Just-in-Time)<span class="math inline">\(\ JIT\ \)</span>编译器（编译||解释执行）</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213825615.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>只有当某个函数要被执⾏时，才被编译；⽽且， <span class="math inline">\(JIT\)</span>并不是编译全部的代码，⽽是只编译那些被频繁执⾏的代码段。</p></li>
+</ul>
+<h3 id="分层结构">分层结构🧴</h3>
+<p>在层次系统中，系统被组织成若干个层次，每个层次由一系列构件组成。</p>
+<ul>
+<li>下层构件向上层构件提供服务</li>
+<li>上层构件看作是下层构件的客户</li>
+</ul>
+<p>分层原则：</p>
+<ul>
+<li>分离关注，尽量减少功能重叠</li>
+<li>抽象，删枝节留主干</li>
+<li>隐藏，只暴露需要访问的接口</li>
+</ul>
+<p>基本构件：各层次内部包含的构件</p>
+<p>连接件：层间的交互协议</p>
+<p>拓扑结构：分层</p>
+<p>拓扑约束：对相邻层间交互的约束</p>
+<ul>
+<li>集中式部署</li>
+<li>分布式部署</li>
+</ul>
+<p>某⼀层中的构件⼀般只与同⼀级别中的对等实体或较低级别中的构件交互，这种单向交互有助于减少不同级别中的构件之间的依赖性。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220330172633233.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>三层C/S结构</p>
+<p>在客户端与数据库服务器之间增加了⼀个中间层，中间层可能为：事务处理监控服务器、消息服务器、应⽤服务器等，中间层负责消息排队、业务逻辑执⾏、数据中转等功能。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220330173532756.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li><p>表示层</p>
+<p>用户接口部分，担负着用户与应用之间的对话功能；检查用户的输入，显示应用的输出；通常使用GUI；在变更时，只需要改写显示控制和数据检查程序，而不影响其他层；不包含或包含一部分业务逻辑。</p></li>
+<li><p>功能层</p>
+<p>应用系统的主体，包括大部分业务处理逻辑 (通常以业务构件的形式存在，如<span class="math inline">\(JavaBean/EJB/COM\)</span>等)；从表示层获取用户的输入数据并加以处理； 处理过程中需要从数据层获取数据或向数据层更新数据；处理结果返回给表示层。</p></li>
+<li><p>数据层</p>
+<p>DBMS；接受功能层的数据查询请求，执行请求，并将查询结果返回给功能层；从功能层接受数据存取请求，并将数据写入数据库；请求的执行结果也要返回给功能层。</p></li>
+</ul>
+<p>浏览器/服务器B/S结构</p>
+<p>浏览器/服务器(B/S)是三层C/S风格的一种实现方式</p>
+<p>表现层：</p>
+<ul>
+<li>浏览器</li>
+</ul>
+<p>逻辑层：</p>
+<ul>
+<li>Web服务器</li>
+<li>应⽤服务器</li>
+</ul>
+<p>数据层</p>
+<ul>
+<li>数据库服务器</li>
+</ul>
+<p>B/S结构</p>
+<ul>
+<li>优点
+<ul>
+<li>系统维护成本低</li>
+<li>较好安全性</li>
+<li>“瘦客户端”</li>
+<li>良好的容错能力和负载平衡能力</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>客户端浏览器以同步的请求/响应模式交换数据， 每请求一次服务器就要刷新一次页面；</li>
+<li>受HTTP协议“基于⽂本的数据交换”的限制，在数据查询等响应 速度上，要远远低于C/S架构；</li>
+<li>数据提交一般以页面为单位，数据的动态交互性不强，不利于在线事务处理(<span class="math inline">\(OLTP\)</span>)应用；</li>
+<li>受限于HTML的表达能力，难以⽀持复杂GUI (如报表等)。</li>
+</ul></li>
+</ul>
+<h3 id="模型-视图-控制器mvc">模型-视图-控制器（<span class="math inline">\(MVC\)</span>）🌊</h3>
+<p>构件：模型、视图、控制器。</p>
+<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220330194825981.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<ul>
+<li>模型（<span class="math inline">\(Model\)</span>）
+<ul>
+<li>负责数据存取、业务逻辑实现、数据验证。</li>
+<li>在事件驱动系统中，当信息发生变化时，模型会通知观察者（通常是视图），以便他们做出反应。</li>
+</ul></li>
+<li>视图（<span class="math inline">\(View\)</span>）
+<ul>
+<li>获取用户输入，向控制器（<span class="math inline">\(Controller\)</span>）发送处理请求，接收来自（<span class="math inline">\(Controller\)</span>）的反馈并将模型（<span class="math inline">\(Model\)</span>）的处理结果显示给用户。</li>
+<li>一个模型（<span class="math inline">\(Model\)</span>）可能有多个</li>
+</ul></li>
+<li>控制器（<span class="math inline">\(Controller\)</span>）
+<ul>
+<li>接收来自客户的请求、调用模型（<span class="math inline">\(Model\)</span>）执行业务逻辑，调用视图（<span class="math inline">\(View\)</span>）显示执行结果</li>
+</ul></li>
+</ul>
+<p>连接件：显式调用、隐式调用或其他机制（例如HTTP协议）</p>
+<p><span class="math inline">\(MVC\)</span></p>
+<ul>
+<li>优点
+<ul>
+<li>分离（<span class="math inline">\(View\)</span>与<span class="math inline">\(Model\)</span>、<span class="math inline">\(Controller\)</span>与<span class="math inline">\(View\)</span>）</li>
+<li>代码易维护</li>
+<li>同一信息有不同显示方式</li>
+<li>业务逻辑更易调试</li>
+</ul></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%B7%A5%E5%85%B7/">软件过程与工具</a>
+                    
+                  </div>
+                
+              </div>
+              <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">fly-beep</a> <br>
+                <strong>本文链接: </strong><a href="https://fly-beep.top/post/ff013228.html">https://fly-beep.top/post/ff013228.html</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                   
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/cf17def0.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件架构与中间件（二）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/d1ecf364.html">
+                        <span class="hidden-mobile">Java并发编程实战笔记（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
