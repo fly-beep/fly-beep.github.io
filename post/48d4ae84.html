@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fly-beep.top/img/sjk.jpg">
 <meta property="article:published_time" content="2022-05-19T18:20:09.000Z">
-<meta property="article:modified_time" content="2022-05-20T12:08:55.962Z">
+<meta property="article:modified_time" content="2022-05-20T14:32:35.045Z">
 <meta property="article:author" content="顾海耀">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
@@ -273,7 +273,9 @@
 <li>主属性：包含在任意一个<strong>候选码</strong>中的属性</li>
 <li>主码：候选码中的一个</li>
 <li>两个关系通常是通过<strong>外码</strong>联系起来的</li>
-<li><span class="math inline">\(\sigma\)</span> 操作的优先级： 非 &gt; <span class="math inline">\(\wedge\)</span> &gt; <span class="math inline">\(\vee\)</span></li>
+<li><span class="math inline">\(\sigma\)</span> 操作的优先级： 非 &gt;
+<span class="math inline">\(\wedge\)</span> &gt; <span
+class="math inline">\(\vee\)</span></li>
 <li><span class="math inline">\(\pi\)</span> 操作自带去重</li>
 <li>完整性：
 <ul>
@@ -281,13 +283,23 @@
 <li>参数完整性：外码必须有对应值或空值</li>
 <li>用户自定义完整性</li>
 </ul></li>
-<li><span class="math inline">\(\theta\)</span>连接<strong>不会去重</strong>、等值连接<strong>不会去重</strong>、自然连接<strong>会去重</strong></li>
+<li><span
+class="math inline">\(\theta\)</span>连接<strong>不会去重</strong>、等值连接<strong>不会去重</strong>、自然连接<strong>会去重</strong></li>
 <li>重命名：<span class="math inline">\(\rho\)</span></li>
-<li><span class="math inline">\(R ÷ S= \pi_{R-S}(R)-\pi_{R-S}((\pi_{R-S}(R)×S)-R)\)</span></li>
-<li>外连接是为了防止在连接（<span class="math inline">\(\theta\)</span>连接）操作后会出现元组数据的丢失的情况（空值）</li>
-<li>关系演算：<span class="math inline">\(\{ t|P(t)\}\)</span> ，P是一个谓语</li>
-<li>优先级： ( ) &gt; <span class="math inline">\(\theta\)</span> &gt; <span class="math inline">\(\exists\)</span> &gt; <span class="math inline">\(\forall\)</span> &gt; 非 &gt; <span class="math inline">\(\wedge\)</span> &gt; <span class="math inline">\(\vee\)</span> （这里的 <span class="math inline">\(\theta\)</span> 是指比较运算符）</li>
-<li>关系域演算：<span class="math inline">\(\{ &lt;x_1,x_2...x_n&gt; | P(x_1,x_2...x_n) \}\)</span></li>
+<li><span class="math inline">\(R ÷ S=
+\pi_{R-S}(R)-\pi_{R-S}((\pi_{R-S}(R)×S)-R)\)</span></li>
+<li>外连接是为了防止在连接（<span
+class="math inline">\(\theta\)</span>连接）操作后会出现元组数据的丢失的情况（空值）</li>
+<li>关系演算：<span class="math inline">\(\{ t|P(t)\}\)</span>
+，P是一个谓语</li>
+<li>优先级： ( ) &gt; <span class="math inline">\(\theta\)</span> &gt;
+<span class="math inline">\(\exists\)</span> &gt; <span
+class="math inline">\(\forall\)</span> &gt; 非 &gt; <span
+class="math inline">\(\wedge\)</span> &gt; <span
+class="math inline">\(\vee\)</span> （这里的 <span
+class="math inline">\(\theta\)</span> 是指比较运算符）</li>
+<li>关系域演算：<span class="math inline">\(\{ &lt;x_1,x_2...x_n&gt; |
+P(x_1,x_2...x_n) \}\)</span></li>
 </ul>
 <h3 id="sql">SQL🦐</h3>
 <ul>
@@ -304,13 +316,21 @@
   [limit 字句]</code></pre></div></li>
 <li><p>表达式 (not) in 子查询</p></li>
 <li><p>子查询只能外层向内层传参数</p></li>
-<li><p>表达式 <span class="math inline">\(\theta\ some/all\)</span> 子查询</p></li>
-<li><p>in <span class="math inline">\(\leftrightarrow\)</span> =some、not in <span class="math inline">\(\leftrightarrow\)</span> &lt;&gt;all</p></li>
-<li><p>子查询 union (all) / intersect (all) / except (all) ，其中带有 <strong>all 不删除重复元组</strong></p></li>
-<li><p>任何<strong>没有出现</strong>在group by子句中的属性如果出现在select子句中的话，它<strong>只能出现在聚集函数的内部</strong>，否则这样的查询就是错误的</p></li>
+<li><p>表达式 <span class="math inline">\(\theta\ some/all\)</span>
+子查询</p></li>
+<li><p>in <span class="math inline">\(\leftrightarrow\)</span>
+=some、not in <span class="math inline">\(\leftrightarrow\)</span>
+&lt;&gt;all</p></li>
+<li><p>子查询 union (all) / intersect (all) / except (all) ，其中带有
+<strong>all 不删除重复元组</strong></p></li>
+<li><p>任何<strong>没有出现</strong>在group
+by子句中的属性如果出现在select子句中的话，它<strong>只能出现在聚集函数的内部</strong>，否则这样的查询就是错误的</p></li>
 <li><p>只有 COUNT 不忽略 null</p></li>
-<li><p><span class="math inline">\(from\ table_{name1}\ (natural)\ inner\ join / left\ outer\ join / right\ outer\ join / full\ outer\ join\ table_{name2}\ (on ...)\)</span></p></li>
-<li><p><span class="math inline">\(create\ view\ view_{name}\ as\)</span> 子查询</p></li>
+<li><p><span class="math inline">\(from\ table_{name1}\ (natural)\
+inner\ join / left\ outer\ join / right\ outer\ join / full\ outer\
+join\ table_{name2}\ (on ...)\)</span></p></li>
+<li><p><span class="math inline">\(create\ view\ view_{name}\
+as\)</span> 子查询</p></li>
 <li><p>不能更新的view：</p>
 <ul>
 <li>select 目标列包含聚集函数</li>
@@ -321,35 +341,46 @@
 </ul></li>
 </ul>
 <h3 id="概念数据库设计">概念数据库设计🪂</h3>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205201502437.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/202205201502437.png" srcset="/img/loading.gif" lazyload /></p>
 <h3 id="逻辑数据库设计">逻辑数据库设计🚍</h3>
 <ul>
 <li><span class="math inline">\(armstrong公理\)</span>：
 <ul>
-<li><span class="math inline">\(Y\subseteq X \subseteq U,则X → Y\)</span></li>
-<li><span class="math inline">\(X \rightarrow Y \in F.Z \subseteq U,则XZ \rightarrow YZ\)</span></li>
-<li><span class="math inline">\(X \rightarrow Y,Y \rightarrow Z,则X \rightarrow Z\)</span></li>
-<li><span class="math inline">\(X \rightarrow Y,X\rightarrow Z,则X\rightarrow YZ\)</span></li>
-<li><span class="math inline">\(X\rightarrow Y,WY\rightarrow Z,则XW\rightarrow Z\)</span></li>
+<li><span class="math inline">\(Y\subseteq X \subseteq U,则X →
+Y\)</span></li>
+<li><span class="math inline">\(X \rightarrow Y \in F.Z \subseteq U,则XZ
+\rightarrow YZ\)</span></li>
+<li><span class="math inline">\(X \rightarrow Y,Y \rightarrow Z,则X
+\rightarrow Z\)</span></li>
+<li><span class="math inline">\(X \rightarrow Y,X\rightarrow
+Z,则X\rightarrow YZ\)</span></li>
+<li><span class="math inline">\(X\rightarrow Y,WY\rightarrow
+Z,则XW\rightarrow Z\)</span></li>
 <li>$XY,Z Y,则XZ $</li>
 </ul></li>
 <li>最小覆盖（最小依赖集）计算：
 <ul>
-<li>将F中的任意函数依赖 <span class="math inline">\(X → Y\)</span>替换为右部仅包含一个属性的函数依赖</li>
+<li>将F中的任意函数依赖 <span class="math inline">\(X →
+Y\)</span>替换为右部仅包含一个属性的函数依赖</li>
 <li>删除左部的冗余属性</li>
 <li>删除冗余函数依赖</li>
 </ul></li>
 <li>NF总结
 <ul>
 <li>1NF 保证分量不可分</li>
-<li>2NF 保证只有主键才能推出其他，消除非主属性对<strong>候选键</strong>的部分函数依赖</li>
+<li>2NF
+保证只有主键才能推出其他，消除非主属性对<strong>候选键</strong>的部分函数依赖</li>
 <li>3NF 消除非主属性对<strong>候选键</strong>的传递函数依赖</li>
-<li>BCNF 保证主属性完全函数依赖于<strong>候选键</strong>、或者满足1NF并且最小覆盖的左部都是<strong>候选键</strong></li>
+<li>BCNF
+保证主属性完全函数依赖于<strong>候选键</strong>、或者满足1NF并且最小覆盖的左部都是<strong>候选键</strong></li>
 </ul></li>
 <li>识别无损连接分解：画表格</li>
 <li>识别函数依赖保持：函数依赖的并集是否可以覆盖F</li>
-<li>关系模式分解为 3NF：将每一个函数依赖单独组成一个关系，然后把左部相同的进行合并【保持依赖】</li>
-<li>关系模式分解为 BCNF：将左侧不含候选键的函数依赖单独组成一个关系，将包含候选键的组成一关系【无损连接】</li>
+<li>关系模式分解为
+3NF：将每一个函数依赖单独组成一个关系，然后把左部相同的进行合并【保持依赖】</li>
+<li>关系模式分解为
+BCNF：将左侧不含候选键的函数依赖单独组成一个关系，将包含候选键的组成一关系【无损连接】</li>
 </ul>
 <h3 id="物理数据库设计">物理数据库设计🥡</h3>
 <ul>
@@ -358,7 +389,8 @@
 <li>排序索引文件</li>
 <li>散列索引文件</li>
 </ul></li>
-<li><span class="math inline">\(create\ index\ index_{name}\ on\ table_{name}(a,b,c)\)</span></li>
+<li><span class="math inline">\(create\ index\ index_{name}\ on\
+table_{name}(a,b,c)\)</span></li>
 <li>稠密索引 VS 稀疏索引
 <ul>
 <li>稠密索引：索引文件中包含了主文件对应字段的所有不同值</li>
@@ -382,7 +414,8 @@
 <h3 id="数据库存储">数据库存储🪢</h3>
 <ul>
 <li>CPU 到 主存之间按存储字访问，主存 到 外存之间按块/IO访问</li>
-<li>操作系统对数据组织：FAT（文件分配表） -- 目录（文件夹） -- 磁盘块/簇</li>
+<li>操作系统对数据组织：FAT（文件分配表） -- 目录（文件夹） --
+磁盘块/簇</li>
 <li>数据库中表所占磁盘块的分配方法：
 <ul>
 <li>连续分配 【访问困难】</li>
@@ -411,7 +444,8 @@
 <li><p>线性散列</p>
 <ul>
 <li><p>位是从右端（低位）开始取</p></li>
-<li><p>n：当前的桶数、r：当前散列表中的记录总数、要求r&lt;= 1.7n</p></li>
+<li><p>n：当前的桶数、r：当前散列表中的记录总数、要求r&lt;=
+1.7n</p></li>
 <li><table>
 <tbody>
 <tr class="odd">
@@ -492,7 +526,8 @@
 </ul></li>
 <li><span class="math inline">\(B_S≥M，B_R≥M\)</span>
 <ul>
-<li><span class="math inline">\(\frac{B_RB_S}{M-2} + B_S\)</span> （考虑输出）</li>
+<li><span class="math inline">\(\frac{B_RB_S}{M-2} + B_S\)</span>
+（考虑输出）</li>
 </ul></li>
 <li>排序
 <ul>
@@ -508,12 +543,14 @@
 <ul>
 <li>聚簇索引
 <ul>
-<li><span class="math inline">\(B(R) + T(R)\left \lceil \frac{B(S)}{V(S,K)} \right \rceil\)</span></li>
+<li><span class="math inline">\(B(R) + T(R)\left \lceil
+\frac{B(S)}{V(S,K)} \right \rceil\)</span></li>
 <li><span class="math inline">\(M ≥ 2\)</span> （考虑输出）</li>
 </ul></li>
 <li>非聚簇索引
 <ul>
-<li><span class="math inline">\(B(R) + \frac{T(R)T(S)}{V(S,K)}\)</span></li>
+<li><span class="math inline">\(B(R) +
+\frac{T(R)T(S)}{V(S,K)}\)</span></li>
 <li><span class="math inline">\(M ≥ 2\)</span> （考虑输出）</li>
 </ul></li>
 </ul></li>
@@ -556,7 +593,8 @@
 </ul></li>
 <li><p>排序</p>
 <ul>
-<li><span class="math inline">\(3 B(R)\)</span> 【不考虑写回】、 <span class="math inline">\(4 B(R)\)</span> 【考虑写回】</li>
+<li><span class="math inline">\(3 B(R)\)</span> 【不考虑写回】、 <span
+class="math inline">\(4 B(R)\)</span> 【考虑写回】</li>
 </ul></li>
 <li><p>并、差、交</p>
 <ul>
@@ -586,19 +624,22 @@
 </ul></li>
 <li>哈希
 <ul>
-<li><span class="math inline">\(\left \lceil \frac{B(R)}{V(R,K)} \right \rceil\)</span></li>
+<li><span class="math inline">\(\left \lceil \frac{B(R)}{V(R,K)} \right
+\rceil\)</span></li>
 <li><span class="math inline">\(M ≥ 2\)</span> （考虑输出）</li>
 </ul></li>
 <li>索引
 <ul>
 <li>聚簇索引
 <ul>
-<li><span class="math inline">\(\left \lceil \frac{B(R)}{V(R,K)} \right \rceil\)</span></li>
+<li><span class="math inline">\(\left \lceil \frac{B(R)}{V(R,K)} \right
+\rceil\)</span></li>
 <li><span class="math inline">\(M ≥ 2\)</span> （考虑输出）</li>
 </ul></li>
 <li>非聚簇索引
 <ul>
-<li><span class="math inline">\(\left \lceil \frac{T(R)}{V(R,K)} \right \rceil\)</span></li>
+<li><span class="math inline">\(\left \lceil \frac{T(R)}{V(R,K)} \right
+\rceil\)</span></li>
 <li><span class="math inline">\(M ≥ 2\)</span> （考虑输出）</li>
 </ul></li>
 </ul></li>
@@ -608,14 +649,24 @@
 <ul>
 <li>逻辑查询优化：
 <ul>
-<li>把形如<span class="math inline">\(\sigma_{F_1 \wedge F_2 \wedge ...\wedge F_n }(E)\)</span>的选择表达式变成串接形式<span class="math inline">\(\sigma_{F_1}(\sigma_{F_2}(...(\sigma_{F_n}(E)))\)</span></li>
+<li>把形如<span class="math inline">\(\sigma_{F_1 \wedge F_2 \wedge
+...\wedge F_n }(E)\)</span>的选择表达式变成串接形式<span
+class="math inline">\(\sigma_{F_1}(\sigma_{F_2}(...(\sigma_{F_n}(E)))\)</span></li>
 <li>将<span class="math inline">\(\sigma\)</span> 移动到树底</li>
-<li>将<span class="math inline">\(\pi\)</span> 移动到底部，若是对某表达式的所有属性进行的，则删去</li>
-<li>将<span class="math inline">\(\sigma\)</span> 和<span class="math inline">\(\pi\)</span> 组合为<span class="math inline">\(\sigma\)</span> 后跟<span class="math inline">\(\pi\)</span> 或单个的形式</li>
+<li>将<span class="math inline">\(\pi\)</span>
+移动到底部，若是对某表达式的所有属性进行的，则删去</li>
+<li>将<span class="math inline">\(\sigma\)</span> 和<span
+class="math inline">\(\pi\)</span> 组合为<span
+class="math inline">\(\sigma\)</span> 后跟<span
+class="math inline">\(\pi\)</span> 或单个的形式</li>
 </ul></li>
 <li>物理查询优化：
 <ul>
-<li>掌握 <span class="math inline">\(\pi\)</span> 、<span class="math inline">\(\sigma_{A=c}\)</span> 、<span class="math inline">\(\sigma_{A&lt;c}\)</span> 、<span class="math inline">\(and\)</span> 、<span class="math inline">\(or\)</span> 、自然连接的代价估计</li>
+<li>掌握 <span class="math inline">\(\pi\)</span> 、<span
+class="math inline">\(\sigma_{A=c}\)</span> 、<span
+class="math inline">\(\sigma_{A&lt;c}\)</span> 、<span
+class="math inline">\(and\)</span> 、<span
+class="math inline">\(or\)</span> 、自然连接的代价估计</li>
 </ul></li>
 </ul>
 <h3 id="并发控制">并发控制📮</h3>
@@ -682,7 +733,8 @@
 <li><p>缓冲区处理策略</p>
 <ul>
 <li>Force:内存中的数据最晚在commit的时候写入磁盘</li>
-<li>No force:内存中的数据可以一直保留，在commit之后过一段时间再写入磁盘。(此时在系统崩溃的时候可能还没写入到磁盘，需要redo)</li>
+<li>No
+force:内存中的数据可以一直保留，在commit之后过一段时间再写入磁盘。(此时在系统崩溃的时候可能还没写入到磁盘，需要redo)</li>
 <li>No steal:不允许在事务commit之前把内存中的数据写入磁盘</li>
 <li>Steal:允许在事务commit之前把内存中的数据写入磁盘。(此时若系统在commit之前崩溃时，已经有数据写入到磁盘了，要恢复到崩溃前的状态，需要Undo)</li>
 <li>一般选用 Steal + No force</li>
@@ -703,7 +755,8 @@
 <p><code>...</code></p>
 <p><code>&lt;end checkpoint&gt;</code></p>
 <p>redo 从 <code>begin checkpoint</code>开始扫描</p>
-<p>undo 扫描到T1，T2 ... Tn 中最早的事务 Ti 的日志记录<code>&lt;Ti , begin&gt;</code>为止</p></li>
+<p>undo 扫描到T1，T2 ... Tn 中最早的事务 Ti
+的日志记录<code>&lt;Ti , begin&gt;</code>为止</p></li>
 </ul></li>
 <li><p>一般使用 &lt;T,X,u,v&gt;，其中旧值为u，新值为v</p></li>
 </ul>

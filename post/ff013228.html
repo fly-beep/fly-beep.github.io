@@ -247,7 +247,8 @@
               <p>对软件架构与中间件课程的主要内容进行总结</p>
 <span id="more"></span>
 <h1 id="软件架构与中间件一">软件架构与中间件（一）</h1>
-<h2 id="第1章-软件架构与中间件的内涵及要点">第1章 软件架构与中间件的内涵及要点🧧</h2>
+<h2 id="第1章-软件架构与中间件的内涵及要点">第1章
+软件架构与中间件的内涵及要点🧧</h2>
 <h3 id="软件架构概述">软件架构概述🌚</h3>
 <p>架构的共性：</p>
 <ul>
@@ -289,9 +290,11 @@
 <h3 id="软件中间件概述">软件中间件概述🌵</h3>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220324141033393.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
 <ul>
-<li>中间件（<span class="math inline">\(Middleware\)</span>）是<strong>一组程序</strong>，应用于分布式系统各应用之中，为系统屏蔽底层通讯和提供公共服务，并保障系统的高可靠性、高可用性、高灵活性。</li>
+<li>中间件（<span
+class="math inline">\(Middleware\)</span>）是<strong>一组程序</strong>，应用于分布式系统各应用之中，为系统屏蔽底层通讯和提供公共服务，并保障系统的高可靠性、高可用性、高灵活性。</li>
 <li>分布式应用借助中间件在不同技术之间共享资源。</li>
-<li>中间件位于客户机/ 服务器的操作系统之上，管理计算机资源和网络通讯。</li>
+<li>中间件位于客户机/
+服务器的操作系统之上，管理计算机资源和网络通讯。</li>
 <li>中间件是<strong>连接两个独立应用程序或独立系统的软件</strong>，即使它们具有不同的接口。</li>
 <li>通过中间件，应用程序可以工作于多平台或OS 环境 。</li>
 </ul>
@@ -312,11 +315,20 @@
 <h3 id="软件架构与中间件设计过程">软件架构与中间件设计过程🎳</h3>
 <p>4+1视图模型：</p>
 <ul>
-<li>⽤例视图：描述系统的典型场景与功能，主要图形包括<span class="math inline">\(use\ case\ diagram\)</span> 等。</li>
-<li>逻辑视图：描述系统的抽象概念与功能(类、对象、接口、模式等)，主要 图形包括<span class="math inline">\(class\ diagrams, Communication\ diagrams\ and\ sequence\ diagrams\)</span>等；</li>
-<li>开发视图：描述系统中的子系统、模块、文件、资源及其之间的关系，主 要图形包括<span class="math inline">\(component\ diagrams, package\ diagrams\)</span>等；</li>
-<li>进程视图：描述系统的进程及其之间的通信协作关系，主要图形包括 <span class="math inline">\(activity\ diagram, sequence\ diagram\)</span>等；</li>
-<li>物理视图：描述系统如何被安装、部署与配置在分布式的物理环境下，主 要图形包括<span class="math inline">\(deployment\ diagram\)</span>等</li>
+<li>⽤例视图：描述系统的典型场景与功能，主要图形包括<span
+class="math inline">\(use\ case\ diagram\)</span> 等。</li>
+<li>逻辑视图：描述系统的抽象概念与功能(类、对象、接口、模式等)，主要
+图形包括<span class="math inline">\(class\ diagrams, Communication\
+diagrams\ and\ sequence\ diagrams\)</span>等；</li>
+<li>开发视图：描述系统中的子系统、模块、文件、资源及其之间的关系，主
+要图形包括<span class="math inline">\(component\ diagrams, package\
+diagrams\)</span>等；</li>
+<li>进程视图：描述系统的进程及其之间的通信协作关系，主要图形包括 <span
+class="math inline">\(activity\ diagram, sequence\
+diagram\)</span>等；</li>
+<li>物理视图：描述系统如何被安装、部署与配置在分布式的物理环境下，主
+要图形包括<span class="math inline">\(deployment\
+diagram\)</span>等</li>
 </ul>
 <p>每个视图从不同的⻆度刻画了系统的结构属性，将它们综合在⼀起就形成了系统的整体架构。逻辑视图和开发视图描述系统的静态结构，而进程视图和物理视图描述系统的动态结构。</p>
 <h2 id="第2章-软件架构的传统风格">第2章 软件架构的传统风格🐸</h2>
@@ -345,8 +357,10 @@
 <li>虚拟机风格：解释器</li>
 <li>其他架构风格：<span class="math inline">\(MVC\)</span></li>
 </ul>
-<p><span class="math inline">\(KWIC索引系统\)</span>（"纯"基本架构风格例子）</p>
-<p>接收按⾏排列的数据、每⾏有若⼲有序排列的词、每个词由若⼲有序排列的字符组成、每⾏都可以循环移位。重复地把第⼀个词删除，然后接到⾏末、<span class="math inline">\(KWIC\)</span>把所有⾏的各种移位结果按照字⺟表顺序输出。</p>
+<p><span
+class="math inline">\(KWIC索引系统\)</span>（"纯"基本架构风格例子）</p>
+<p>接收按⾏排列的数据、每⾏有若⼲有序排列的词、每个词由若⼲有序排列的字符组成、每⾏都可以循环移位。重复地把第⼀个词删除，然后接到⾏末、<span
+class="math inline">\(KWIC\)</span>把所有⾏的各种移位结果按照字⺟表顺序输出。</p>
 <h3 id="主程序-子过程风格">主程序-子过程风格🏜️</h3>
 <p>结构化程序：从功能观点设计系统；结构化设计与逐步细化是这种⽅法的典型实例；逐步分解（基于"定义-使用"关系、用过程调用作为交互机制、主程序的正确性依赖于它所调⽤的⼦程序的正确性）</p>
 <ul>
@@ -379,7 +393,8 @@
 </ul></li>
 </ul>
 <p>优点：已被证明是成功的设计⽅法，可以被⽤于较⼤程序</p>
-<p>缺点： 程序超过10万⾏，表现不好；程序太⼤，开发太慢，测试越来越困难</p>
+<p>缺点：
+程序超过10万⾏，表现不好；程序太⼤，开发太慢，测试越来越困难</p>
 <p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
 <ul>
 <li>分为四个基本功能：输入、移位、排序、输出；主程序按次序调用这四个模块；通过共享的数据存储、使用无约束的读-写协议在模块之间进行数据交换</li>
@@ -412,16 +427,19 @@
 </ul>
 <p>面向对象特点</p>
 <ul>
-<li>优点：复⽤和维护：利⽤封装和聚合提⾼⽣产⼒ 、反映现实世界、容易分解成一个系统</li>
+<li>优点：复⽤和维护：利⽤封装和聚合提⾼⽣产⼒
+、反映现实世界、容易分解成一个系统</li>
 <li>缺点：管理⼤量的对象：怎样确⽴⼤量对象的结构、必须知道对象的身份标识、继承引起复杂度，关键系统中慎⽤</li>
 </ul>
 <p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
 <ul>
-<li>采用<span class="math inline">\(OO\)</span>的思想，数据和作用在数据上的读写操作被封装为object，主程序调用这些object，形成控制流程</li>
+<li>采用<span
+class="math inline">\(OO\)</span>的思想，数据和作用在数据上的读写操作被封装为object，主程序调用这些object，形成控制流程</li>
 <li>数据不再被构件直接共享，⽽是被封装在了object中</li>
 <li>每个对象提供了⼀个接⼝，允许其他对象通过该接⼝调⽤对该对象内封装的数据的操作</li>
 <li>优点：某⼀构件的算法与数据结构的修改不会影响其他构件、构件之间依赖性降低，提⾼了复⽤度</li>
-<li>缺点：不适合功能的扩展、为了增加新功能，要么修改已有的模块，要么就加⼊新的模块， 性能会受到影响</li>
+<li>缺点：不适合功能的扩展、为了增加新功能，要么修改已有的模块，要么就加⼊新的模块，
+性能会受到影响</li>
 </ul>
 <h3 id="数据流风格">数据流风格🏗️</h3>
 <h4 id="数据流风格概述">数据流风格概述🌸</h4>
@@ -454,7 +472,9 @@
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220327201643730.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
 <li><p>过滤器处理数据流的方式：递增的读取和消费数据（数据到来时便被处理，不是收集完了然后处理，即在输入被完全消费之前，输出便产生了）</p></li>
 <li><p>过滤器其他特征：无上下文信息、不保留状态、对上下游的其他过滤器无任何了解。</p></li>
-<li><p>过滤器状态：停⽌状态： 表示过滤器处于待启动状态，当外部启动过滤器后，过滤器处于处理状态；处理状态：表示过滤器正处理输入数据队列中的数据；等待状态：表示过滤器的输入数据队列为空，此时过滤器等待，当有新的数据输入时，过滤器处于处理状态 。</p></li>
+<li><p>过滤器状态：停⽌状态：
+表示过滤器处于待启动状态，当外部启动过滤器后，过滤器处于处理状态；处理状态：表示过滤器正处理输入数据队列中的数据；等待状态：表示过滤器的输入数据队列为空，此时过滤器等待，当有新的数据输入时，过滤器处于处理状态
+。</p></li>
 </ul>
 <p>连接件：连接一个源和一个目的过滤器（转发数据流）</p>
 <ul>
@@ -470,7 +490,8 @@
 </ul>
 <p>解决<span class="math inline">\(KWIC\)</span>问题：</p>
 <ul>
-<li>四个过滤器：输⼊、移位、排序、输出 ；每个过滤器处理数据，然后将结果送⾄下⼀个过滤器；控制机制是分布式的：只要有数据传⼊，过滤器即开始⼯作；过滤器之间的数据共享被严格限制在管道传输</li>
+<li>四个过滤器：输⼊、移位、排序、输出
+；每个过滤器处理数据，然后将结果送⾄下⼀个过滤器；控制机制是分布式的：只要有数据传⼊，过滤器即开始⼯作；过滤器之间的数据共享被严格限制在管道传输</li>
 </ul>
 <h3 id="事件驱动风格">事件驱动风格🐘</h3>
 <ul>
@@ -495,7 +516,8 @@
 </ul>
 <p>例：调试器（debugger）</p>
 <ul>
-<li>⼀旦遇到断点，调试器发布事件，从⽽触发”编辑器”与”变量监测器” ；编辑器将源代码滚动到断点处，变量监测器则更新当前变量值并显示出来。</li>
+<li>⼀旦遇到断点，调试器发布事件，从⽽触发”编辑器”与”变量监测器”
+；编辑器将源代码滚动到断点处，变量监测器则更新当前变量值并显示出来。</li>
 </ul>
 <p>事件调度策略（当事件发生时，已向此事件注册过的所有过程被激发并执行，这时需要确定事件如何被分发到已注册的模块）：</p>
 <ul>
@@ -503,7 +525,9 @@
 <p>被称为"被观察者/观察者"，每一个模块都允许其他模块向自己所能发送的某些事件表明兴趣，当某⼀模块发出某⼀事件时，它⾃动将这些事件发布给那些曾经向⾃⼰注册过此事件的模块。</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329203950882.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329204325365.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
-<p><span class="math inline">\(ConcreteSubject\)</span>连接<span class="math inline">\(ConcreteObserver\)</span>，一旦有事件，<span class="math inline">\(ConcreteSubject\)</span>会通知所有的观察者，每一个观察者都有一个<code>update</code>方法，一旦被通知，观察者调用<code>update</code>方法。</p></li>
+<p><span class="math inline">\(ConcreteSubject\)</span>连接<span
+class="math inline">\(ConcreteObserver\)</span>，一旦有事件，<span
+class="math inline">\(ConcreteSubject\)</span>会通知所有的观察者，每一个观察者都有一个<code>update</code>方法，一旦被通知，观察者调用<code>update</code>方法。</p></li>
 <li><p>带有独立调度模块的事件管理器</p>
 <p>事件调度模块功能：接收到来的事件并分发它们到其它模块。</p>
 <p>调度器决定如何分发事件：</p>
@@ -552,7 +576,8 @@
 </ul>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329212209272.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
 <h3 id="解释器风格">解释器风格🥶</h3>
-<p>例：<span class="math inline">\(java\)</span>虚拟机（<span class="math inline">\(Write\ Once,\ Run\ Anywhere\)</span>）</p>
+<p>例：<span class="math inline">\(java\)</span>虚拟机（<span
+class="math inline">\(Write\ Once,\ Run\ Anywhere\)</span>）</p>
 <p>解释器</p>
 <ul>
 <li>解释器是⼀个⽤来执⾏其他程序的程序，针对不同的硬件平台实现了⼀个虚拟机，⾼抽象层次的程序翻译为低抽象层次所能理解的指令，以消除在程序语⾔与硬件之间存在的语义差异。</li>
@@ -588,11 +613,14 @@
 <ul>
 <li><p>传统解释器（纯粹的解释执行）</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213622694.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
-<li><p>基于字节码的解释器（编译<span class="math inline">\(\rightarrow\)</span> 解释执行）</p>
+<li><p>基于字节码的解释器（编译<span
+class="math inline">\(\rightarrow\)</span> 解释执行）</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213735554.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p></li>
-<li><p>(Just-in-Time)<span class="math inline">\(\ JIT\ \)</span>编译器（编译||解释执行）</p>
+<li><p>(Just-in-Time)<span class="math inline">\(\ JIT\
+\)</span>编译器（编译||解释执行）</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220329213825615.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
-<p>只有当某个函数要被执⾏时，才被编译；⽽且， <span class="math inline">\(JIT\)</span>并不是编译全部的代码，⽽是只编译那些被频繁执⾏的代码段。</p></li>
+<p>只有当某个函数要被执⾏时，才被编译；⽽且， <span
+class="math inline">\(JIT\)</span>并不是编译全部的代码，⽽是只编译那些被频繁执⾏的代码段。</p></li>
 </ul>
 <h3 id="分层结构">分层结构🧴</h3>
 <p>在层次系统中，系统被组织成若干个层次，每个层次由一系列构件组成。</p>
@@ -623,7 +651,10 @@
 <li><p>表示层</p>
 <p>用户接口部分，担负着用户与应用之间的对话功能；检查用户的输入，显示应用的输出；通常使用GUI；在变更时，只需要改写显示控制和数据检查程序，而不影响其他层；不包含或包含一部分业务逻辑。</p></li>
 <li><p>功能层</p>
-<p>应用系统的主体，包括大部分业务处理逻辑 (通常以业务构件的形式存在，如<span class="math inline">\(JavaBean/EJB/COM\)</span>等)；从表示层获取用户的输入数据并加以处理； 处理过程中需要从数据层获取数据或向数据层更新数据；处理结果返回给表示层。</p></li>
+<p>应用系统的主体，包括大部分业务处理逻辑
+(通常以业务构件的形式存在，如<span
+class="math inline">\(JavaBean/EJB/COM\)</span>等)；从表示层获取用户的输入数据并加以处理；
+处理过程中需要从数据层获取数据或向数据层更新数据；处理结果返回给表示层。</p></li>
 <li><p>数据层</p>
 <p>DBMS；接受功能层的数据查询请求，执行请求，并将查询结果返回给功能层；从功能层接受数据存取请求，并将数据写入数据库；请求的执行结果也要返回给功能层。</p></li>
 </ul>
@@ -653,13 +684,17 @@
 </ul></li>
 <li>缺点
 <ul>
-<li>客户端浏览器以同步的请求/响应模式交换数据， 每请求一次服务器就要刷新一次页面；</li>
-<li>受HTTP协议“基于⽂本的数据交换”的限制，在数据查询等响应 速度上，要远远低于C/S架构；</li>
-<li>数据提交一般以页面为单位，数据的动态交互性不强，不利于在线事务处理(<span class="math inline">\(OLTP\)</span>)应用；</li>
+<li>客户端浏览器以同步的请求/响应模式交换数据，
+每请求一次服务器就要刷新一次页面；</li>
+<li>受HTTP协议“基于⽂本的数据交换”的限制，在数据查询等响应
+速度上，要远远低于C/S架构；</li>
+<li>数据提交一般以页面为单位，数据的动态交互性不强，不利于在线事务处理(<span
+class="math inline">\(OLTP\)</span>)应用；</li>
 <li>受限于HTML的表达能力，难以⽀持复杂GUI (如报表等)。</li>
 </ul></li>
 </ul>
-<h3 id="模型-视图-控制器mvc">模型-视图-控制器（<span class="math inline">\(MVC\)</span>）🌊</h3>
+<h3 id="模型-视图-控制器mvc">模型-视图-控制器（<span
+class="math inline">\(MVC\)</span>）🌊</h3>
 <p>构件：模型、视图、控制器。</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220330194825981.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
 <ul>
@@ -670,12 +705,18 @@
 </ul></li>
 <li>视图（<span class="math inline">\(View\)</span>）
 <ul>
-<li>获取用户输入，向控制器（<span class="math inline">\(Controller\)</span>）发送处理请求，接收来自（<span class="math inline">\(Controller\)</span>）的反馈并将模型（<span class="math inline">\(Model\)</span>）的处理结果显示给用户。</li>
-<li>一个模型（<span class="math inline">\(Model\)</span>）可能有多个</li>
+<li>获取用户输入，向控制器（<span
+class="math inline">\(Controller\)</span>）发送处理请求，接收来自（<span
+class="math inline">\(Controller\)</span>）的反馈并将模型（<span
+class="math inline">\(Model\)</span>）的处理结果显示给用户。</li>
+<li>一个模型（<span
+class="math inline">\(Model\)</span>）可能有多个</li>
 </ul></li>
 <li>控制器（<span class="math inline">\(Controller\)</span>）
 <ul>
-<li>接收来自客户的请求、调用模型（<span class="math inline">\(Model\)</span>）执行业务逻辑，调用视图（<span class="math inline">\(View\)</span>）显示执行结果</li>
+<li>接收来自客户的请求、调用模型（<span
+class="math inline">\(Model\)</span>）执行业务逻辑，调用视图（<span
+class="math inline">\(View\)</span>）显示执行结果</li>
 </ul></li>
 </ul>
 <p>连接件：显式调用、隐式调用或其他机制（例如HTTP协议）</p>
@@ -683,7 +724,10 @@
 <ul>
 <li>优点
 <ul>
-<li>分离（<span class="math inline">\(View\)</span>与<span class="math inline">\(Model\)</span>、<span class="math inline">\(Controller\)</span>与<span class="math inline">\(View\)</span>）</li>
+<li>分离（<span class="math inline">\(View\)</span>与<span
+class="math inline">\(Model\)</span>、<span
+class="math inline">\(Controller\)</span>与<span
+class="math inline">\(View\)</span>）</li>
 <li>代码易维护</li>
 <li>同一信息有不同显示方式</li>
 <li>业务逻辑更易调试</li>

@@ -247,33 +247,51 @@
               <h1 id="编译原理期末总结">编译原理期末总结</h1>
 <p>主要针对编译原理期末复习中的一些重点进行归纳总结</p>
 <span id="more"></span>
-<h3 id="first集follow集select集计算">FIRST集、FOLLOW集、SELECT集计算🎃</h3>
+<h3
+id="first集follow集select集计算">FIRST集、FOLLOW集、SELECT集计算🎃</h3>
 <p>FIRST集：</p>
 <ul>
 <li>FIRST集中是可以有<span class="math inline">\(\xi\)</span>的</li>
-<li>如果遇到 <span class="math inline">\(E → aF\)</span> 之类的，FIRST(E)中加入a</li>
-<li>如果遇到 <span class="math inline">\(E → FT\)</span> 之类的，FIRST(E)中加入FIRST(F)中内容，如果 <span class="math inline">\(F → \xi\)</span> ，则 FIRST(E)中加入FIRST(T)中内容，可以一直往后顺延至某一个终结符或FIRST集中没有<span class="math inline">\(\xi\)</span> 的非终结符</li>
+<li>如果遇到 <span class="math inline">\(E → aF\)</span>
+之类的，FIRST(E)中加入a</li>
+<li>如果遇到 <span class="math inline">\(E → FT\)</span>
+之类的，FIRST(E)中加入FIRST(F)中内容，如果 <span class="math inline">\(F
+→ \xi\)</span> ，则
+FIRST(E)中加入FIRST(T)中内容，可以一直往后顺延至某一个终结符或FIRST集中没有<span
+class="math inline">\(\xi\)</span> 的非终结符</li>
 </ul>
 <p>FOLLOW集：</p>
 <ul>
 <li>FOLLOW集中没有 <span class="math inline">\(\xi\)</span></li>
-<li>先在开始符号 S 的FOLLOW中加入 <span class="math inline">\(\$\)</span></li>
-<li>如果遇到 $ ... → FT$ 之类的，FOLLOW(F)中加入 FIRST(T)-<span class="math inline">\(\xi\)</span></li>
+<li>先在开始符号 S 的FOLLOW中加入 <span
+class="math inline">\(\$\)</span></li>
+<li>如果遇到 $ ... → FT$ 之类的，FOLLOW(F)中加入 FIRST(T)-<span
+class="math inline">\(\xi\)</span></li>
 <li>如果遇到 $ ... → Fa$ 之类的，FOLLOW(F)中加入a</li>
-<li>如果遇到 <span class="math inline">\(E → ...T\)</span> 之类的，FOLLOW(T)中加入FOLLOW(E)</li>
+<li>如果遇到 <span class="math inline">\(E → ...T\)</span>
+之类的，FOLLOW(T)中加入FOLLOW(E)</li>
 </ul>
 <p>SELECT集：</p>
 <ul>
 <li>计算SELECT集时，要把所有的语句拆成不含 | 的形式</li>
-<li>如果遇到 <span class="math inline">\(E → T\)</span>之类的，如果FIRST(T)不包含 <span class="math inline">\(\xi\)</span> ，则SELECT=FIRST(T)，如果FIRST(T)包含 <span class="math inline">\(\xi\)</span> ，则SELECT=(FIRST(T)- <span class="math inline">\(\xi\ ) \cup\)</span> FOLLOW(E)</li>
+<li>如果遇到 <span class="math inline">\(E →
+T\)</span>之类的，如果FIRST(T)不包含 <span
+class="math inline">\(\xi\)</span> ，则SELECT=FIRST(T)，如果FIRST(T)包含
+<span class="math inline">\(\xi\)</span> ，则SELECT=(FIRST(T)- <span
+class="math inline">\(\xi\ ) \cup\)</span> FOLLOW(E)</li>
 </ul>
 <h3 id="ll文法和lr文法的判定条件">LL文法和LR文法的判定条件🚀</h3>
 <ul>
-<li>LL文法 文法G是LL(1)的，当且仅当G的任意两个具有相同左部的产生式A → α | β 满足条件：
+<li>LL文法 文法G是LL(1)的，当且仅当G的任意两个具有相同左部的产生式A → α
+| β 满足条件：
 <ol type="1">
-<li>文法不含左递归（即不存在终结符a使得α 和β都能够推导出以a开头的串）</li>
+<li>文法不含左递归（即不存在终结符a使得α
+和β都能够推导出以a开头的串）</li>
 <li>α和β至多有一个能推导出ε</li>
-<li>如果 β <span class="math inline">\(\Rightarrow ^ *\)</span> ε，则FIRST(α) ∩ FOLLOW(A) =Φ；如果 α <span class="math inline">\(\Rightarrow ^ *\)</span> ε，则FIRST(β) ∩ FOLLOW(A) =Φ；</li>
+<li>如果 β <span class="math inline">\(\Rightarrow ^ *\)</span>
+ε，则FIRST(α) ∩ FOLLOW(A) =Φ；如果 α <span
+class="math inline">\(\Rightarrow ^ *\)</span> ε，则FIRST(β) ∩ FOLLOW(A)
+=Φ；</li>
 </ol></li>
 <li>LR文法
 <ul>
@@ -333,7 +351,11 @@
 <p>注：上述语句的<strong>代码结构图</strong>非常重要</p>
 <h3 id="数据流分析技术">数据流分析技术🪆</h3>
 <h4 id="到达定值分析">到达定值分析👨🏻‍🚀</h4>
-<p>对 <span class="math inline">\(d_i\)</span>进行分析，gen是本基本块中的所有 <span class="math inline">\(d_i\)</span>，kill是不在本基本块内，但是和本基本块内 <span class="math inline">\(d_i\)</span>左部相同的<span class="math inline">\(d_j\)</span></p>
+<p>对 <span
+class="math inline">\(d_i\)</span>进行分析，gen是本基本块中的所有 <span
+class="math inline">\(d_i\)</span>，kill是不在本基本块内，但是和本基本块内
+<span class="math inline">\(d_i\)</span>左部相同的<span
+class="math inline">\(d_j\)</span></p>
 <p><span class="math inline">\(IN(B)=\cup OUT(B)\)</span></p>
 <p><span class="math inline">\(OUT(B)=gen \cup (IN(B)-kill)\)</span></p>
 <p>用途：</p>
@@ -346,17 +368,22 @@
 <p>对每一个基本块内的变量进行分析，use是右部中用到的符号，def是左部中符号，若use和def有交集，放在use里</p>
 <p><span class="math inline">\(OUT(B)=\cup IN(B)\)</span></p>
 <p><span class="math inline">\(IN(B)=use \cup (OUT(B)-def)\)</span></p>
-<p>注意：活跃变量分析从<span class="math inline">\(B_n\)</span>开始分析</p>
+<p>注意：活跃变量分析从<span
+class="math inline">\(B_n\)</span>开始分析</p>
 <p>用途：</p>
 <ol type="1">
 <li>删除无用赋值</li>
 <li>为基本块分配寄存器</li>
 </ol>
 <h4 id="可用表达式分析">可用表达式分析🦄</h4>
-<p>对每一个<code>z=x op y</code> 这类的表达式进行分析，先找出所有的<code>x op y</code>，记作S。</p>
-<p>遇到 z = x op y ，e_gen先加入x op y ,然后删掉所有含有z的表达式；e_kill先删掉x op y ，然后加入所有S中含有z的表达式。</p>
+<p>对每一个<code>z=x op y</code>
+这类的表达式进行分析，先找出所有的<code>x op y</code>，记作S。</p>
+<p>遇到 z = x op y ，e_gen先加入x op y
+,然后删掉所有含有z的表达式；e_kill先删掉x op y
+，然后加入所有S中含有z的表达式。</p>
 <p><span class="math inline">\(IN(B)=\cap OUT(B)\)</span></p>
-<p><span class="math inline">\(OUT(B)=e_{gen} \cup (IN(B)-e_{kill})\)</span></p>
+<p><span class="math inline">\(OUT(B)=e_{gen} \cup
+(IN(B)-e_{kill})\)</span></p>
 <p>用途：</p>
 <ol type="1">
 <li>消除全局公共子表达式</li>
@@ -365,25 +392,35 @@
 <h3 id="概念总结主要针对选填">概念总结（主要针对选填）🐼</h3>
 <h4 id="绪论">绪论😶‍🌫️</h4>
 <ul>
-<li>预处理 <span class="math inline">\(\rightarrow\)</span> 编译 <span class="math inline">\(\rightarrow\)</span> 汇编 <span class="math inline">\(\rightarrow\)</span> 链接 <span class="math inline">\(\rightarrow\)</span> 目标机器代码</li>
+<li>预处理 <span class="math inline">\(\rightarrow\)</span> 编译 <span
+class="math inline">\(\rightarrow\)</span> 汇编 <span
+class="math inline">\(\rightarrow\)</span> 链接 <span
+class="math inline">\(\rightarrow\)</span> 目标机器代码</li>
 <li>编译：将高级语言翻译成汇编语言或机器语言的过程</li>
-<li>词法分析中 token ：&lt;种别码，属性值&gt;、语法分析构造<strong>语法分析树</strong>、语义分析收集标识符的属性信息<strong>建立符号表和语义检查</strong></li>
+<li>词法分析中 token
+：&lt;种别码，属性值&gt;、语法分析构造<strong>语法分析树</strong>、语义分析收集标识符的属性信息<strong>建立符号表和语义检查</strong></li>
 </ul>
 <h4 id="语言及其文法">语言及其文法🐻‍❄️</h4>
 <ul>
-<li><p>对于 <span class="math inline">\(\alpha\ \rightarrow\ \beta\)</span></p>
+<li><p>对于 <span class="math inline">\(\alpha\ \rightarrow\
+\beta\)</span></p>
 <ul>
-<li>1型文法 -- 上下文有关文法：<span class="math inline">\(|\alpha|\ ≤\ |\beta|\)</span></li>
-<li>2型文法 -- 上下文无关文法：<span class="math inline">\(\alpha\ \in\ V_N，A\rightarrow \beta\)</span></li>
+<li>1型文法 -- 上下文有关文法：<span class="math inline">\(|\alpha|\ ≤\
+|\beta|\)</span></li>
+<li>2型文法 -- 上下文无关文法：<span class="math inline">\(\alpha\ \in\
+V_N，A\rightarrow \beta\)</span></li>
 <li>3型文法 -- 正则文法：
 <ul>
-<li>右线性文法<span class="math inline">\(A\rightarrow wB\)</span> 或 <span class="math inline">\(A \rightarrow w\)</span><br />
+<li>右线性文法<span class="math inline">\(A\rightarrow wB\)</span> 或
+<span class="math inline">\(A \rightarrow w\)</span><br />
 </li>
-<li>右线性文法<span class="math inline">\(A\rightarrow Bw\)</span> 或 <span class="math inline">\(A \rightarrow w\)</span></li>
+<li>右线性文法<span class="math inline">\(A\rightarrow Bw\)</span> 或
+<span class="math inline">\(A \rightarrow w\)</span></li>
 </ul></li>
 </ul></li>
 <li><p>短语和直接短语：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202205180933517.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/202205180933517.png" srcset="/img/loading.gif" lazyload /></p></li>
 </ul>
 <h4 id="词法分析">词法分析🐒</h4>
 <ul>
@@ -391,12 +428,16 @@
 </ul>
 <h4 id="语法分析">语法分析👻</h4>
 <ul>
-<li>最右推导（规范推导）<span class="math inline">\(\Leftrightarrow\)</span> 最左规约<span class="math inline">\(\Leftrightarrow\)</span>最右句型（规范句型）</li>
+<li>最右推导（规范推导）<span
+class="math inline">\(\Leftrightarrow\)</span> 最左规约<span
+class="math inline">\(\Leftrightarrow\)</span>最右句型（规范句型）</li>
 <li>LL(1)文法不需要回溯，是一种确定的自顶向下分析方法（预测分析法）</li>
-<li>预测分析中错误恢复（恐慌模式）：忽略输入中的一些符号，直到输入中出现由设计者选定的同步词法单元集合中的某个词法单元，将FOLLOW集中元素设置为 <span class="math inline">\(synch\)</span>
+<li>预测分析中错误恢复（恐慌模式）：忽略输入中的一些符号，直到输入中出现由设计者选定的同步词法单元集合中的某个词法单元，将FOLLOW集中元素设置为
+<span class="math inline">\(synch\)</span>
 <ul>
 <li>如果是空：忽略</li>
-<li>如果是 <span class="math inline">\(synch\)</span> ，弹出栈顶非终结符</li>
+<li>如果是 <span class="math inline">\(synch\)</span>
+，弹出栈顶非终结符</li>
 <li>如果是终结符不匹配，弹出终结符</li>
 </ul></li>
 <li>预测分析法实现步骤：
@@ -421,7 +462,8 @@
 <li><p>终结符只能有综合属性</p></li>
 <li><p>一个没有副作用的SDD称为属性文法</p></li>
 <li><p>S-SDD可以按照自底向上顺序计算属性值并且实现</p></li>
-<li><p>如果 S-SDD 的基本文法可以使用LR分析技术，那么它的SDT可以在LR语法分析中实现</p></li>
+<li><p>如果 S-SDD
+的基本文法可以使用LR分析技术，那么它的SDT可以在LR语法分析中实现</p></li>
 <li><p>扩展栈：</p>
 <table>
 <thead>
@@ -434,7 +476,8 @@
 <tbody>
 </tbody>
 </table></li>
-<li><p>如果L-SDD 的基本文法可以使用LL分析技术【LL文法判定】，那么它的SDT可以在LL或LR语法分析中实现</p></li>
+<li><p>如果L-SDD
+的基本文法可以使用LL分析技术【LL文法判定】，那么它的SDT可以在LL或LR语法分析中实现</p></li>
 <li><p>如果选用非递归LL实现，扩展语法分析栈：</p>
 <table>
 <thead>

@@ -24,8 +24,8 @@
 <meta property="og:description" content="对软件架构与中间件课程的主要内容进行总结">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fly-beep.top/img/jgs.jpg">
-<meta property="article:published_time" content="2022-06-13T10:42:45.000Z">
-<meta property="article:modified_time" content="2022-06-13T10:44:58.830Z">
+<meta property="article:published_time" content="2022-11-30T12:49:23.599Z">
+<meta property="article:modified_time" content="2022-11-30T12:57:00.749Z">
 <meta property="article:author" content="顾海耀">
 <meta property="article:tag" content="软件架构与中间件">
 <meta name="twitter:card" content="summary_large_image">
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-06-13 18:42" pubdate>
-        2022年6月13日 晚上
+      <time datetime="2022-11-30 20:49" pubdate>
+        2022年11月30日 晚上
       </time>
     </span>
   
@@ -251,22 +251,30 @@
 <h3 id="数据驱动的软件架构演化">数据驱动的软件架构演化❄️</h3>
 <h4 id="数据与软件">数据与软件🗾</h4>
 <p>一般而言，数据是指对客观事件进行记录并可以鉴别的符号，是对客观事物的性质、状态以及相互关系等进行记载的物理符号或这些物理符号的组合。它是可识别的、抽象的符号。表示形态上，数据可以是狭义上的数字，可以是具有一定意义的文字、字母、数字符号的组合、图形、图像、视频、音频等，也可以是客观事物的属性、数量、位置及其相互关系的抽象表示。在计算机科学中，数据是指所有能输入到计算机并被计算机程序处理的符号的介质的总称，是用于输入电子计算机进行处理，具有一定意义的数字、字母、符号和模拟量等的通称。</p>
-<p>数据与信息：信息与数据既有联系，又有区别。数据是信息的表达、载体，信息是 数据的内涵，是形与质的关系。数据本身没有意义，数据只有对实体行为产生影响时才成为信息。</p>
-<p>数据与语义：数据的表现形式还不能完全表达其内容，需要经过解释，数据和关于 数据的解释是不可分的。数据的解释是指对数据含义的说明，数据的含义称为数据的语义，数据与其语义是不可分的。</p>
+<p>数据与信息：信息与数据既有联系，又有区别。数据是信息的表达、载体，信息是
+数据的内涵，是形与质的关系。数据本身没有意义，数据只有对实体行为产生影响时才成为信息。</p>
+<p>数据与语义：数据的表现形式还不能完全表达其内容，需要经过解释，数据和关于
+数据的解释是不可分的。数据的解释是指对数据含义的说明，数据的含义称为数据的语义，数据与其语义是不可分的。</p>
 <p>数据+语义+逻辑=业务</p>
 <p>代码+业务=软件应用系统</p>
 <h4 id="数据带来的架构变化">数据带来的架构变化🐡</h4>
 <p>数据架构演化：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612222205936.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612222205936.png" srcset="/img/loading.gif" lazyload /></p>
 <p>单机MYSQL：数据量过大，单机存储不下、数据量过大，单机内存存不下数据索引、访问量过大，在读写混合的情况下，一个实例不能承受</p>
-<p>Memcached + MySQL + 垂直分离：Memcached(缓存)蕴意而生，管理缓存。缓存原则：频繁被访问的数据可以被放置于缓存当中，以供频繁访问。垂直分离指按业务划分将不同的数据放在不同的数据库里。</p>
-<p>MySQL主从读写分离：主从复制：容灾备份，缓存备份，保证数据的完整性。 读写分离：增删改是写，查为读。</p>
+<p>Memcached + MySQL +
+垂直分离：Memcached(缓存)蕴意而生，管理缓存。缓存原则：频繁被访问的数据可以被放置于缓存当中，以供频繁访问。垂直分离指按业务划分将不同的数据放在不同的数据库里。</p>
+<p>MySQL主从读写分离：主从复制：容灾备份，缓存备份，保证数据的完整性。
+读写分离：增删改是写，查为读。</p>
 <p>分库分表 + 水平拆分 + MySQL集群</p>
-<p>NoSQL（Not Only SQL）：高性能 - 对数据库高并发读写的需求、海量存储 - 对海量数据的高效率存储和访问的需求、高伸缩性与高可用性 - 对数据库的高可扩展性和高可用性的需求。</p>
+<p>NoSQL（Not Only SQL）：高性能 - 对数据库高并发读写的需求、海量存储 -
+对海量数据的高效率存储和访问的需求、高伸缩性与高可用性 -
+对数据库的高可扩展性和高可用性的需求。</p>
 <h3 id="数据读写与主从分离">数据读写与主从分离🌬️</h3>
 <h4 id="读写分离">读写分离🦑</h4>
 <p>基本原理：将数据库读写操作分散到不同的节点上，数据库服务器搭建主从集群，一主一从、一主多从都可以。数据库主机负责读写操作，从机只负责读操作。数据库主机通过复制将数据同步到从机，每台数据库服务器都存储了所有的业务数据。业务服务器将写操作发给数据库主机，将读操作发给数据库从机。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612234055701.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612234055701.png" srcset="/img/loading.gif" lazyload /></p>
 <p>主从复制延迟问题：如果业务服务器将数据写入到数据库主服务器后立刻进行读取，此时读操作访问的是从机，主机还没有将数据复制过来，到从机读取数据是读不到最新数据的，业务上就可能出现问题。</p>
 <p>应对复制延迟的方案：</p>
 <ul>
@@ -285,7 +293,8 @@
 <p>主备复制基本实现逻辑：</p>
 <ol type="1">
 <li>主机存储数据，通过复制通道将数据复制到备机。</li>
-<li>正常情况下，客户端无论读写操作，都发送给主机，备机不对外提供 任何读写服务。</li>
+<li>正常情况下，客户端无论读写操作，都发送给主机，备机不对外提供
+任何读写服务。</li>
 <li>主机故障情况下，客户端不会自动将请求发给备机，此时整个系统处于不可用状态，不能读写数据，但数据并没有全部丢失，因为备机上有数据。</li>
 <li>如果主机能够恢复（人工或自动），客户端继续访问主机，主机继续将数据复制给备机。</li>
 <li>如果主机不能恢复，则需要人工升级备机为主机，增加新备机，切换访问链路。<br />
@@ -293,7 +302,8 @@
 <li>主机不能恢复的情况下，成功写入主机但还没有复制到备机的数据会丢失，需要人工进行排查和恢复，也许有的数据就永远丢失了，业务上需要考虑如何应对此类风险。</li>
 <li>如果主备间数据复制延迟，由于备机并不对外提供读写操作，因此对业务没有影响，但如果延迟较多，恰好此时主机又宕机了，则可能丢失较多数据，因此对于复制延迟也不能掉以轻心。一般的做法是做复制延迟的监控措施，当延迟数据量较大时及时预警，由人工干预处理。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612234938129.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612234938129.png" srcset="/img/loading.gif" lazyload /></p>
 <p>在此类方案中，备机只起到备份作用。</p>
 <p>优点：对于客户端来说，不需要感知备机的存在，即使灾难恢复后，原来的备机被人工修改为主机后，对于客户端来说，只是认为主机的地址换了，无需知道是原来的备机升级为主机了。对于主机和备机来说，双方只需要进行数据复制即可，无须进行状态判断和主备倒换等复杂操作。</p>
 <p>缺点：备机仅是备份，不提供读写操作，硬件浪费。故障后需人工干预，无法自动恢复。</p>
@@ -309,7 +319,8 @@
 <li>如果主从间数据复制延迟，则会出现主从读取数据不一致问题。</li>
 <li>如果主从间延迟较多，恰好此时主机又宕机了，则可能丢失较多数据，因此对于复制延迟也不能掉以轻心。一般的做法是做复制延迟的监控措施，当延迟数据量较大时及时预警，由人工干预处理。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612235625718.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220612235625718.png" srcset="/img/loading.gif" lazyload /></p>
 <p>优缺点（相对主备复制而言）：主从复制在主机故障时，读操作相关的业务不受影响。主从复制架构的从机提供读操作，发挥了硬件的性能。主从复制要比主备复制复杂，主要体现在客户端需要感知主从关系，并将不同的操作发给不同的机器进行处理。</p>
 <h4 id="主备倒换与主从倒换">主备倒换与主从倒换🦞</h4>
 <p>主备和主从复制的共性问题：主机故障后，无法进行写操作。如果主机无法恢复，需要人工指定新的主机。</p>
@@ -319,7 +330,8 @@
 <li><p>互连式</p>
 <p>主备机直接建立状态传递的渠道，为了充分利用主备自动倒换方案自动决定主机的优势，方案有：主备机共享一个对于客户端来说唯一的地址（如，虚拟IP）。客户端记录主备机各自的IP，备机具有拒绝服务的能力。</p>
 <p>缺点：状态传递通道本身故障了，则备机会主动升级为主机；虽然可以通过多通道来降低通道故障的机率，但是通道越多，后续的状态决策越复杂，特别是容易收到多种矛盾的信息。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001039854.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001039854.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>中介式</p>
 <p>在主备机之间引入第三方中介，主备机之间不直接连接，而都去连接中介，并且通过中介来传递状态信息。结构复杂了，但是从状态传递和决策上更加简单。</p>
 <p>状态决策的步骤：</p>
@@ -330,14 +342,19 @@
 <li>如果是掉电重启或者进程重启，旧的主机初始状态为备机，与中介恢复连接后，发现已经有主机了，保持自己备机状态不变。</li>
 <li>主备机与中介连接都正常的情况下，按照实际的状态决定是否进行倒换，如，响应超时。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001344785.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001344785.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>模拟式</p>
 <p>主备机之间并不传递任何状态数据，而是备机模拟成为一个客户端，向主机发起模拟的读写操作，根据读写操作的响应情况来判断主机的状态。</p>
-<p>模拟式相比互连式的优缺点：实现更加简单。模拟式读写操作获取状态信息只有响应信息（如，HTTP 404，超时，响应时间超过3 s 等），没有互连式那么多样，基于有限的状态来做状态决策，可能出现偏差。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001642145.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p>模拟式相比互连式的优缺点：实现更加简单。模拟式读写操作获取状态信息只有响应信息（如，HTTP
+404，超时，响应时间超过3 s
+等），没有互连式那么多样，基于有限的状态来做状态决策，可能出现偏差。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001642145.png" srcset="/img/loading.gif" lazyload /></p></li>
 </ul>
 <h4 id="主主复制">主主复制🦉</h4>
-<p>主主复制：两台机器都是主机，互相将数据复制给对方，客户端可以任 意挑选其中一台进行读写操作。</p>
+<p>主主复制：两台机器都是主机，互相将数据复制给对方，客户端可以任
+意挑选其中一台进行读写操作。</p>
 <ol type="1">
 <li>两台主机都存储数据，通过复制通道将数据复制到另一台主机。</li>
 <li>正常情况下，客户端可以将读写操作发送给任意一台主机。</li>
@@ -347,19 +364,27 @@
 <li>原有故障主机不能恢复的情况下，成功写入原有故障主机但没有复制到正常主机的数据会丢失。</li>
 <li>如果两台主机间复制延迟，则可能出现客户端刚写入的数据，在另一台主机上读取不到。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001859335.png" srcset="/img/loading.gif" lazyload /></p>
-<p>优缺点：两台主机，无倒换概念。客户端无须区分主备机身份。必须保证数据能够双向复制，然而很多数据无法双向复制，如两个库新插入数据的ID均为100，或者两人对某产品（100件）进行购买，甲从A买了1件，乙从B买了2件，如果复制B to A，则两个数据库都是98。实际应该是97。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613001859335.png" srcset="/img/loading.gif" lazyload /></p>
+<p>优缺点：两台主机，无倒换概念。客户端无须区分主备机身份。必须保证数据能够双向复制，然而很多数据无法双向复制，如两个库新插入数据的ID均为100，或者两人对某产品（100件）进行购买，甲从A买了1件，乙从B买了2件，如果复制B
+to A，则两个数据库都是98。实际应该是97。</p>
 <h4 id="数据集群">数据集群🪆</h4>
 <p>数据库集中集群：一主多备/从。数据都只能往主机写，而读操作可以参考主备，主从的架构进行灵活变化。复杂度高。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613002318599.png" srcset="/img/loading.gif" lazyload /></p>
-<p>数据分散集群：多个服务器组成一个集群，每台服务器都会负责存储一部分数据，同时，为了提升硬件利用率，每台服务器又会备份一部分数据。 数据分散集群的复杂度在于如何将数据分配到不同的服务器上。数据分散集群中，必须要有一个角色来负责执行数据分配算法，可以是独立服务器，如HDFS架构，也可以是集群选举出的服务器，也称之为“主机”，但职责完全不同，如 Elasticsearch。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613002526499.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613002318599.png" srcset="/img/loading.gif" lazyload /></p>
+<p>数据分散集群：多个服务器组成一个集群，每台服务器都会负责存储一部分数据，同时，为了提升硬件利用率，每台服务器又会备份一部分数据。
+数据分散集群的复杂度在于如何将数据分配到不同的服务器上。数据分散集群中，必须要有一个角色来负责执行数据分配算法，可以是独立服务器，如HDFS架构，也可以是集群选举出的服务器，也称之为“主机”，但职责完全不同，如
+Elasticsearch。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613002526499.png" srcset="/img/loading.gif" lazyload /></p>
 <p>集中 VS 分散：</p>
 <ul>
 <li><p>写数据角色</p>
 <p>数据集中集群架构中，客户端只能将数据写到主机。数据分散集群架构中，客户端可以向任意服务器中读写数据。</p></li>
 <li><p>应用场景</p>
-<p>数据集中集群适合数据量不大，集群机器数量不多的场景，如 ZooKeeper 集群，一般个位数机器。数据分散集群，由于其良好的可伸缩性，适合业务数据量巨大、集群机器数量庞大的业务场景，如 Hadoop 集群，可达上千台服务器。</p></li>
+<p>数据集中集群适合数据量不大，集群机器数量不多的场景，如 ZooKeeper
+集群，一般个位数机器。数据分散集群，由于其良好的可伸缩性，适合业务数据量巨大、集群机器数量庞大的业务场景，如
+Hadoop 集群，可达上千台服务器。</p></li>
 </ul>
 <h3 id="数据分库分表">数据分库分表🌞</h3>
 <h4 id="分库分表的基本概念">分库分表的基本概念🀄</h4>
@@ -370,66 +395,88 @@
 <p>分库分表的时机：如果在数据库中表的数量达到了一定量级，则需要进行分表，分解单表的大数据量对索引查询带来的压力，并方便对索引和表结构的变更。如果数据库的吞吐量达到了瓶颈，就需要增加数据库实例，利用多个数据库实例来分解大量的数据库请求带来的系统压力。如果希望在扩容时对应用层的配置改变最少，就需要在每个数据库实例中预留足够的数据库数量。</p>
 <h4 id="分库分表的解决方案">分库分表的解决方案🃏</h4>
 <h5 id="客户端分片">客户端分片⛺</h5>
-<p>客户端分片就是使用分库分表的数据库的应用层直接操作分片逻辑，分片规则需要在同一个应用的多个节点间进行同步，每个应用层都嵌入一个操作切片的逻辑实现，一般通过依赖 Jar 包来实现。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613003827491.png" srcset="/img/loading.gif" lazyload /></p>
+<p>客户端分片就是使用分库分表的数据库的应用层直接操作分片逻辑，分片规则需要在同一个应用的多个节点间进行同步，每个应用层都嵌入一个操作切片的逻辑实现，一般通过依赖
+Jar 包来实现。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613003827491.png" srcset="/img/loading.gif" lazyload /></p>
 <p>具体实现方式分为三种：</p>
 <ul>
 <li><p>在应用层直接实现</p>
 <p>直接在应用层读取分片规则，然后解析分片规则，据此实现切分的路由逻辑，从应用层直接决定每次操作应该使用哪个数据库实例、库、表等。</p>
-<p>需要侵入业务，但实现简单，适合快速上线，切分逻辑由开发者自行定义，容易调试维护。但求开发者既要实现业务逻辑，还需要实现框架需求。 该实现方式会让数据库保持的连接比较多，对整体应用服务器池的维护将造成压力。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004119130.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p>需要侵入业务，但实现简单，适合快速上线，切分逻辑由开发者自行定义，容易调试维护。但求开发者既要实现业务逻辑，还需要实现框架需求。
+该实现方式会让数据库保持的连接比较多，对整体应用服务器池的维护将造成压力。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004119130.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>通过定制 JDBC 协议实现</p>
 <p>可让开发者集中精力实现业务逻辑，无须关心分库分表的实现。</p>
 <p>通过定制JDBC协议来实现，也就是针对业务逻辑层提供与JDBC一致的接口，分库分表在JDBC的内部实现。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004228218.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004228218.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>通过定制 ORM 框架实现</p>
 <p>分片规则实现到ORM框架中或者通过ORM框架支持的扩展机制来完成分库分表的逻辑。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004332626.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004332626.png" srcset="/img/loading.gif" lazyload /></p></li>
 </ul>
 <h5 id="代理分片">代理分片🌁</h5>
 <p>代理分片就是在应用层和数据库层之间增加一个代理层，把分片的路由规则配置在代理层，代理层对外提供与JDBC兼容的接口给应用层。</p>
 <p>应用层的开发人员不用关心分片规则，只需关心业务逻辑的实现，待业务逻辑实现之后，在代理层配置路由规则即可。</p>
 <p>代理层的引入增加了一层网络传输，对性能会造成影响。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004511675.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004511675.png" srcset="/img/loading.gif" lazyload /></p>
 <h5 id="支持事务的分布式数据库">支持事务的分布式数据库🔥</h5>
 <p>现在有很多产品如OceanBase、TiDB等对外提供可伸缩的体系架构，并提供一定的分布式事务支持，将可伸缩的特点和分布式事务的实现包装到分布式数据库内部，对使用者透明，使用者不需要直接控制这些特性。</p>
 <p>TiDB对外提供JDBC的接口，让应用层像使用MySQL等传统数据库一样，无需关注伸缩、分片、事务管理等任务。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004603611.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613004603611.png" srcset="/img/loading.gif" lazyload /></p>
 <h4 id="分库分表的架构设计">分库分表的架构设计📻</h4>
-<p>垂直切分是指按照业务将表进行分类或分拆，将其分布到不同数据库上。不同业务模块的数据可以分散到不同数据库服务器。也可以冷热分离，根据数据的活跃度将数据进行拆分。冷数据：变化更新频率低，查询次数多的数据。热数据：变化更新频率高，活跃的数据。 也可以人为将一个表中的内容划分为多个表，例如将查询较多，变化不多的字段拆分成一张表放在查询性能高的服务器，而将频繁更新的字段拆分并部署到更新性能高的服务器。</p>
-<p>例子：在微博系统的设计中，一个微博对象包括文章标题、作者、分类、创建时间等属性字段，这些字段属于变化频率低的冷数据，而每篇微博的浏览数、回复数、点赞数等类似的统计信息属于变化频率高的热数据。因此，一篇博客的数据可以按照冷热差异，拆分成两张表。冷数据存放的数据库可以使用 MyISAM 引擎，能更好地进行数据查询；热数据存放的数据库可以使用InnoDB存储引擎，更新性能好。读多写少的冷数据库可以部署到缓存数据库上。</p>
-<p>优点：拆分后业务清晰，拆分规则明确，系统之间进行整合或扩展很容易，按照成本、应用的等级或类型等将表放到不同的机器上，便于管理， 便于实现动静分离、冷热分离的数据库表的设计模式，数据维护简单</p>
-<p>缺点：部分业务表无法关联（Join），只能通过接口方式解决，提高了系统的复杂度，受每种业务的不同限制，存在单库性能瓶颈，不易进行数据扩展和提升性能， 事务处理复杂。</p>
+<p>垂直切分是指按照业务将表进行分类或分拆，将其分布到不同数据库上。不同业务模块的数据可以分散到不同数据库服务器。也可以冷热分离，根据数据的活跃度将数据进行拆分。冷数据：变化更新频率低，查询次数多的数据。热数据：变化更新频率高，活跃的数据。
+也可以人为将一个表中的内容划分为多个表，例如将查询较多，变化不多的字段拆分成一张表放在查询性能高的服务器，而将频繁更新的字段拆分并部署到更新性能高的服务器。</p>
+<p>例子：在微博系统的设计中，一个微博对象包括文章标题、作者、分类、创建时间等属性字段，这些字段属于变化频率低的冷数据，而每篇微博的浏览数、回复数、点赞数等类似的统计信息属于变化频率高的热数据。因此，一篇博客的数据可以按照冷热差异，拆分成两张表。冷数据存放的数据库可以使用
+MyISAM
+引擎，能更好地进行数据查询；热数据存放的数据库可以使用InnoDB存储引擎，更新性能好。读多写少的冷数据库可以部署到缓存数据库上。</p>
+<p>优点：拆分后业务清晰，拆分规则明确，系统之间进行整合或扩展很容易，按照成本、应用的等级或类型等将表放到不同的机器上，便于管理，
+便于实现动静分离、冷热分离的数据库表的设计模式，数据维护简单</p>
+<p>缺点：部分业务表无法关联（Join），只能通过接口方式解决，提高了系统的复杂度，受每种业务的不同限制，存在单库性能瓶颈，不易进行数据扩展和提升性能，
+事务处理复杂。</p>
 <p>水平切分不是将表进行分类，而是将其按照某个字段的某种规则分散到多个库中，在每个表中包含一部分数据，所有表加起来是全量数据。简言之，将数据按一定规律，按行切分，并分配到不同的库表里，表结构完全一样。</p>
 <p>例：在博客系统中，当同时有100万个用户在浏览时，如果是单表，则单表会进行100万次请求；假如将其分为100个表，并且分布在10个数据库中，每个表进行1万次请求，则每个数据库会承受10万次请求。当然还可以分配到不同服务器的服务实例中，分的表越多，每个单表的压力越小。</p>
 <p>优点：单库单表的数据保持在一定的量级，有助于性能的提高。切分的表的结构相同，应用层改造较少，只需要增加路由规则即可。提高了系统的稳定性和负载能力</p>
-<p>缺点： 切分后，数据是分散的，很难利用数据库的Join操作，跨库Join性能差。拆分规则难以抽象。分片事务的一致性难以解决。数据扩容的难度和维护量极大</p>
+<p>缺点：
+切分后，数据是分散的，很难利用数据库的Join操作，跨库Join性能差。拆分规则难以抽象。分片事务的一致性难以解决。数据扩容的难度和维护量极大</p>
 <p>垂直，水平切分共同点：存在分布式事务的问题；存在跨节点Join的问题；存在跨节点合并排序、分页的问题；存在多数据源管理的问题；垂直切分更偏向于业务拆分的过程，水平切分更偏向于技术性能指标。</p>
 <p>水平切分的路由过程：分库分表后，数据将分布到不同的分片表中，通过分库分表规则查找到对应的表和库的过程叫做路由。设计表时需要确定对表按照什么样的规则进行分库分表。例如，当生成新用户时，程序得确定将此用户的信息添加到哪个表中。同样，在登录时我们需要通过用户的账号找到数据库中对应的记录。</p>
 <p>水平切分的分片维度：</p>
 <ul>
 <li><p>按哈希切片</p>
-<p>对数据的某个字段求哈希，再除以分片总数后取模，取模后相同的数据一个分片，这样将数据分成多个分片 好处：数据切片比较均匀，对数据压力分散的效果较好 缺点：数据分散后，对于查询需求需要进行聚合处理</p></li>
+<p>对数据的某个字段求哈希，再除以分片总数后取模，取模后相同的数据一个分片，这样将数据分成多个分片
+好处：数据切片比较均匀，对数据压力分散的效果较好
+缺点：数据分散后，对于查询需求需要进行聚合处理</p></li>
 <li><p>按照时间切片 按照时间的范围将数据分布到不同的分片</p></li>
 </ul>
 <p>分片后的事务处理机制</p>
 <p>CAP理论：一个分布式系统不能同时满足“一致性(C)、可用性(A)和分区容错性(P)”需求，最多只能同时满足两个。</p>
 <ul>
-<li>C: Consistency(一致性)：任何一个读操作总是能读取到之前完成的写操作结果，也就是在分布式环境中，多点的数据是一致的；</li>
-<li>A: Availability(可用性)：每一个操作总是能够在确定的时间内返回，也就是系统随时都是可用的；</li>
-<li>P: Tolerance of Network Partition(分区容忍性)：在出现网络分区的情况下，分离的系统也能正常运行。</li>
+<li>C:
+Consistency(一致性)：任何一个读操作总是能读取到之前完成的写操作结果，也就是在分布式环境中，多点的数据是一致的；</li>
+<li>A:
+Availability(可用性)：每一个操作总是能够在确定的时间内返回，也就是系统随时都是可用的；</li>
+<li>P: Tolerance of Network
+Partition(分区容忍性)：在出现网络分区的情况下，分离的系统也能正常运行。</li>
 </ul>
 <p>对于分布式存储系统而言，分区容错性(P)是基本需求，只有CP和AP两种模式的选择。</p>
 <ul>
 <li>CP模式：保证分布在网络上不同节点数据一致性，但对可用性支持不足。</li>
-<li>AP模式：以实现“最终一致性(Eventual Consistency)”来确保可用性和分区容忍性，但弱化了数据一致性要求。</li>
+<li>AP模式：以实现“最终一致性(Eventual
+Consistency)”来确保可用性和分区容忍性，但弱化了数据一致性要求。</li>
 </ul>
 <p>CAP关注的力度是数据，而不是整个系统。每个系统都会处理不同类型的数据，有的数据可以遵守CP，有的可以遵守AP</p>
 <p>CAP是忽略网络延迟的（理论中的C并不可能完美的实现，因为网络延迟），正常运行情况下，不存在CP和AP的选择，可以同时满足CA，放弃并不等于什么都不做，需要为分区恢复后做准备</p>
 <p>两阶段提交协议：参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是中止操作。</p>
 <ol type="1">
-<li><p>请求阶段(表决)：事务协调者通知每个参与者准备提交或取消事务，然后进入表决过程，参与者要么在本地执行事务，写本地的redo和undo日志，但不提交。请求阶段，参与者将告知协调者自己的决策: 同意(事务参与者本地作业执行成功)或取消（本地作业执行故障）</p></li>
-<li><p>提交阶段(执行)：在该阶段，写调整将基于第一个阶段的投票结果进行决策: 提交或取消。当且仅当所有的参与者同意提交事务，协调者才通知所有的参与者提交事务，否则协调者将通知所有的参与者取消事务，参与者在接收到协调者发来的消息后将执行响应的操作。</p></li>
+<li><p>请求阶段(表决)：事务协调者通知每个参与者准备提交或取消事务，然后进入表决过程，参与者要么在本地执行事务，写本地的redo和undo日志，但不提交。请求阶段，参与者将告知协调者自己的决策:
+同意(事务参与者本地作业执行成功)或取消（本地作业执行故障）</p></li>
+<li><p>提交阶段(执行)：在该阶段，写调整将基于第一个阶段的投票结果进行决策:
+提交或取消。当且仅当所有的参与者同意提交事务，协调者才通知所有的参与者提交事务，否则协调者将通知所有的参与者取消事务，参与者在接收到协调者发来的消息后将执行响应的操作。</p></li>
 </ol>
 <p>缺点：同步阻塞问题、单点故障、数据不一致</p>
 <p>三阶段提交协议：针对“单点故障”问题，在第一、二阶段间加入“准备阶段”，当协调者故障后，参与者可以通过超时提交来避免一致阻塞。</p>
@@ -446,14 +493,19 @@
 <li>协调者从所有参与者得到的反馈有一个是No或是等待超时之后协调者都没收到响应:那么就要中断事务，协调者向所有的参与者发送abort请求。参与者在收到来自协调者的abort请求，或超时后仍未收到协调者请求，执行事务中断。</li>
 </ul>
 <ol start="3" type="1">
-<li>doCommit阶段 协调者根据参与者preCommit阶段的响应来决定是否可以继续事务的doCommit 操作</li>
+<li>doCommit阶段
+协调者根据参与者preCommit阶段的响应来决定是否可以继续事务的doCommit
+操作</li>
 </ol>
 <ul>
 <li>协调者从参与者得到了ACK的反馈:协调者接收到参与者发送的ACK响应，那么它将从预提交状态进入到提交状态，并向所有参与者发送doCommit请求。参与者接收到doCommit请求后，执行正式的事务提交，并在完成事务提交之后释放所有事务资源，并向协调者发送haveCommitted的ACK响应。那么协调者收到这个ACK响应之后，完成任务。</li>
-<li>协调者从参与者没有得到ACK的反馈, 也可能是接收者发送的不是ACK响应，也可能是响应超时：执行事务中断。</li>
+<li>协调者从参与者没有得到ACK的反馈,
+也可能是接收者发送的不是ACK响应，也可能是响应超时：执行事务中断。</li>
 </ul>
 <p>最大努力保证模式适用于对一致性要求并不十分严格，但是对性能要求较高的场景。具体实现方法：在更新多个资源时，将多个资源的提交尽量延后到最后一刻处理，如果业务流程出现问题，则所有资源更新都回滚，保持事务一致。</p>
-<p>事务补偿机制：在数据库分库分表后， 如果涉及的多个更新操作在某一个数据库范围内完成，则可以使用数据库内的本地事务保证一致性。对于跨库的多个操作，可通过补偿和重试，使其在一定时间窗口内完成操作。这样既保证了事务的最终一致性，又突破了事务遇到问题就回滚的传统思想。 如果采用事务补偿机制，则在遇到问题时，需要记录遇到问题的环境、信息、步骤、状态等，后续通过重试机制使其达到最终一致性。</p>
+<p>事务补偿机制：在数据库分库分表后，
+如果涉及的多个更新操作在某一个数据库范围内完成，则可以使用数据库内的本地事务保证一致性。对于跨库的多个操作，可通过补偿和重试，使其在一定时间窗口内完成操作。这样既保证了事务的最终一致性，又突破了事务遇到问题就回滚的传统思想。
+如果采用事务补偿机制，则在遇到问题时，需要记录遇到问题的环境、信息、步骤、状态等，后续通过重试机制使其达到最终一致性。</p>
 <p>事务路由：无论使用哪种分布式事务处理方法，都需要对分库分表的多个数据源路由事务。如果更新操作在一个数据库实例内发生，便可以使用数据源的事务来处理。对于跨数据源的事务，可通过在应用层使用最大努力保证模式和事务补偿机制来达成事务的一致性。</p>
 <ul>
 <li><p>自动提交事务路由</p>
@@ -476,22 +528,36 @@
 </ul>
 <h4 id="分库分表的中间件简介">分库分表的中间件简介🎹</h4>
 <p>MyCat</p>
-<p>MyCat 是一个强大的数据库中间件，不仅仅可以用作读写分离、以及分表分库、容灾备份，而且可以用于多租户应用开发、云平台基础设施。MyCat 后面连接的MyCat Server，就好象是MySQL的存储引擎，如InnoDB，MyISAM 等，因此，MyCat 本身并不存储数据，数据是在后端的MySQL上存储的，因此数据可靠性以及事务等都是MySQL保证的。</p>
-<p>MyCat 拦截了用户发送过来的SQL语句，首先对SQL语句做一些特定的分析：如分片分析、路由分析、读写分离分析、缓存分析等，然后将此 SQL 发往后端的真实数据库， 并将返回的结果做适当的处理，最终再返回给用户。 当 MyCat 收到一个SQL时，会先解析这个SQL，查找涉及到的表，然后看此表的定义，如果有分片规则， 则获取到SQL里分片字段的值，并匹配分片函数，得到该SQL对应的分片列表，然后将SQL发往这些分片去执行，最后收集和处理所有分片返回的结果数据，并输出到客户端。</p>
+<p>MyCat
+是一个强大的数据库中间件，不仅仅可以用作读写分离、以及分表分库、容灾备份，而且可以用于多租户应用开发、云平台基础设施。MyCat
+后面连接的MyCat Server，就好象是MySQL的存储引擎，如InnoDB，MyISAM
+等，因此，MyCat
+本身并不存储数据，数据是在后端的MySQL上存储的，因此数据可靠性以及事务等都是MySQL保证的。</p>
+<p>MyCat
+拦截了用户发送过来的SQL语句，首先对SQL语句做一些特定的分析：如分片分析、路由分析、读写分离分析、缓存分析等，然后将此
+SQL 发往后端的真实数据库，
+并将返回的结果做适当的处理，最终再返回给用户。 当 MyCat
+收到一个SQL时，会先解析这个SQL，查找涉及到的表，然后看此表的定义，如果有分片规则，
+则获取到SQL里分片字段的值，并匹配分片函数，得到该SQL对应的分片列表，然后将SQL发往这些分片去执行，最后收集和处理所有分片返回的结果数据，并输出到客户端。</p>
 <p>Sharding JDBC</p>
-<p>Sharding-JDBC是当当应用框架ddframe中，从关系型数据库模块dd-rdb中分离出来的数据库水平分片框架，实现透明化数据库分库分表访问。Sharding-JDBC直接封装JDBC API，可以理解为增强版的JDBC驱动，旧代码迁移成本几乎为零。</p>
+<p>Sharding-JDBC是当当应用框架ddframe中，从关系型数据库模块dd-rdb中分离出来的数据库水平分片框架，实现透明化数据库分库分表访问。Sharding-JDBC直接封装JDBC
+API，可以理解为增强版的JDBC驱动，旧代码迁移成本几乎为零。</p>
 <h3 id="数据缓存">数据缓存⛈️</h3>
 <h4 id="数据缓存的基本理论">数据缓存的基本理论🪗</h4>
 <p>缓存的概念：用于存储数据的硬件或软件组件，以使得后续更快访问响应的数据。缓存中的数据可能是提前计算好的结果、数据的副本等。</p>
 <p>缓存的作用：主要解决高并发，热点数据访问的性能问题。提供高性能的数据快速访问。</p>
-<p>缓存的原理： 将数据写入到读取速度更快的存储、将数据缓存到离应用最近的位置、将数据缓存到离用户最近的位置。</p>
+<p>缓存的原理：
+将数据写入到读取速度更快的存储、将数据缓存到离应用最近的位置、将数据缓存到离用户最近的位置。</p>
 <p>虽然从硬件介质上来看，无非就是内存和硬盘两种，但从技术上，可以分成内存、硬盘文件、数据库。</p>
 <p>数据缓存的基本架构：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613144219176.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613144219176.png" srcset="/img/loading.gif" lazyload /></p>
 <ul>
 <li><p>本地缓存</p>
 <p>本地缓存指的是在应用中的缓存组件，其最大的优点是应用和cache是在同一个进程内部，请求缓存非常快速，没有过多的网络开销等，在单应用不需要集群支持或者集群情况下各节点无需互相通知的场景下使用本地缓存较合适。</p>
-<p>本地缓存的缺点：因为缓存跟应用程序耦合，多个应用程序无法直接的 共享缓存，各应用或集群的各节点都需要维护自己的单独缓存，对内存 是一种浪费。</p>
+<p>本地缓存的缺点：因为缓存跟应用程序耦合，多个应用程序无法直接的
+共享缓存，各应用或集群的各节点都需要维护自己的单独缓存，对内存
+是一种浪费。</p>
 <p>应用场景：缓存字典等常用数据。</p>
 <p>实现方法：应用编码；中间件，如Ehcache、 Guava Cache等</p></li>
 <li><p>分布式缓存</p>
@@ -512,18 +578,28 @@
 <p>基本操作：</p>
 <ul>
 <li><p>命中与验证</p>
-<p>HTTP 再验证：原始服务器的内容可能会发生变化，缓存要不时对其进行检测，看看它们保存的副本是否仍是服务器上最新的副本，进行“新鲜度检测”。</p>
+<p>HTTP
+再验证：原始服务器的内容可能会发生变化，缓存要不时对其进行检测，看看它们保存的副本是否仍是服务器上最新的副本，进行“新鲜度检测”。</p>
 <p>缓存可以在任意时刻，以任意的频率对副本进行再验证。但由于缓存中通常会包含数百万的文档，而且网络带宽是很珍贵的，所以大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。</p>
-<p>为了有效地进行再验证，HTTP 定义了一些特殊的请求，不用从服务器上获取整个对象，就可以快速检测出内容是否是最新的。</p>
-<p>HTTP 为我们提供了几个用来对已缓存对象进行再验证的工具，但最常用的是 If-Modified-Since 首部。将这个首部添加到 GET 请求中去，就可以告诉服务器，只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>为了有效地进行再验证，HTTP
+定义了一些特殊的请求，不用从服务器上获取整个对象，就可以快速检测出内容是否是最新的。</p>
+<p>HTTP 为我们提供了几个用来对已缓存对象进行再验证的工具，但最常用的是
+If-Modified-Since 首部。将这个首部添加到 GET
+请求中去，就可以告诉服务器，只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
 <p>服务器收到 GET If-Modified-Since 请求时的 3 种情况:</p>
 <ol type="1">
-<li>再验证命中(revalidate hit)或缓慢命中(slow hit)：如果服务器对象未被修改，服务器会向客户端发送一个小的 HTTP 304 Not Modified 响应。只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。</li>
-<li>再验证未命中：如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的 HTTP 200 OK 响应。</li>
-<li>对象被删除：如果服务器对象已经被删除了，服务器就回送一个 404 Not Found 响应，缓存也会将其副本删除。</li>
+<li>再验证命中(revalidate hit)或缓慢命中(slow
+hit)：如果服务器对象未被修改，服务器会向客户端发送一个小的 HTTP 304 Not
+Modified
+响应。只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。</li>
+<li>再验证未命中：如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的
+HTTP 200 OK 响应。</li>
+<li>对象被删除：如果服务器对象已经被删除了，服务器就回送一个 404 Not
+Found 响应，缓存也会将其副本删除。</li>
 </ol></li>
 <li><p>清洗</p>
-<p>缓存清空策略：在缓存的存储空间有限制，当缓存空间被用满时，既要保证稳定服务，又要有效提升命中率。 常见的一般策略有：FIFO、LFU、LRU。设计适合自身数据特征的清空策略能有效提升命中率。</p></li>
+<p>缓存清空策略：在缓存的存储空间有限制，当缓存空间被用满时，既要保证稳定服务，又要有效提升命中率。
+常见的一般策略有：FIFO、LFU、LRU。设计适合自身数据特征的清空策略能有效提升命中率。</p></li>
 <li><p>更新</p>
 <p>Cache aside</p>
 <ul>
@@ -533,23 +609,31 @@
 </ul>
 <p>Read/Write Through Pattern</p>
 <ul>
-<li>Read Through 是在查询操作中更新缓存，也就是说，当缓存失效的时候（过期或LRU换出），Cache Aside是由调用方负责把数据加载入缓存，而Read Through则用缓存服务自己来加载，从而对应用方是透明的。</li>
-<li>Write Through 在更新数据时发生。当有数据更新的时候，如果没有命中缓存，直接更新数据库，然后返回。如果命中了缓存则更新缓存，然后再由Cache自己更新数据库（这是一个同步操作）。</li>
+<li>Read Through
+是在查询操作中更新缓存，也就是说，当缓存失效的时候（过期或LRU换出），Cache
+Aside是由调用方负责把数据加载入缓存，而Read
+Through则用缓存服务自己来加载，从而对应用方是透明的。</li>
+<li>Write Through
+在更新数据时发生。当有数据更新的时候，如果没有命中缓存，直接更新数据库，然后返回。如果命中了缓存则更新缓存，然后再由Cache自己更新数据库（这是一个同步操作）。</li>
 </ul>
 <p>Write Behind Caching Pattern</p>
 <ul>
-<li>俗称write back，在更新数据的时候，只更新缓存，不更新数据库，而我们的缓存会异步地批量更新数据库。这个设计的好处就是让数据的I/O操作飞快无比，因为异步（比如消息队列），write back还可以合并对同一个数据的多次操作，所以性能的提高是相当可观的。</li>
+<li>俗称write
+back，在更新数据的时候，只更新缓存，不更新数据库，而我们的缓存会异步地批量更新数据库。这个设计的好处就是让数据的I/O操作飞快无比，因为异步（比如消息队列），write
+back还可以合并对同一个数据的多次操作，所以性能的提高是相当可观的。</li>
 <li>但是这个设计的最大致命问题在于数据的非强一致性，极可能造成数据的丢失。假如使用redis作为缓存数据库，最致命的问题在于redis并不能保证绝对不丢失数据，也就是redis的持久化能力（两种持久化都无法保证数据绝对丢失）不足，redis一旦挂了，可能造成数据丢失且无法恢复。</li>
 </ul></li>
 </ul>
 <h4 id="本地缓存">本地缓存⛰️</h4>
 <p>JVM可以使用的内存分外2种：堆内内存（on-heap）和堆外内存（off-heap）</p>
-<p>堆Heap是内存中动态分配对象存在的地方。如果使用new一个对象，它就被分配在堆内存上。 一般情况下，Java中分配的非空对象都是由JVM的垃圾收集器管理的，也称为堆内内存。虚拟机会定期对垃圾内存进行回收，在某些特定的时间点，它会进行一次彻底的回收。彻底回收时，垃圾收集器会对所有分配的堆内内存进行完整的扫描，这意味着一次垃圾收集对Java应用造成的影响，跟堆的大小是成正比的。过大的堆会影响Java应用的性能。</p>
+<p>堆Heap是内存中动态分配对象存在的地方。如果使用new一个对象，它就被分配在堆内存上。
+一般情况下，Java中分配的非空对象都是由JVM的垃圾收集器管理的，也称为堆内内存。虚拟机会定期对垃圾内存进行回收，在某些特定的时间点，它会进行一次彻底的回收。彻底回收时，垃圾收集器会对所有分配的堆内内存进行完整的扫描，这意味着一次垃圾收集对Java应用造成的影响，跟堆的大小是成正比的。过大的堆会影响Java应用的性能。</p>
 <p>堆外内存意味着把内存对象分配在JVM的堆以外的内存，这些内存直接受操作系统管理（而不是虚拟机）。这样做的结果就是能保持一个较小的堆，以减少垃圾收集对应用的影响。使用堆外内存能够降低JVM垃圾回收导致的暂停。</p>
 <p>本地缓存实现方法：</p>
 <ul>
 <li><p>编程直接实现缓存</p>
-<p>静态变量实现：通过静态变量一次获取到缓存内存中，减少频繁的I/O读取，静态变量实现类间可共享，进程内可共享，缓存的实时性稍差。为了解决本地缓存数据的实时性问题，目前大量使用的是结合ZooKeeper的自动发现机制，实时变更本地静态变量缓存 。</p>
+<p>静态变量实现：通过静态变量一次获取到缓存内存中，减少频繁的I/O读取，静态变量实现类间可共享，进程内可共享，缓存的实时性稍差。为了解决本地缓存数据的实时性问题，目前大量使用的是结合ZooKeeper的自动发现机制，实时变更本地静态变量缓存
+。</p>
 <p>优点是能直接在heap区内读写，最快也最方便；缺点同样是受heap区域影响，缓存的数据量非常有限，同时缓存时间受GC影响。主要满足单机场景下的小数据量缓存需求，同时对缓存数据的变更无需太敏感感知，如上一般配置管理、基础静态数据等场景。</p></li>
 <li><p>中间件 Ehcache</p>
 <p>Ehcache的核心定义主要包括：</p>
@@ -557,7 +641,8 @@
 <li>cache manager：缓存管理器，允许多实例</li>
 <li>cache：缓存管理器内可以放置若干cache，存放数据的实质，所有cache都实现了Ehcache接口，这是一个真正使用的缓存实例；通过缓存管理器的模式，可以在单个应用中轻松隔离多个缓存实例，独立服务于不同业务场景需求，缓存数据物理隔离，同时需要时又可共享使用</li>
 <li>element：单条缓存数据的组成单位。</li>
-<li>system of record（SOR）：可以取到真实数据的组件，可以是真正的业务逻辑、外部接口调用、存放真实数据的数据库等，缓存就是从SOR中读取或者写入到SOR中去的。</li>
+<li>system of
+record（SOR）：可以取到真实数据的组件，可以是真正的业务逻辑、外部接口调用、存放真实数据的数据库等，缓存就是从SOR中读取或者写入到SOR中去的。</li>
 </ul></li>
 </ul>
 <h4 id="分布式缓存">分布式缓存🗻</h4>
@@ -565,30 +650,49 @@
 <ul>
 <li><p>平滑迁移</p>
 <p>最开始是这样的，使用了具有两个分片的缓存集群，通过关键字哈希的方式进行路由，因为两个分片已经不能满足缓存容量的需求，所以现在需要扩容到4个分片，达到原来两倍的缓存总大小，因此我们需要迁移。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/d72l1kh1mk.jpeg" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/d72l1kh1mk.jpeg" srcset="/img/loading.gif" lazyload /></p>
 <p>第一步：双写，按照新规则和旧规则同时往新缓存和旧缓存中写数据</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613163917290.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613163917290.png" srcset="/img/loading.gif" lazyload /></p>
 <p>这个步骤有优化的空间，因为是在成倍扩容的场景下，所以我们不需要准备4个全新的分片。新规则中前两个分片的数据，其实是旧规则中两个分片数据的子集，并且规则一致，所以我们可以重用前两个分片，也就是说一共需要两个新的分片，用来处理关键字哈希取余后为2和3的情况；使用旧的缓存分片来处理关键字哈希取余后0和1的情况即可。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164106338.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164106338.png" srcset="/img/loading.gif" lazyload /></p>
 <p>第二步：迁移历史数据，把旧缓存集群中的历史数据读取出来，按照新的规则写到新的缓存集群中</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164222395.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164222395.png" srcset="/img/loading.gif" lazyload /></p>
 <p>第三步，切读，把应用层所有的读操作路由到新的缓存集群上</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164314432.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164314432.png" srcset="/img/loading.gif" lazyload /></p>
 <p>第四步，下线双写，把写入旧的集群的逻辑下线</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164348681.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164348681.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>一致性哈希</p>
-<p>一致性哈希将整个哈希值空间组织成一个虚拟的圆环（哈希环），如 假设某哈希函数H的值空间为$0 $ ~ <span class="math inline">\(2^{32}-1\)</span>（即哈希值是一个32位无符号整形），整个空间按顺时针方向组织。0和<span class="math inline">\(2^{32}-1\)</span>在零点钟方向重合</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164731708.png" srcset="/img/loading.gif" lazyload /></p>
-<p>将各个服务器使用Hash进行一个哈希，具体可以选择服务器的 IP 或主机名作为关键字进行哈希，这样每台机器就能确定其在哈希环上的位置</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164811228.png" srcset="/img/loading.gif" lazyload /></p>
+<p>一致性哈希将整个哈希值空间组织成一个虚拟的圆环（哈希环），如
+假设某哈希函数H的值空间为$0 $ ~ <span
+class="math inline">\(2^{32}-1\)</span>（即哈希值是一个32位无符号整形），整个空间按顺时针方向组织。0和<span
+class="math inline">\(2^{32}-1\)</span>在零点钟方向重合</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164731708.png" srcset="/img/loading.gif" lazyload /></p>
+<p>将各个服务器使用Hash进行一个哈希，具体可以选择服务器的 IP
+或主机名作为关键字进行哈希，这样每台机器就能确定其在哈希环上的位置</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164811228.png" srcset="/img/loading.gif" lazyload /></p>
 <p>将数据key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针“行走”，第一台遇到的服务器就是其应该定位到的服务器</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164847983.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164847983.png" srcset="/img/loading.gif" lazyload /></p>
 <p>分析一致性哈希算法的容错性和可扩展性：</p>
-<p>现假设Node C不幸宕机，可以看到此时对象A、B、D不会受到影响，只有C对象被重定位到Node D。一般的，在一致性哈希算法中，如果一台服务器不可用，则受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它不会受到影响。</p>
-<p>如果在系统中增加一台服务器Node X，此时对象Object A、B、D不受影响，只有对象C需要重定位到新的Node X 。一般的，在一致性哈希算法中，如果增加一台服务器，则受影响的数据仅仅是新服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它数据也不会受到影响。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164945689.png" srcset="/img/loading.gif" lazyload /></p>
+<p>现假设Node
+C不幸宕机，可以看到此时对象A、B、D不会受到影响，只有C对象被重定位到Node
+D。一般的，在一致性哈希算法中，如果一台服务器不可用，则受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它不会受到影响。</p>
+<p>如果在系统中增加一台服务器Node X，此时对象Object
+A、B、D不受影响，只有对象C需要重定位到新的Node X
+。一般的，在一致性哈希算法中，如果增加一台服务器，则受影响的数据仅仅是新服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它数据也不会受到影响。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164945689.png" srcset="/img/loading.gif" lazyload /></p>
 <p>一致性哈希算法在服务节点太少时，容易因为节点分布不均匀而造成数据倾斜问题。此时必然造成大量数据集中到一个节点上。为了解决这种数据倾斜问题，一致性哈希算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613165216915.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613165216915.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>停机迁移</p>
 <ol type="1">
 <li>停机应用，先将应用停止服务</li>
@@ -596,17 +700,21 @@
 <li>更改应用的数据源配置，指向新的缓存集群</li>
 <li>重新启动应用</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164438158.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613164438158.png" srcset="/img/loading.gif" lazyload /></p>
 <p>该方式简单，高效，能够有效避免数据的不一致，但需要由业务方评估影响，一般在晚上访问量较小，或者非核心服务的场景下比较适用</p></li>
 </ul>
 <p>Redis</p>
 <p>Redis是一个远程内存数据库（非关系型数据库），性能强劲，具有复制特性以及解决问题而生的独一无二的数据模型。它可以存储键值对与5种不同类型的值之间的映射，可以将存储在内存的键值对数据持久化到硬盘，可以使用复制特性来扩展读性能</p>
-<p>Redis内部使用一个 redisObject 对象来标识所有的key和value数据，其中包括：</p>
+<p>Redis内部使用一个 redisObject
+对象来标识所有的key和value数据，其中包括：</p>
 <ul>
 <li>type代表一个value对象具体是何种数据类型</li>
-<li>encoding是不同数据类型在Redis内部的存储方式，比如 —— type=string代表value存储的是一个普通字符串，那么对应的encoding可以是raw或是int，如果是int则代表Redis内部是按数值类型存储和表示这个字符串</li>
+<li>encoding是不同数据类型在Redis内部的存储方式，比如 ——
+type=string代表value存储的是一个普通字符串，那么对应的encoding可以是raw或是int，如果是int则代表Redis内部是按数值类型存储和表示这个字符串</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613165409620.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613165409620.png" srcset="/img/loading.gif" lazyload /></p>
 <p>Redis数据淘汰策略：</p>
 <ul>
 <li>Volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰Volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰</li>
@@ -617,13 +725,16 @@
 </ul>
 <p>数据淘汰内部实现：</p>
 <ul>
-<li>消极方法：在主键被访问时如果发现它已经失效，那么就删除它， 触发时机：在实现GET，MGET，HGET，LRANGE等所有涉及到读取数据的命令时都会调用</li>
+<li>消极方法：在主键被访问时如果发现它已经失效，那么就删除它，
+触发时机：在实现GET，MGET，HGET，LRANGE等所有涉及到读取数据的命令时都会调用</li>
 <li>积极方法：周期性地从设置了失效时间的主键中选择一部分失效的主键删除，触发时机：Redis的时间事件，即每隔一段时间就中断一下完成一些指定操作</li>
 </ul>
 <p>Redis持久化方法：</p>
 <ul>
-<li>RDB（Redis DataBase）：默认的持久化方案，数据库的快照（snapshot）以二进制的方式定时保存到磁盘中</li>
-<li>AOF（Append Only File）：以协议文本的方式，将所有对数据库进行过写入的命令（及其参数）记录到AOF文件，以此达到记录数据库状态的目的</li>
+<li>RDB（Redis
+DataBase）：默认的持久化方案，数据库的快照（snapshot）以二进制的方式定时保存到磁盘中</li>
+<li>AOF（Append Only
+File）：以协议文本的方式，将所有对数据库进行过写入的命令（及其参数）记录到AOF文件，以此达到记录数据库状态的目的</li>
 </ul>
 <h4 id="缓存问题讨论">缓存问题讨论♨️</h4>
 <h5 id="数据一致性">数据一致性⚗️</h5>
@@ -671,40 +782,55 @@
 <p>NoSQL中使用最多的是Key-value存储型，其他的还包含文档型、列存储型、图型数据库、XML数据库等</p>
 <p>NoSQL数据库共有原则：</p>
 <ul>
-<li>假设失效是必然发生的： NoSQL实现都建立在硬盘、机器和网络都会失效这些假设之上，我们不能彻底阻止这些失效，因此需要让系统能够在即使非常极端的条件下也能应付这些失效</li>
+<li>假设失效是必然发生的：
+NoSQL实现都建立在硬盘、机器和网络都会失效这些假设之上，我们不能彻底阻止这些失效，因此需要让系统能够在即使非常极端的条件下也能应付这些失效</li>
 <li>对数据进行分区：最小化失效带来的影响，也将读写操作的负载分布到了不同的机器上</li>
 <li>保存同一数据的多个副本：大部分NoSQL实现都基于数据副本的热备份来保证连续的高可用性。一些实现提供了API，可以控制副本的复制，也就是说，当存储一个对象时，可以在对象级指定希望保存的副本数</li>
 <li>查询支持：在这个方面，不同的实现有本质的区别。不同的实现的一个共性在于哈希表中的Key-value匹配</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613172939164.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613172939164.png" srcset="/img/loading.gif" lazyload /></p>
 <p>NoSQL优缺点：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173415032.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173415032.png" srcset="/img/loading.gif" lazyload /></p>
 <p>NoSQL分类：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173733599.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173733599.png" srcset="/img/loading.gif" lazyload /></p>
 <p>按CAP分类：</p>
 <p>CP：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173809971.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173809971.png" srcset="/img/loading.gif" lazyload /></p>
 <p>AP：</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173826925.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613173826925.png" srcset="/img/loading.gif" lazyload /></p>
 <h4 id="nosql在系统架构中的应用">NoSQL在系统架构中的应用🍚</h4>
 <ul>
 <li><p>以NoSQL为辅</p>
 <p>NoSQL作为镜像：不改变原有的以MySQL作为存储的架构，使用NoSQL作为辅助镜像存储，用NoSQL的优势辅助提升性能。在原有基于MySQL数据库的架构上增加了一层辅助的NoSQL存储。在写入MySQL数据库后，同时写入到NoSQL数据库，让MySQL和NoSQL拥有相同的镜像数据。在某些可以根据主键查询的地方，使用高效的NoSQL数据库查询。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183034974.png" srcset="/img/loading.gif" lazyload /></p>
-<p>同步模式：通过MySQL把数据同步到NoSQL中，是一种对写入透明， 但是具有更高技术难度的一种模式。适用于现有的比较复杂的老系统，通过修改代码不易实现，可能引起新的问题，同时也适用于需要把数据同步到多种类型的存储中。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183452808.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183034974.png" srcset="/img/loading.gif" lazyload /></p>
+<p>同步模式：通过MySQL把数据同步到NoSQL中，是一种对写入透明，
+但是具有更高技术难度的一种模式。适用于现有的比较复杂的老系统，通过修改代码不易实现，可能引起新的问题，同时也适用于需要把数据同步到多种类型的存储中。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183452808.png" srcset="/img/loading.gif" lazyload /></p>
 <p>MySQL与NoSQL组合：MySQL中只存储需要查询的小字段，NoSQL存储所有数据。把需要查询的字段，一般都是数字，时间等类型的小字段存储于MySQL中，根据查询建立相应的索引。其他不需要的字段，包括大文本字段都存储在NoSQL中。在查询的时候，先从MySQL中查询出数据的主键，然后从NoSQL中直接取出对应的数据即可</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183557041.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183557041.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>以NoSQL为主</p>
-<p>纯NoSQL：在一些数据结构、查询关系非常简单的系统中，可以只使用 NoSQL即可以解决存储问题。在一些数据库结构经常变化，数据结构不定的系统中，就非常适合使用NoSQL来存储</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183703378.png" srcset="/img/loading.gif" lazyload /></p>
-<p>以NoSQL为数据源：数据直接写入NoSQL，再通过NoSQL同步协议复制到其他存储。根据应用的逻辑来决定去相应的存储获取数据。应用程序只负责把数据直接写入到NoSQL数据库，然后通过NoSQL的复制协议，把NoSQL的每次写入，更新，删除操作都复制到MySQL数据库中。同时，也可以通过复制协议把数据同步复制到全文检索实现强大的检索功能。这种架构需要考虑数据复制 直接存取NoSQL NoSQL的延迟问题，与主从中的复制延迟问题一样。</p>
-<p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183829078.png" srcset="/img/loading.gif" lazyload /></p></li>
+<p>纯NoSQL：在一些数据结构、查询关系非常简单的系统中，可以只使用
+NoSQL即可以解决存储问题。在一些数据库结构经常变化，数据结构不定的系统中，就非常适合使用NoSQL来存储</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183703378.png" srcset="/img/loading.gif" lazyload /></p>
+<p>以NoSQL为数据源：数据直接写入NoSQL，再通过NoSQL同步协议复制到其他存储。根据应用的逻辑来决定去相应的存储获取数据。应用程序只负责把数据直接写入到NoSQL数据库，然后通过NoSQL的复制协议，把NoSQL的每次写入，更新，删除操作都复制到MySQL数据库中。同时，也可以通过复制协议把数据同步复制到全文检索实现强大的检索功能。这种架构需要考虑数据复制
+直接存取NoSQL NoSQL的延迟问题，与主从中的复制延迟问题一样。</p>
+<p><img
+src="https://raw.githubusercontent.com/fly-beep/picb/master/image-20220613183829078.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>以NoSQL为缓存</p>
 <p>由于NoSQL数据库天生具有高性能、易扩展的特点，所以常常结合关系数据库，存储一些高性能的、海量的数据。从另外一个角度看，根据NoSQL的高性能特点，它同样适合用于缓存数据。用NoSQL缓存数据可以分为内存模式和磁盘持久化模式。</p>
 <ul>
 <li><p>内存模式</p>
-<p>Memcached提供了相当高的读写性能，在互联网发展过程中，一直是缓存服务器的首选，NoSQL数据库Redis又为我们提供了功能更加强大的内存存储功能。跟Memcached比，Redis的一个key可以存储多种数据结构Strings、Hashes、Lists、Sets、Sorted sets。Redis不但功能强大，而且它的性能完全超越了Memcached</p></li>
+<p>Memcached提供了相当高的读写性能，在互联网发展过程中，一直是缓存服务器的首选，NoSQL数据库Redis又为我们提供了功能更加强大的内存存储功能。跟Memcached比，Redis的一个key可以存储多种数据结构Strings、Hashes、Lists、Sets、Sorted
+sets。Redis不但功能强大，而且它的性能完全超越了Memcached</p></li>
 <li><p>磁盘持久化模式</p>
 <p>虽然基于内存的缓存服务器具有高性能，低延迟的特点，但是内存成本高，内存数据易失却不容忽视。大部分互联网应用的特点都是数据访问有热点，也就是说，只有一部分数据是被频繁使用的。其实NoSQL数据库内部也是通过内存缓存来提高性能的，通过一些比较好的算法。使用NoSQL来做缓存，由于其不受内存大小的限制，可以把一些不常访问、不怎么更新的数据也缓存起来</p></li>
 </ul></li>
@@ -748,12 +874,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/post/352464c7.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">软件架构与中间件（四）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/post/352464c7.html">
-                        <span class="hidden-mobile">软件架构与中间件（四）</span>
+                      <a href="/post/cf17def0.html">
+                        <span class="hidden-mobile">软件架构与中间件（二）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
