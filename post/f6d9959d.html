@@ -283,7 +283,7 @@ Name, Dept, Grade)\)</span></li>
 <li>计算某班学生平均分数→</li>
 </ul></li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">double</span> <span class="hljs-title function_">calculateAverageScore</span> <span class="hljs-params">(Struct [] scores)</span> <br>&#123;<br>    检索;<br>    计算平均分算法;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-type">double</span> <span class="hljs-title function_">calculateAverageScore</span> <span class="hljs-params">(Struct [] scores)</span> <br>&#123;<br>    检索;<br>    计算平均分算法;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
 <li><p>软件工程：不同抽象层次之间的映射过程</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251337315.png" srcset="/img/loading.gif" lazyload style="zoom:70%;" /></p>
 <p>现实空间的需求<span class="math inline">\(\rightarrow\)</span>
@@ -351,7 +351,7 @@ class="math inline">\(feedback\)</span>）</p>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251337609.png" srcset="/img/loading.gif" lazyload style="zoom:60%;" /></p>
 <p><strong>本质：以迭代的方式运用瀑布模型</strong></p>
 <p>当使用增量模型时，<strong>第1个增量往往是核心的产品</strong>，即第1个增量实现了基本的需求，但很多补充的特征还没有发布。客户对每一个增量的使用和评估都作为下一个增量发布的新特征和功能，这个过程在每一个增量发布后不断重复，直到产生了最终的完善产品。<strong>增量模型强调每一个增量均发布一个可操作的产品。</strong></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown">例：开发一个类似于Word的字处理软件<br><span class="hljs-code">	增量1：提供基本的文件管理、编辑和文档生成功能</span><br><span class="hljs-code">	增量2：提供高级的文档编辑功能</span><br><span class="hljs-code">	增量3：实现拼写和语法检查功能</span><br><span class="hljs-code">	增量4：完成高级的页面排版功能</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown">例：开发一个类似于Word的字处理软件<br><span class="hljs-code">	增量1：提供基本的文件管理、编辑和文档生成功能</span><br><span class="hljs-code">	增量2：提供高级的文档编辑功能</span><br><span class="hljs-code">	增量3：实现拼写和语法检查功能</span><br><span class="hljs-code">	增量4：完成高级的页面排版功能</span><br></code></pre></div></td></tr></table></figure>
 <ul>
 <li>优点：能够快速推出软件产品，满足客户需求，对客户有一定的镇定作用、不用一下子投入太多资源。灵活性比较高</li>
 <li>缺点：由于软件其他构件是后期加入的，容易导致由于构件之间的不稳定从而使系统崩溃。</li>
@@ -393,7 +393,7 @@ class="math inline">\(feedback\)</span>）</p>
 class="math inline">\(\rightarrow\)</span>客户评价<span
 class="math inline">\(\rightarrow\)</span>制定计划<span
 class="math inline">\(\rightarrow\)</span>...</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown">例：<br>第1圈：开发出产品的规格说明<br>第2圈：开发产品的原型系统<br>第3~n圈：不断的迭代，开发不同的软件版本<br>根据每圈交付后用户的反馈来调整预算、进度、需要迭代的次数<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown">例：<br>第1圈：开发出产品的规格说明<br>第2圈：开发产品的原型系统<br>第3~n圈：不断的迭代，开发不同的软件版本<br>根据每圈交付后用户的反馈来调整预算、进度、需要迭代的次数<br></code></pre></div></td></tr></table></figure>
 <p><strong>与增量、RAD等的最大区别在于重视风险评估</strong></p>
 <ul>
 <li>出发点：开发过程中及时识别和分析风险，并采取适当措施以消除或减少风险带来的危害</li>
@@ -773,23 +773,23 @@ class="math inline">\(committed\)</span>】</li>
 <li>提交更新，将保存在暂存区域的文件快照永久转储到Git目录中</li>
 </ul>
 <h4 id="基本git指令">6.7 基本Git指令</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git status<br>哪些更新未暂存？哪些更新已暂存？<br></code></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git diff<br>比较的是工作目录中当前文件和暂存区域快照之间的差异，也就是修改之后还没有暂存起来的变化内容（修改之后但未加入暂存）<br></code></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git diff --cached<br>比较的是暂存区域内的文件的更改（修改之后加入缓存但尚未提交）<br></code></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git diff HEAD<br>查看已缓存和未缓存的所有差异<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git status<br>哪些更新未暂存？哪些更新已暂存？<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git diff<br>比较的是工作目录中当前文件和暂存区域快照之间的差异，也就是修改之后还没有暂存起来的变化内容（修改之后但未加入暂存）<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git diff --cached<br>比较的是暂存区域内的文件的更改（修改之后加入缓存但尚未提交）<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git diff HEAD<br>查看已缓存和未缓存的所有差异<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251338492.png" srcset="/img/loading.gif" lazyload style="zoom:70%;" /></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git commit -a<br>跳过git add<br></code></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git reset<br>git add的反向操作,使得暂存区与仓库版本一致<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git commit -a<br>跳过git add<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git reset<br>git add的反向操作,使得暂存区与仓库版本一致<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251338369.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></p>
 <p>更改一次<span class="math inline">\(commit\)</span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs git">1.git commit --amend<br>2.git reset HEAD^<br>^表示上一次提交<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">1.git commit --amend<br>2.git reset HEAD^<br>^表示上一次提交<br></code></pre></div></td></tr></table></figure>
 <h4 id="git远程仓库指令">6.8 Git远程仓库指令</h4>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs git">git fetch<br>从远程仓库抓取数据到本地，获取本地仓库尚未拥有的全部更新<br>如果本地仓库有了不同的修改，则需要手工将本地修改与远程仓库的修改合并起来<br>git merge<br>分支合并<br>git pull = git fetch + git merge<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git fetch<br>从远程仓库抓取数据到本地，获取本地仓库尚未拥有的全部更新<br>如果本地仓库有了不同的修改，则需要手工将本地修改与远程仓库的修改合并起来<br>git merge<br>分支合并<br>git pull = git fetch + git merge<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/fly-beep/picb/master/202204251338982.png" srcset="/img/loading.gif" lazyload style="zoom:70%;" /></p>
 <h4 id="git分支指令">6.9 Git分支指令</h4>
 <p><span class="math inline">\(git\)</span>分支本质：指向<span
 class="math inline">\(commit\)</span>对象的可变指针</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">git checkout -b xxx = git branch xxx + git checkout xxx<br>创建分支并跳转<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs git">git checkout -b xxx = git branch xxx + git checkout xxx<br>创建分支并跳转<br></code></pre></div></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/techflow/p/13876755.html"><span
 class="math inline">\(git\)</span>分支</a></p>
 <h4 id="远程分支">6.10 远程分支</h4>
