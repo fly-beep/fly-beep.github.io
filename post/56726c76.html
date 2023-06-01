@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="顾海耀">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="mysql-bulk-loader之MySQLBulkLoaderDialog 前情提要： Kettle组件就是一个step，它有四个类构建而成，每个类职责不同，各司其职。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql-bulk-loader之MySQLBulkLoaderDialog">
+<meta property="og:url" content="https://fly-beep.top/post/56726c76.html">
+<meta property="og:site_name" content="Fly-beep&#39;s Blog">
+<meta property="og:description" content="mysql-bulk-loader之MySQLBulkLoaderDialog 前情提要： Kettle组件就是一个step，它有四个类构建而成，每个类职责不同，各司其职。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-01T18:50:00.000Z">
+<meta property="article:modified_time" content="2023-06-01T19:46:58.790Z">
+<meta property="article:author" content="顾海耀">
+<meta property="article:tag" content="Kettle">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>mysql-bulk-loader之MySQLBulkLoaderDialog - Fly-beep&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/toubudaziji.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"fly-beep.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"9SDM4ZdpdF76KYx9z9yK89zC-MdYXbMMI","app_key":"OiJBGDhFh3KBbnMdv3G0Wf45","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fly-beep</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="mysql-bulk-loader之MySQLBulkLoaderDialog">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-06-02 02:50" pubdate>
+        2023年6月2日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      20k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      170 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mysql-bulk-loader之MySQLBulkLoaderDialog</h1>
+            
+            <div class="markdown-body">
+              <h1
+id="mysql-bulk-loader之mysqlbulkloaderdialog">mysql-bulk-loader之MySQLBulkLoaderDialog</h1>
+<p>前情提要：</p>
+<p>Kettle组件就是一个step，它有四个类构建而成，每个类职责不同，各司其职。</p>
+<span id="more"></span>
+<ul>
+<li>BaseStep:step类，实现了StepInterface接口，它是每个组件实际的业务处理类，组件的功能在这个类里实现。</li>
+<li>BaseStepMeta:step元数据类，实现了StepMetaInterface接口，它的职责是保存和序列化组件的配置。</li>
+<li>BaseStepData:step数据类，实现了StepDataInterface接口，用于存放每个组件在执行过程中的数据。</li>
+<li>BaseStepDialog:step界面类，实现了StepDialogInterface接口，实现组件和用户进行交互的界面，提供一个对组件进行配置的界面。</li>
+</ul>
+<h2 id="mysqlbulkloaderdialog">MySQLBulkLoaderDialog</h2>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@PluginDialog( id = &quot;MySQLBulkLoader&quot;, image = &quot;BLKMYSQL.svg&quot;, pluginType = PluginDialog.PluginType.STEP,</span><br><span class="hljs-meta">  documentationUrl = &quot;http://wiki.pentaho.com/display/EAI/MySQL+Bulk+Loader&quot; )</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MySQLBulkLoaderDialog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseStepDialog</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StepDialogInterface</span> &#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Class&lt;?&gt; PKG = MySQLBulkLoaderDialog.class; <span class="hljs-comment">// for i18n purposes, needed by Translator2!!</span><br><br>  <span class="hljs-keyword">private</span> CCombo wConnection;<br><br>  <span class="hljs-keyword">private</span> Label wlSchema;<br>  <span class="hljs-keyword">private</span> TextVar wSchema;<br>  <span class="hljs-keyword">private</span> FormData fdlSchema, fdSchema;<br><br>  <span class="hljs-keyword">private</span> Label wlTable;<br>  <span class="hljs-keyword">private</span> Button wbTable;<br>  <span class="hljs-keyword">private</span> TextVar wTable;<br>  <span class="hljs-keyword">private</span> FormData fdlTable, fdbTable, fdTable;<br><br>  <span class="hljs-keyword">private</span> Label wlFifoFile;<br>  <span class="hljs-keyword">private</span> TextVar wFifoFile;<br>  <span class="hljs-keyword">private</span> FormData fdlFifoFile, fdFifoFile;<br><br>  <span class="hljs-keyword">private</span> Label wlReplace;<br>  <span class="hljs-keyword">private</span> Button wReplace;<br>  <span class="hljs-keyword">private</span> FormData fdlReplace, fdReplace;<br><br>  <span class="hljs-keyword">private</span> Label wlIgnore;<br>  <span class="hljs-keyword">private</span> Button wIgnore;<br>  <span class="hljs-keyword">private</span> FormData fdlIgnore, fdIgnore;<br><br>  <span class="hljs-keyword">private</span> Label wlLocal;<br>  <span class="hljs-keyword">private</span> Button wLocal;<br>  <span class="hljs-keyword">private</span> FormData fdlLocal, fdLocal;<br><br>  <span class="hljs-keyword">private</span> Label wlDelimiter;<br>  <span class="hljs-keyword">private</span> Button wbDelimiter;<br>  <span class="hljs-keyword">private</span> TextVar wDelimiter;<br>  <span class="hljs-keyword">private</span> FormData fdlDelimiter, fdDelimiter;<br><br>  <span class="hljs-keyword">private</span> Label wlEnclosure;<br>  <span class="hljs-keyword">private</span> TextVar wEnclosure;<br>  <span class="hljs-keyword">private</span> FormData fdlEnclosure, fdEnclosure;<br><br>  <span class="hljs-keyword">private</span> Label wlEscapeChar;<br>  <span class="hljs-keyword">private</span> TextVar wEscapeChar;<br>  <span class="hljs-keyword">private</span> FormData fdlEscapeChar, fdEscapeChar;<br><br>  <span class="hljs-keyword">private</span> Label wlCharSet;<br>  <span class="hljs-keyword">private</span> TextVar wCharSet;<br>  <span class="hljs-keyword">private</span> FormData fdlCharSet, fdCharSet;<br><br>  <span class="hljs-keyword">private</span> Label wlBulkSize;<br>  <span class="hljs-keyword">private</span> TextVar wBulkSize;<br>  <span class="hljs-keyword">private</span> FormData fdlBulkSize, fdBulkSize;<br><br>  <span class="hljs-keyword">private</span> Label wlReturn;<br>  <span class="hljs-keyword">private</span> TableView wReturn;<br>  <span class="hljs-keyword">private</span> FormData fdlReturn, fdReturn;<br><br>  <span class="hljs-keyword">private</span> Button wGetLU;<br>  <span class="hljs-keyword">private</span> FormData fdGetLU;<br>  <span class="hljs-keyword">private</span> Listener lsGetLU;<br><br>  <span class="hljs-keyword">private</span> Button wDoMapping;<br>  <span class="hljs-keyword">private</span> FormData fdDoMapping;<br><br>  <span class="hljs-keyword">private</span> MySQLBulkLoaderMeta input;<br><br>  <span class="hljs-keyword">private</span> ColumnInfo[] ciReturn;<br><br>  <span class="hljs-keyword">private</span> Map&lt;String, Integer&gt; inputFields;<br><br>  <span class="hljs-keyword">private</span> List&lt;ColumnInfo&gt; tableFieldColumns = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;ColumnInfo&gt;();<br>  <br>  <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="构造函数">构造函数</h3>
+<p>用于创建 MySQL Bulk Loader 步骤的图形用户界面（GUI）对话框。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">MySQLBulkLoaderDialog</span><span class="hljs-params">( Shell parent, Object in, TransMeta transMeta, String sname )</span> &#123;<br>  <span class="hljs-built_in">super</span>( parent, (BaseStepMeta) in, transMeta, sname );<br>  input = (MySQLBulkLoaderMeta) in;<br>  inputFields = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;String, Integer&gt;();<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h3 id="open">open</h3>
+<p>其作用是打开一个对话框。这段代码创建了一个对话框，并在对话框中添加了多个控件，如标签、文本框、按钮等，用于接收用户的输入。其中包括一些事件监听器，用于处理控件的修改事件和焦点丢失事件。在最后，通过<code>shell.open()</code>打开对话框，并使用一个循环来处理对话框的事件，直到对话框被关闭。最后，返回步骤名称<code>stepname</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> String <span class="hljs-title function_">open</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Shell</span> <span class="hljs-variable">parent</span> <span class="hljs-operator">=</span> getParent();  <span class="hljs-comment">// 获取父级 Shell</span><br>    <span class="hljs-type">Display</span> <span class="hljs-variable">display</span> <span class="hljs-operator">=</span> parent.getDisplay();  <span class="hljs-comment">// 获取 Display</span><br><br>    shell = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Shell</span>(parent, SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX | SWT.MIN);  <span class="hljs-comment">// 创建一个新的 Shell 对象，并设置样式</span><br>    props.setLook(shell);  <span class="hljs-comment">// 设置外观</span><br><br>    <span class="hljs-comment">// 监听文本框修改事件</span><br>    <span class="hljs-type">ModifyListener</span> <span class="hljs-variable">lsMod</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModifyListener</span>() &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">modifyText</span><span class="hljs-params">(ModifyEvent e)</span> &#123;<br>            input.setChanged();<br>        &#125;<br>    &#125;;<br><br>    <span class="hljs-comment">// 监听焦点丢失事件</span><br>    <span class="hljs-type">FocusListener</span> <span class="hljs-variable">lsFocusLost</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FocusAdapter</span>() &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">focusLost</span><span class="hljs-params">(FocusEvent arg0)</span> &#123;<br>            setTableFieldCombo();<br>        &#125;<br>    &#125;;<br><br>    changed = input.hasChanged();  <span class="hljs-comment">// 判断输入是否有更改</span><br><br>    <span class="hljs-type">FormLayout</span> <span class="hljs-variable">formLayout</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormLayout</span>();  <span class="hljs-comment">// 创建表单布局</span><br>    formLayout.marginWidth = Const.FORM_MARGIN;<br>    formLayout.marginHeight = Const.FORM_MARGIN;<br><br>    shell.setLayout(formLayout);  <span class="hljs-comment">// 设置 Shell 的布局</span><br>    shell.setText(BaseMessages.getString(PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.Shell.Title&quot;</span>));  <span class="hljs-comment">// 设置 Shell 的标题</span><br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">middle</span> <span class="hljs-operator">=</span> props.getMiddlePct();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">margin</span> <span class="hljs-operator">=</span> Const.MARGIN;<br><br>    <span class="hljs-comment">// Stepname line</span><br>    wlStepname = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Label</span>(shell, SWT.RIGHT);<br>    wlStepname.setText(BaseMessages.getString(PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.Stepname.Label&quot;</span>));<br>    props.setLook(wlStepname);<br>    fdlStepname = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormData</span>();<br>    fdlStepname.left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormAttachment</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>    fdlStepname.right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormAttachment</span>(middle, -margin);<br>    fdlStepname.top = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormAttachment</span>(<span class="hljs-number">0</span>, margin);<br>    wlStepname.setLayoutData(fdlStepname);<br>    wStepname = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>(shell, SWT.SINGLE | SWT.LEFT | SWT.BORDER);<br>    wStepname.setText(stepname);<br>    props.setLook(wStepname);<br>    wStepname.addModifyListener(lsMod);<br>    fdStepname = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormData</span>();<br>    fdStepname.left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormAttachment</span>(middle, <span class="hljs-number">0</span>);<br>    fdStepname.top = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormAttachment</span>(<span class="hljs-number">0</span>, margin);<br>    fdStepname.right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FormAttachment</span>(<span class="hljs-number">100</span>, <span class="hljs-number">0</span>);<br>    wStepname.setLayoutData(fdStepname);<br><br>    <span class="hljs-comment">// 其他控件的创建和布局类似，这里省略...</span><br>    <span class="hljs-comment">// ...</span><br><br>    shell.open();  <span class="hljs-comment">// 打开 Shell 对话框</span><br>    <span class="hljs-keyword">while</span> (!shell.isDisposed()) &#123;<br>        <span class="hljs-keyword">if</span> (!display.readAndDispatch()) &#123;<br>            display.sleep();<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> stepname;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="generatemappings">generateMappings</h3>
+<p>用于生成映射关系。这段代码的作用是在MySQL Bulk
+Loader对话框中生成字段的源到目标映射关系。它首先获取源字段和目标字段的元数据，然后检查是否存在缺失的字段，并显示确认对话框。接下来，它弹出一个映射对话框，允许用户输入或编辑映射关系。最后，根据用户输入的映射关系更新界面显示。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">generateMappings</span><span class="hljs-params">()</span> &#123;<br><br>    <span class="hljs-comment">// 获取源字段和目标字段...</span><br>    <span class="hljs-comment">//</span><br>    RowMetaInterface sourceFields;  <span class="hljs-comment">// 源字段的元数据接口</span><br>    RowMetaInterface targetFields;  <span class="hljs-comment">// 目标字段的元数据接口</span><br><br>    <span class="hljs-keyword">try</span> &#123;<br>      sourceFields = transMeta.getPrevStepFields( stepMeta );  <span class="hljs-comment">// 获取前一个步骤的字段信息</span><br>    &#125; <span class="hljs-keyword">catch</span> ( KettleException e ) &#123;<br>      <span class="hljs-keyword">new</span> <span class="hljs-title class_">ErrorDialog</span>( shell,<br>        BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.UnableToFindSourceFields.Title&quot;</span> ),<br>        BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.UnableToFindSourceFields.Message&quot;</span> ), e );<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-comment">// 刷新数据</span><br>    input.setDatabaseMeta( transMeta.findDatabase( wConnection.getText() ) );  <span class="hljs-comment">// 设置输入的数据库连接信息</span><br>    input.setTableName( transMeta.environmentSubstitute( wTable.getText() ) );  <span class="hljs-comment">// 设置输入的表名</span><br>    <span class="hljs-type">StepMetaInterface</span> <span class="hljs-variable">stepMetaInterface</span> <span class="hljs-operator">=</span> stepMeta.getStepMetaInterface();<br>    <span class="hljs-keyword">try</span> &#123;<br>      targetFields = stepMetaInterface.getRequiredFields( transMeta );  <span class="hljs-comment">// 获取目标步骤需要的字段信息</span><br>    &#125; <span class="hljs-keyword">catch</span> ( KettleException e ) &#123;<br>      <span class="hljs-keyword">new</span> <span class="hljs-title class_">ErrorDialog</span>( shell,<br>        BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.UnableToFindTargetFields.Title&quot;</span> ),<br>        BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.UnableToFindTargetFields.Message&quot;</span> ), e );<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    String[] inputNames = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[sourceFields.size()];<br>    <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; sourceFields.size(); i++ ) &#123;<br>      <span class="hljs-type">ValueMetaInterface</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> sourceFields.getValueMeta( i );<br>      inputNames[i] = value.getName() + EnterMappingDialog.STRING_ORIGIN_SEPARATOR + value.getOrigin() + <span class="hljs-string">&quot;)&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 创建现有的映射列表...</span><br>    <span class="hljs-comment">//</span><br>    List&lt;SourceToTargetMapping&gt; mappings = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;SourceToTargetMapping&gt;();<br>    <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">missingSourceFields</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>    <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">missingTargetFields</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">nrFields</span> <span class="hljs-operator">=</span> wReturn.nrNonEmpty();<br>    <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nrFields; i++ ) &#123;<br>      <span class="hljs-type">TableItem</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> wReturn.getNonEmpty( i );<br>      <span class="hljs-type">String</span> <span class="hljs-variable">source</span> <span class="hljs-operator">=</span> item.getText( <span class="hljs-number">2</span> );<br>      <span class="hljs-type">String</span> <span class="hljs-variable">target</span> <span class="hljs-operator">=</span> item.getText( <span class="hljs-number">1</span> );<br><br>      <span class="hljs-type">int</span> <span class="hljs-variable">sourceIndex</span> <span class="hljs-operator">=</span> sourceFields.indexOfValue( source );<br>      <span class="hljs-keyword">if</span> ( sourceIndex &lt; <span class="hljs-number">0</span> ) &#123;<br>        missingSourceFields.append( Const.CR ).append( <span class="hljs-string">&quot;   &quot;</span> ).append( source ).append( <span class="hljs-string">&quot; --&gt; &quot;</span> ).append( target );<br>      &#125;<br>      <span class="hljs-type">int</span> <span class="hljs-variable">targetIndex</span> <span class="hljs-operator">=</span> targetFields.indexOfValue( target );<br>      <span class="hljs-keyword">if</span> ( targetIndex &lt; <span class="hljs-number">0</span> ) &#123;<br>        missingTargetFields.append( Const.CR ).append( <span class="hljs-string">&quot;   &quot;</span> ).append( source ).append( <span class="hljs-string">&quot; --&gt; &quot;</span> ).append( target );<br>      &#125;<br>      <span class="hljs-keyword">if</span> ( sourceIndex &lt; <span class="hljs-number">0</span> || targetIndex &lt; <span class="hljs-number">0</span> ) &#123;<br>        <span class="hljs-keyword">continue</span>;<br>      &#125;<br><br>      <span class="hljs-type">SourceToTargetMapping</span> <span class="hljs-variable">mapping</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SourceToTargetMapping</span>( sourceIndex, targetIndex );<br>      mappings.add( mapping );<br>    &#125;<br><br>    <span class="hljs-comment">// 如果存在缺失字段，则显示确认对话框</span><br>    <span class="hljs-comment">//</span><br>    <span class="hljs-keyword">if</span> ( missingSourceFields.length() &gt; <span class="hljs-number">0</span> || missingTargetFields.length() &gt; <span class="hljs-number">0</span> ) &#123;<br><br>      <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br>      <span class="hljs-keyword">if</span> ( missingSourceFields.length() &gt; <span class="hljs-number">0</span> ) &#123;<br>        message +=<br>          BaseMessages.getString(<br>            PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.SomeSourceFieldsNotFound&quot;</span>, missingSourceFields.toString() )<br>            + Const.CR;<br>      &#125;<br>      <span class="hljs-keyword">if</span> ( missingTargetFields.length() &gt; <span class="hljs-number">0</span> ) &#123;<br>        message +=<br>          BaseMessages.getString(<br>            PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.SomeTargetFieldsNotFound&quot;</span>, missingSourceFields.toString() )<br>            + Const.CR;<br>      &#125;<br>      message += Const.CR;<br>      message +=<br>        BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.SomeFieldsNotFoundContinue&quot;</span> ) + Const.CR;<br>      MessageDialog.setDefaultImage( GUIResource.getInstance().getImageSpoon() );<br>      <span class="hljs-type">boolean</span> <span class="hljs-variable">goOn</span> <span class="hljs-operator">=</span><br>        MessageDialog.openConfirm( shell, BaseMessages.getString(<br>          PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.DoMapping.SomeFieldsNotFoundTitle&quot;</span> ), message );<br>      <span class="hljs-keyword">if</span> ( !goOn ) &#123;<br>        <span class="hljs-keyword">return</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-type">EnterMappingDialog</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span><br>      <span class="hljs-keyword">new</span> <span class="hljs-title class_">EnterMappingDialog</span>( MySQLBulkLoaderDialog.<span class="hljs-built_in">this</span>.shell, sourceFields.getFieldNames(), targetFields<br>        .getFieldNames(), mappings );  <span class="hljs-comment">// 创建映射对话框</span><br>    mappings = d.open();<br><br>    <span class="hljs-comment">// 如果用户确认了映射对话框，则更新界面显示</span><br>    <span class="hljs-comment">//</span><br>    <span class="hljs-keyword">if</span> ( mappings != <span class="hljs-literal">null</span> ) &#123;<br>      <span class="hljs-comment">// 清除并重新填充列表</span><br>      <span class="hljs-comment">//</span><br>      wReturn.table.removeAll();<br>      wReturn.table.setItemCount( mappings.size() );<br>      <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; mappings.size(); i++ ) &#123;<br>        <span class="hljs-type">SourceToTargetMapping</span> <span class="hljs-variable">mapping</span> <span class="hljs-operator">=</span> mappings.get( i );<br>        <span class="hljs-type">TableItem</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> wReturn.table.getItem( i );<br>        item.setText( <span class="hljs-number">2</span>, sourceFields.getValueMeta( mapping.getSourcePosition() ).getName() );<br>        item.setText( <span class="hljs-number">1</span>, targetFields.getValueMeta( mapping.getTargetPosition() ).getName() );<br>        item.setText( <span class="hljs-number">3</span>, MySQLBulkLoaderMeta.getFieldFormatTypeDescription( input.getFieldFormatType()[i] ) );<br>      &#125;<br>      wReturn.setRowNums();<br>      wReturn.optWidth( <span class="hljs-literal">true</span> );<br>    &#125;<br>  &#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="getdata">getData</h3>
+<p>用于获取MySQL Bulk Loader对话框中的数据并将其显示在界面上。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getData</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> ( log.isDebug() ) &#123;<br>      logDebug( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.Log.GettingKeyInfo&quot;</span> ) );<br>    &#125;<br><br>    wEnclosure.setText( Const.NVL( input.getEnclosure(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 设置包围符文本框的内容</span><br>    wDelimiter.setText( Const.NVL( input.getDelimiter(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 设置分隔符文本框的内容</span><br>    wEscapeChar.setText( Const.NVL( input.getEscapeChar(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 设置转义字符文本框的内容</span><br>    wCharSet.setText( Const.NVL( input.getEncoding(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 设置字符集文本框的内容</span><br>    wReplace.setSelection( input.isReplacingData() );  <span class="hljs-comment">// 设置替换数据复选框的选择状态</span><br>    wIgnore.setSelection( input.isIgnoringErrors() );  <span class="hljs-comment">// 设置忽略错误复选框的选择状态</span><br>    wLocal.setSelection( input.isLocalFile() );  <span class="hljs-comment">// 设置本地文件复选框的选择状态</span><br>    wBulkSize.setText( Const.NVL( input.getBulkSize(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 设置批量大小文本框的内容</span><br><br>    <span class="hljs-keyword">if</span> ( input.getFieldTable() != <span class="hljs-literal">null</span> ) &#123;<br>      <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; input.getFieldTable().length; i++ ) &#123;<br>        <span class="hljs-type">TableItem</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> wReturn.table.getItem( i );<br>        <span class="hljs-keyword">if</span> ( input.getFieldTable()[i] != <span class="hljs-literal">null</span> ) &#123;<br>          item.setText( <span class="hljs-number">1</span>, input.getFieldTable()[i] );  <span class="hljs-comment">// 设置字段表格中第一列的内容</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> ( input.getFieldStream()[i] != <span class="hljs-literal">null</span> ) &#123;<br>          item.setText( <span class="hljs-number">2</span>, input.getFieldStream()[i] );  <span class="hljs-comment">// 设置字段表格中第二列的内容</span><br>        &#125;<br>        item.setText( <span class="hljs-number">3</span>, MySQLBulkLoaderMeta.getFieldFormatTypeDescription( input.getFieldFormatType()[i] ) );  <span class="hljs-comment">// 设置字段表格中第三列的内容</span><br>      &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> ( input.getDatabaseMeta() != <span class="hljs-literal">null</span> ) &#123;<br>      wConnection.setText( input.getDatabaseMeta().getName() );  <span class="hljs-comment">// 设置数据库连接文本框的内容</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">if</span> ( transMeta.nrDatabases() == <span class="hljs-number">1</span> ) &#123;<br>        wConnection.setText( transMeta.getDatabase( <span class="hljs-number">0</span> ).getName() );  <span class="hljs-comment">// 设置数据库连接文本框的内容为唯一数据库的名称</span><br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> ( input.getSchemaName() != <span class="hljs-literal">null</span> ) &#123;<br>      wSchema.setText( input.getSchemaName() );  <span class="hljs-comment">// 设置模式名文本框的内容</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> ( input.getTableName() != <span class="hljs-literal">null</span> ) &#123;<br>      wTable.setText( input.getTableName() );  <span class="hljs-comment">// 设置表名文本框的内容</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> ( input.getFifoFileName() != <span class="hljs-literal">null</span> ) &#123;<br>      wFifoFile.setText( input.getFifoFileName() );  <span class="hljs-comment">// 设置FIFO文件名文本框的内容</span><br>    &#125;<br><br>    wReturn.setRowNums();  <span class="hljs-comment">// 设置字段表格的行号</span><br>    wReturn.optWidth( <span class="hljs-literal">true</span> );  <span class="hljs-comment">// 调整字段表格的列宽</span><br><br>    wStepname.selectAll();  <span class="hljs-comment">// 选中步骤名称文本框的内容</span><br>    wStepname.setFocus();  <span class="hljs-comment">// 将焦点设置在步骤名称文本框中</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="setcomboboxes">setComboBoxes</h3>
+<p>用于设置下拉列表框的选项。</p>
+<p>代码的功能概述如下：</p>
+<ol type="1">
+<li>创建一个<code>HashMap</code>对象<code>fields</code>，用于存储字段名称和对应的索引。</li>
+<li>将输入字段<code>inputFields</code>中的字段添加到<code>fields</code>中。</li>
+<li>获取<code>fields</code>中的键集合，并将其转换为<code>List</code>类型的<code>entries</code>。</li>
+<li>将<code>entries</code>转换为数组<code>fieldNames</code>，并按字母顺序排序。</li>
+<li>将排序后的<code>fieldNames</code>设置为下拉列表框的选项。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setComboBoxes</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// Something was changed in the row.</span><br>    <span class="hljs-comment">//</span><br>    <span class="hljs-keyword">final</span> Map&lt;String, Integer&gt; fields = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;String, Integer&gt;();  <span class="hljs-comment">// 创建一个存储字段名称和索引的哈希映射</span><br><br>    <span class="hljs-comment">// Add the currentMeta fields...</span><br>    fields.putAll( inputFields );  <span class="hljs-comment">// 将输入字段inputFields中的字段添加到fields中</span><br><br>    Set&lt;String&gt; keySet = fields.keySet();  <span class="hljs-comment">// 获取fields的键集合</span><br>    List&lt;String&gt; entries = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;( keySet );  <span class="hljs-comment">// 将键集合转换为列表类型</span><br><br>    String[] fieldNames = entries.toArray( <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[entries.size()] );  <span class="hljs-comment">// 将列表转换为数组</span><br>    Const.sortStrings( fieldNames );  <span class="hljs-comment">// 按字母顺序排序数组</span><br>    <span class="hljs-comment">// return fields</span><br>    ciReturn[<span class="hljs-number">1</span>].setComboValues( fieldNames );  <span class="hljs-comment">// 设置下拉列表框的选项为排序后的字段数组</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="cancel">cancel</h3>
+<p>用于取消操作。</p>
+<p>代码的功能概述如下：</p>
+<ol type="1">
+<li>将变量<code>stepname</code>设置为<code>null</code>，即取消当前步骤的名称。</li>
+<li>将输入对象<code>input</code>的<code>changed</code>属性设置为<code>changed</code>变量的值，表示输入对象是否发生了改变。</li>
+<li>释放资源，关闭对话框。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">cancel</span><span class="hljs-params">()</span> &#123;<br>    stepname = <span class="hljs-literal">null</span>;  <span class="hljs-comment">// 取消当前步骤的名称</span><br>    input.setChanged( changed );  <span class="hljs-comment">// 设置输入对象的changed属性，表示是否发生了改变</span><br>    dispose();  <span class="hljs-comment">// 释放资源，关闭对话框</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="getinfo">getInfo</h3>
+<p>用于获取用户在对话框中输入的信息，并将其设置到给定的<code>MySQLBulkLoaderMeta</code>对象中。代码的功能概述如下：</p>
+<ol type="1">
+<li>获取字段的数量<code>nrfields</code>。</li>
+<li>根据字段数量分配<code>MySQLBulkLoaderMeta</code>对象的内存。</li>
+<li>将用户在对话框中输入的各项信息设置到<code>inf</code>对象的对应属性中，包括封闭符号、分隔符、转义字符、编码方式、是否替换数据、是否忽略错误、是否使用本地文件、批量大小等。</li>
+<li>遍历字段列表，将字段表、字段流和字段格式类型设置到<code>inf</code>对象的相应属性中。</li>
+<li>设置模式名称、表名称、数据库连接元数据和FIFO文件名。</li>
+<li>将步骤名称设置为<code>wStepname</code>文本框中的值。</li>
+<li>返回步骤名称。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getInfo</span><span class="hljs-params">( MySQLBulkLoaderMeta inf )</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">nrfields</span> <span class="hljs-operator">=</span> wReturn.nrNonEmpty();  <span class="hljs-comment">// 获取字段的数量</span><br><br>    inf.allocate( nrfields );  <span class="hljs-comment">// 根据字段数量分配内存</span><br><br>    inf.setEnclosure( wEnclosure.getText() );  <span class="hljs-comment">// 设置封闭符号</span><br>    inf.setDelimiter( wDelimiter.getText() );  <span class="hljs-comment">// 设置分隔符</span><br>    inf.setEscapeChar( wEscapeChar.getText() );  <span class="hljs-comment">// 设置转义字符</span><br>    inf.setEncoding( wCharSet.getText() );  <span class="hljs-comment">// 设置编码方式</span><br>    inf.setReplacingData( wReplace.getSelection() );  <span class="hljs-comment">// 设置是否替换数据</span><br>    inf.setIgnoringErrors( wIgnore.getSelection() );  <span class="hljs-comment">// 设置是否忽略错误</span><br>    inf.setLocalFile( wLocal.getSelection() );  <span class="hljs-comment">// 设置是否使用本地文件</span><br>    inf.setBulkSize( wBulkSize.getText() );  <span class="hljs-comment">// 设置批量大小</span><br><br>    <span class="hljs-keyword">if</span> ( log.isDebug() ) &#123;<br>        logDebug( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.Log.FoundFields&quot;</span>, <span class="hljs-string">&quot;&quot;</span> + nrfields ) );<br>    &#125;<br><br>    <span class="hljs-comment">// 遍历字段列表，设置字段表、字段流和字段格式类型</span><br>    <span class="hljs-keyword">for</span> ( <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nrfields; i++ ) &#123;<br>        <span class="hljs-type">TableItem</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> wReturn.getNonEmpty( i );<br>        inf.getFieldTable()[i] = item.getText( <span class="hljs-number">1</span> );<br>        inf.getFieldStream()[i] = item.getText( <span class="hljs-number">2</span> );<br>        inf.getFieldFormatType()[i] = MySQLBulkLoaderMeta.getFieldFormatType( item.getText( <span class="hljs-number">3</span> ) );<br>    &#125;<br><br>    inf.setSchemaName( wSchema.getText() );  <span class="hljs-comment">// 设置模式名称</span><br>    inf.setTableName( wTable.getText() );  <span class="hljs-comment">// 设置表名称</span><br>    inf.setDatabaseMeta( transMeta.findDatabase( wConnection.getText() ) );  <span class="hljs-comment">// 设置数据库连接元数据</span><br>    inf.setFifoFileName( wFifoFile.getText() );  <span class="hljs-comment">// 设置FIFO文件名</span><br><br>    stepname = wStepname.getText(); <span class="hljs-comment">// 返回步骤名称</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="ok">ok</h3>
+<p>这段代码是一个私有方法<code>ok()</code>，用于在用户单击对话框中的"OK"按钮时执行的操作。代码的功能概述如下：</p>
+<ol type="1">
+<li>检查步骤名称是否为空，如果为空，则直接返回。</li>
+<li>将对话框中的信息设置到<code>input</code>对象中，调用了前面提到的<code>getInfo()</code>方法。</li>
+<li>检查<code>input</code>对象中的数据库连接元数据是否为空，如果为空，则显示一个错误提示框。</li>
+<li>关闭对话框。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ok</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> ( Utils.isEmpty( wStepname.getText() ) ) &#123;  <span class="hljs-comment">// 检查步骤名称是否为空</span><br>        <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 如果为空，则直接返回</span><br>    &#125;<br><br>    <span class="hljs-comment">// 将对话框中的信息设置到input对象中</span><br>    getInfo( input );<br><br>    <span class="hljs-keyword">if</span> ( input.getDatabaseMeta() == <span class="hljs-literal">null</span> ) &#123;  <span class="hljs-comment">// 检查数据库连接元数据是否为空</span><br>        <span class="hljs-type">MessageBox</span> <span class="hljs-variable">mb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageBox</span>( shell, SWT.OK | SWT.ICON_ERROR );<br>        mb.setMessage( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.InvalidConnection.DialogMessage&quot;</span> ) );<br>        mb.setText( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.InvalidConnection.DialogTitle&quot;</span> ) );<br>        mb.open();  <span class="hljs-comment">// 显示错误提示框</span><br>    &#125;<br><br>    dispose();  <span class="hljs-comment">// 关闭对话框</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="gettablename">getTableName</h3>
+<p>用于获取数据库中的表名。代码的功能概述如下：</p>
+<ol type="1">
+<li>根据用户选择的数据库连接，获取相应的数据库元数据对象。</li>
+<li>如果数据库元数据对象不为空，则打开一个数据库浏览器对话框，让用户选择表名和模式名。</li>
+<li>如果用户在数据库浏览器对话框中进行了选择并确认，则将选择的模式名和表名设置到相应的文本框中。</li>
+<li>如果数据库元数据对象为空，则显示一个错误提示框。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getTableName</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">DatabaseMeta</span> <span class="hljs-variable">inf</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;  <span class="hljs-comment">// 数据库元数据对象</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">connr</span> <span class="hljs-operator">=</span> wConnection.getSelectionIndex();  <span class="hljs-comment">// 获取用户选择的数据库连接索引</span><br>    <span class="hljs-keyword">if</span> ( connr &gt;= <span class="hljs-number">0</span> ) &#123;<br>        inf = transMeta.getDatabase( connr );  <span class="hljs-comment">// 根据索引获取数据库元数据对象</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> ( inf != <span class="hljs-literal">null</span> ) &#123;  <span class="hljs-comment">// 如果数据库元数据对象不为空</span><br>        <span class="hljs-keyword">if</span> ( log.isDebug() ) &#123;<br>            logDebug( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.Log.LookingAtConnection&quot;</span> ) + inf.toString() );<br>        &#125;<br><br>        <span class="hljs-comment">// 打开一个数据库浏览器对话框</span><br>        <span class="hljs-type">DatabaseExplorerDialog</span> <span class="hljs-variable">std</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatabaseExplorerDialog</span>( shell, SWT.NONE, inf, transMeta.getDatabases() );<br>        std.setSelectedSchemaAndTable( wSchema.getText(), wTable.getText() );  <span class="hljs-comment">// 设置已选的模式名和表名</span><br>        <span class="hljs-keyword">if</span> ( std.open() ) &#123;  <span class="hljs-comment">// 用户确认选择</span><br>            wSchema.setText( Const.NVL( std.getSchemaName(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 将选择的模式名设置到文本框</span><br>            wTable.setText( Const.NVL( std.getTableName(), <span class="hljs-string">&quot;&quot;</span> ) );  <span class="hljs-comment">// 将选择的表名设置到文本框</span><br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-type">MessageBox</span> <span class="hljs-variable">mb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageBox</span>( shell, SWT.OK | SWT.ICON_ERROR );<br>        mb.setMessage( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.InvalidConnection.DialogMessage&quot;</span> ) );<br>        mb.setText( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.InvalidConnection.DialogTitle&quot;</span> ) );<br>        mb.open();  <span class="hljs-comment">// 显示错误提示框</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="getupdate">getUpdate</h3>
+<p>用于获取更新字段的相关信息。代码的功能概述如下：</p>
+<ol type="1">
+<li>尝试获取前一步骤（previous step）的字段信息。</li>
+<li>如果字段信息不为空，则创建一个<code>TableItemInsertListener</code>监听器，并在表格中插入字段信息。</li>
+<li>如果字段类型为日期类型，则将对应的表格项设置为"Y"，否则也将其设置为"Y"。</li>
+<li>使用<code>BaseStepDialog.getFieldsFromPrevious()</code>方法将前一步骤的字段信息填充到表格中。</li>
+<li>如果获取字段信息时发生异常，则显示一个错误对话框。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getUpdate</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">RowMetaInterface</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> transMeta.getPrevStepFields( stepname );  <span class="hljs-comment">// 获取前一步骤的字段信息</span><br>        <span class="hljs-keyword">if</span> ( r != <span class="hljs-literal">null</span> ) &#123;  <span class="hljs-comment">// 如果字段信息不为空</span><br>            <span class="hljs-type">TableItemInsertListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TableItemInsertListener</span>() &#123;<br>                <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">tableItemInserted</span><span class="hljs-params">( TableItem tableItem, ValueMetaInterface v )</span> &#123;<br>                    <span class="hljs-keyword">if</span> ( v.getType() == ValueMetaInterface.TYPE_DATE ) &#123;  <span class="hljs-comment">// 如果字段类型是日期类型</span><br>                        <span class="hljs-comment">// 默认值是：日期格式正确，后续可能更改...</span><br>                        tableItem.setText( <span class="hljs-number">3</span>, <span class="hljs-string">&quot;Y&quot;</span> );  <span class="hljs-comment">// 将表格项的第三列设置为&quot;Y&quot;</span><br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        tableItem.setText( <span class="hljs-number">3</span>, <span class="hljs-string">&quot;Y&quot;</span> );  <span class="hljs-comment">// 默认值也是正确的...</span><br>                    &#125;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;;<br>            BaseStepDialog.getFieldsFromPrevious( r, wReturn, <span class="hljs-number">1</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[] &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span> &#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[] &#123;&#125;, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, listener );  <span class="hljs-comment">// 将字段信息填充到表格中</span><br>        &#125;<br>    &#125; <span class="hljs-keyword">catch</span> ( KettleException ke ) &#123;<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ErrorDialog</span>(<br>            shell, BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.FailedToGetFields.DialogTitle&quot;</span> ),<br>            BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.FailedToGetFields.DialogMessage&quot;</span> ), ke );  <span class="hljs-comment">// 显示错误对话框</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="create">create</h3>
+<p>用于创建步骤和生成SQL语句。代码的功能概述如下：</p>
+<ol type="1">
+<li>创建一个<code>MySQLBulkLoaderMeta</code>对象并调用<code>getInfo()</code>方法获取用户输入的信息并存入该对象。</li>
+<li>根据步骤名称、步骤描述和上一步骤的字段信息创建一个<code>StepMeta</code>对象。</li>
+<li>获取前一步骤的字段信息。</li>
+<li>调用<code>info.getSQLStatements()</code>方法生成SQL语句对象<code>sql</code>，该方法将使用步骤信息、前一步骤的字段信息、资源库和元数据存储库等进行处理。</li>
+<li>如果生成SQL语句过程中没有错误，则判断是否存在SQL语句。
+<ul>
+<li>如果存在SQL语句，创建一个<code>SQLEditor</code>对象并打开SQL编辑器窗口，显示生成的SQL语句供用户查看和编辑。</li>
+<li>如果不存在SQL语句，显示一个信息对话框，提示用户不需要生成SQL语句。</li>
+</ul></li>
+<li>如果生成SQL语句过程中存在错误，显示一个错误对话框，显示错误信息。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">create</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">MySQLBulkLoaderMeta</span> <span class="hljs-variable">info</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MySQLBulkLoaderMeta</span>();  <span class="hljs-comment">// 创建MySQLBulkLoaderMeta对象</span><br>        getInfo( info );  <span class="hljs-comment">// 获取用户输入的信息并存入对象中</span><br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> stepname;  <span class="hljs-comment">// 新名称可能尚未与其他步骤关联！</span><br>        <span class="hljs-type">StepMeta</span> <span class="hljs-variable">stepMeta</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StepMeta</span>(<br>            BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.StepMeta.Title&quot;</span> ), name, info );  <span class="hljs-comment">// 创建StepMeta对象</span><br>        <span class="hljs-type">RowMetaInterface</span> <span class="hljs-variable">prev</span> <span class="hljs-operator">=</span> transMeta.getPrevStepFields( stepname );  <span class="hljs-comment">// 获取前一步骤的字段信息</span><br><br>        <span class="hljs-type">SQLStatement</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> info.getSQLStatements( transMeta, stepMeta, prev, repository, metaStore );  <span class="hljs-comment">// 生成SQL语句对象</span><br>        <span class="hljs-keyword">if</span> ( !sql.hasError() ) &#123;  <span class="hljs-comment">// 如果生成SQL语句过程中没有错误</span><br>            <span class="hljs-keyword">if</span> ( sql.hasSQL() ) &#123;  <span class="hljs-comment">// 如果存在SQL语句</span><br>                <span class="hljs-type">SQLEditor</span> <span class="hljs-variable">sqledit</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SQLEditor</span>(<br>                    transMeta, shell, SWT.NONE, info.getDatabaseMeta(), transMeta.getDbCache(), sql.getSQL() );  <span class="hljs-comment">// 创建SQLEditor对象</span><br>                sqledit.open();  <span class="hljs-comment">// 打开SQL编辑器窗口</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;  <span class="hljs-comment">// 如果不存在SQL语句</span><br>                <span class="hljs-type">MessageBox</span> <span class="hljs-variable">mb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageBox</span>( shell, SWT.OK | SWT.ICON_INFORMATION );<br>                mb.setMessage( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.NoSQLNeeds.DialogMessage&quot;</span> ) );<br>                mb.setText( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.NoSQLNeeds.DialogTitle&quot;</span> ) );<br>                mb.open();  <span class="hljs-comment">// 显示信息对话框，提示不需要生成SQL语句</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;  <span class="hljs-comment">// 如果生成SQL语句过程中存在错误</span><br>            <span class="hljs-type">MessageBox</span> <span class="hljs-variable">mb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageBox</span>( shell, SWT.OK | SWT.ICON_ERROR );<br>            mb.setMessage( sql.getError() );<br>            mb.setText( BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.SQLError.DialogTitle&quot;</span> ) );<br>            mb.open();  <span class="hljs-comment">// 显示错误对话框，显示错误信息</span><br>        &#125;<br>    &#125; <span class="hljs-keyword">catch</span> ( KettleException ke ) &#123;<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ErrorDialog</span>(<br>            shell, BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.CouldNotBuildSQL.DialogTitle&quot;</span> ),<br>            BaseMessages.getString( PKG, <span class="hljs-string">&quot;MySQLBulkLoaderDialog.CouldNotBuildSQL.DialogMessage&quot;</span> ), ke );  <span class="hljs-comment">// 显示错误对话框</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="settablefieldcombo">setTableFieldCombo</h3>
+<p>用于设置表字段的下拉列表。代码的功能概述如下：</p>
+<ol type="1">
+<li>创建一个<code>Runnable</code>对象<code>fieldLoader</code>，其中包含了在后台线程中执行的代码块。</li>
+<li>在<code>fieldLoader</code>的<code>run()</code>方法中，首先判断界面上的表格、连接和模式是否已经被销毁。</li>
+<li>获取表格名称、连接名称和模式名称。</li>
+<li>清空所有表字段列的下拉列表。</li>
+<li>如果表格名称不为空，根据连接名称找到相应的数据库连接对象。</li>
+<li>创建一个数据库对象，并尝试连接数据库。</li>
+<li>构建模式和表格的组合名称。</li>
+<li>通过数据库对象获取表格的字段信息。</li>
+<li>如果字段信息不为空，将字段名称设置为表字段列的下拉列表的值。</li>
+<li>在异常处理中，清空所有表字段列的下拉列表，并忽略任何错误。这样下拉列表将不会被填充，但不会对用户造成问题。</li>
+<li>最后，尝试断开数据库连接，并在异常处理中忽略任何错误。</li>
+<li>在主线程中异步执行<code>fieldLoader</code>，即在后台线程中加载表字段信息。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setTableFieldCombo</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Runnable</span> <span class="hljs-variable">fieldLoader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Runnable</span>() &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">if</span> (!wTable.isDisposed() &amp;&amp; !wConnection.isDisposed() &amp;&amp; !wSchema.isDisposed()) &#123;<br>                <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">tableName</span> <span class="hljs-operator">=</span> wTable.getText(), connectionName = wConnection.getText(), schemaName =<br>                        wSchema.getText();<br><br>                <span class="hljs-comment">// 清空下拉列表</span><br>                <span class="hljs-keyword">for</span> (ColumnInfo colInfo : tableFieldColumns) &#123;<br>                    colInfo.setComboValues(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;&#125;);<br>                &#125;<br>                <span class="hljs-keyword">if</span> (!Utils.isEmpty(tableName)) &#123;<br>                    <span class="hljs-type">DatabaseMeta</span> <span class="hljs-variable">ci</span> <span class="hljs-operator">=</span> transMeta.findDatabase(connectionName);<br>                    <span class="hljs-keyword">if</span> (ci != <span class="hljs-literal">null</span>) &#123;<br>                        <span class="hljs-type">Database</span> <span class="hljs-variable">db</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Database</span>(loggingObject, ci);<br>                        <span class="hljs-keyword">try</span> &#123;<br>                            db.connect();<br><br>                            <span class="hljs-type">String</span> <span class="hljs-variable">schemaTable</span> <span class="hljs-operator">=</span><br>                                    ci.getQuotedSchemaTableCombination(transMeta.environmentSubstitute(schemaName), transMeta<br>                                            .environmentSubstitute(tableName));<br>                            <span class="hljs-type">RowMetaInterface</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> db.getTableFields(schemaTable);<br>                            <span class="hljs-keyword">if</span> (<span class="hljs-literal">null</span> != r) &#123;<br>                                String[] fieldNames = r.getFieldNames();<br>                                <span class="hljs-keyword">if</span> (<span class="hljs-literal">null</span> != fieldNames) &#123;<br>                                    <span class="hljs-keyword">for</span> (ColumnInfo colInfo : tableFieldColumns) &#123;<br>                                        colInfo.setComboValues(fieldNames);<br>                                    &#125;<br>                                &#125;<br>                            &#125;<br>                        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                            <span class="hljs-keyword">for</span> (ColumnInfo colInfo : tableFieldColumns) &#123;<br>                                colInfo.setComboValues(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;&#125;);<br>                            &#125;<br>                            <span class="hljs-comment">// 忽略此处的任何错误。下拉列表将不会被填充，但不会对用户造成问题</span><br>                        &#125; <span class="hljs-keyword">finally</span> &#123;<br>                            <span class="hljs-keyword">try</span> &#123;<br>                                <span class="hljs-keyword">if</span> (db != <span class="hljs-literal">null</span>) &#123;<br>                                    db.disconnect();<br>                                &#125;<br>                            &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;<br>                                <span class="hljs-comment">// 忽略此处的任何错误</span><br>                                db = <span class="hljs-literal">null</span>;<br>                            &#125;<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;;<br>    shell.getDisplay().asyncExec(fieldLoader);  <span class="hljs-comment">// 在主线程中异步执行fieldLoader</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%BC%80%E6%BA%90%E4%B9%8B%E5%A4%8F2023/">开源之夏2023</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Kettle/">Kettle</a>
+                    
+                  </div>
+                
+              </div>
+              <p class="note note-warning">
+                <strong>本文作者: </strong><a href="/">fly-beep</a> <br>
+                <strong>本文链接: </strong><a href="https://fly-beep.top/post/56726c76.html">https://fly-beep.top/post/56726c76.html</a> <br>
+                <strong>版权声明: </strong>本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                   </p>
+                   
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/91bdb779.html">
+                        <span class="hidden-mobile">mysql-bulk-loader之MySQLBulkLoaderMeta</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@1/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-3s11u25y3-fly-beep.vercel.app/","path":"window.location.pathname","placeholder":null,"meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili"],"dark":"html[data-user-color-scheme=\"dark\"]","avatar":"retro","avatarCDN":"https://seccdn.libravatar.org/avatar/","avatarForce":false,"wordLimit":0,"pageSize":10,"highlight":true},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          Fluid.plugins.initFancyBox('#waline .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <div> 人生天地间，忽如远行客。 </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
